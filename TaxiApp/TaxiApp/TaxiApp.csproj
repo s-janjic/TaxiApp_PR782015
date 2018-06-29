@@ -185,9 +185,21 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\KorisniciController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\AccountModels.cs" />
+    <Compile Include="Models\Classes\Adresa.cs" />
+    <Compile Include="Models\Classes\Automobil.cs" />
+    <Compile Include="Models\Classes\Dispecer.cs" />
+    <Compile Include="Models\Classes\Enums.cs" />
+    <Compile Include="Models\Classes\Komentar.cs" />
+    <Compile Include="Models\Classes\Korisnik.cs" />
+    <Compile Include="Models\Classes\Lokacija.cs" />
+    <Compile Include="Models\Classes\Musterija.cs" />
+    <Compile Include="Models\Classes\Vozac.cs" />
+    <Compile Include="Models\Classes\Voznja.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -251,7 +263,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
