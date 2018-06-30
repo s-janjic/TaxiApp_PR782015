@@ -10,6 +10,8 @@ namespace TaxiApp.Controllers
 	{
 		public ActionResult Index()
 		{
+			ViewBag.Title = "Taxi App - Home Page";
+
 			return View();
 		}
 	}
