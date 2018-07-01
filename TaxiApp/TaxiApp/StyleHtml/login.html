@@ -12,6 +12,41 @@
     <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
+
+    <script src="/Scripts/jquery-1.12.4.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("p").click(function () {
+                alert($(this).text());
+            });
+
+            $("#load-products").click(function () {
+                $.get("/api/registration", function (data, status) {
+                    let tableOfProducts = "<table border='1'>";
+                    for (korisnik in data) {
+                        tableOfProducts += `<tr><td>${data[korisnik].KorisnickoIme}</td><td>${data[korisnik].Lozinka}</td></tr>`;
+                    }
+                    tableOfProducts += "</table>";
+                    $("#content").html(tableOfProducts);
+                });
+            });
+
+            $("#prijava").click(function () {
+                let korsnik = {
+                    KorisnickoIme: `${$('#korIme').val}`,
+                    Lozinka: `${$('#korLoz').val}`,
+                };
+
+                $.ajax({
+                    type: 'POST',
+                    url: '/api/Login',
+                    data: JSON.stringify(korsnik),
+                    contentType: 'application/json; charset=utf-8',
+                    dataType: 'json',
+                })
+            });
+        });
+    </script>
 </head>
 <body>
     <!-- navigacioni bar -->

@@ -5,35 +5,19 @@ using System.Web;
 
 namespace TaxiApp.Models.Classes
 {
-	public class Vozac : Korisnik
+	public class Vozac
 	{
-		Lokacija lokacija;
-		Automobil automobil;
-
-		public Vozac()
-		{
-
-		}
-
-		public Vozac(string korisnickoIme, string lozinka, string ime, string prezime, string pol, string jmbg, string kontaktTelefon, string email, Automobil auto)
-		{
-			KorisnickoIme = korisnickoIme;
-			Lozinka = lozinka;
-			Ime = ime;
-			Prezime = prezime;
-			if (pol.Equals("m"))
-				Pol = Polovi.MUSKI;
-			else
-				Pol = Polovi.ZENSKI;
-			Jmbg = jmbg;
-			KontaktTelefon = kontaktTelefon;
-			Email = email;
-			Uloga = Uloge.VOZAC;
-			this.Lokacija = new Lokacija();
-			this.Automobil = auto;
-		}
-
-		public Lokacija Lokacija { get => lokacija; set => lokacija = value; }
-		public Automobil Automobil { get => automobil; set => automobil = value; }
+		public int Id { get; set; }
+		public string KorisnickoIme { get; set; }
+		public string Lozinka { get; set; }
+		public string Ime { get; set; }
+		public string Prezime { get; set; }
+		public Polovi Pol { get; set; }
+		public string JMBG { get; set; }
+		public string KontaktTelefon { get; set; }
+		public string Email { get; set; }
+		public Uloge Uloga { get; set; }
+		public Lokacija Lokacija { get; set; }
+		public Automobil Automobil { get; set; }
 	}
 }

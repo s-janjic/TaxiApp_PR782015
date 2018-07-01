@@ -7,22 +7,22 @@ namespace TaxiApp.Models.Classes
 {
 	public enum Polovi
 	{
-		MUSKI,
-		ZENSKI
-	};
+		M,
+		Z
+	}
 
 	public enum Uloge
 	{
-		MUSTERIJA,
-		VOZAC,
-		DISPECER
-	};
+		Musterija,
+		Vozac,
+		Dispecer
+	}
 
 	public enum TipoviAutomobila
 	{
-		PUTNICKI,
-		KOMBI
-	};
+		Putnicki,
+		Kombi
+	}
 
 	public enum StatusVoznje
 	{
@@ -33,15 +33,5 @@ namespace TaxiApp.Models.Classes
 		PRIHVACENA,
 		NEUSPESNA,
 		USPESNA
-	};
-
-	public enum Ocene
-	{
-		NULA,
-		JEDAN,
-		DVA,
-		TRI,
-		CETIRI,
-		PET
-	};
+	}
 }

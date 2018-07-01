@@ -6,31 +6,50 @@ using System.Web;
 
 namespace TaxiApp.Models.Classes
 {
-	public abstract class Korisnik
+	public class Korisnik
 	{
-		string korisnickoIme; // jedinstveno
-		string lozinka;
-		string ime;
-		string prezime;
-		Polovi pol;
-		string jmbg;
-		string kontaktTelefon;
-		string email;
-		Uloge uloga;
-		Dictionary<string, Voznja> voznje;
-		bool logged = false;
+		public string KorisnickoIme { get; set; }
+		public string Lozinka { get; set; }
+		public string Ime { get; set; }
+		public string Prezime { get; set; }
+		public Polovi Pol { get; set; }
+		public string JMBG { get; set; }
+		public string KontaktTelefon { get; set; }
+		public string Email { get; set; }
+		public Uloge Uloga { get; set; }
 
-		[Key]
-		public string KorisnickoIme { get => korisnickoIme; set => korisnickoIme = value; }
-		public string Lozinka { get => lozinka; set => lozinka = value; }
-		public string Ime { get => ime; set => ime = value; }
-		public string Prezime { get => prezime; set => prezime = value; }
-		public Polovi Pol { get => pol; set => pol = value; }
-		public string Jmbg { get => jmbg; set => jmbg = value; }
-		public string KontaktTelefon { get => kontaktTelefon; set => kontaktTelefon = value; }
-		public string Email { get => email; set => email = value; }
-		public Uloge Uloga { get => uloga; set => uloga = value; }
-		public Dictionary<string, Voznja> Voznje { get => voznje; set => voznje = value; }
-		public bool Logged { get => logged; set => logged = value; }
+
+		public Korisnik(string k, string l, string ime, string p, Polovi po, string jmbg, string kont, string ema, Uloge ul)
+		{
+			this.KorisnickoIme = k;
+			this.Lozinka = l;
+			this.Ime = ime;
+			this.Prezime = p;
+			if (po.Equals("M"))
+			{
+				this.Pol = Polovi.M;
+			}
+			else
+			{
+				this.Pol = Polovi.Z;
+			}
+			this.JMBG = jmbg;
+			this.KontaktTelefon = kont;
+			this.Email = ema;
+
+			if (ul.Equals("MUSTERIJA"))
+			{
+				this.Uloga = Uloge.Musterija;
+			}
+			else if (ul.Equals("DISPECER"))
+			{
+				this.Uloga = Uloge.Dispecer;
+			}
+			else
+			{
+				this.Uloga = Uloge.Vozac;
+			}
+
+		}
 	}
 }

@@ -187,22 +187,23 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\RegistrationController.cs" />
+    <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Classes\Adresa.cs" />
     <Compile Include="Models\Classes\Automobil.cs" />
-    <Compile Include="Models\Classes\Dispecer.cs" />
     <Compile Include="Models\Classes\Enums.cs" />
     <Compile Include="Models\Classes\Komentar.cs" />
+    <Compile Include="Models\Classes\Korisnici.cs" />
     <Compile Include="Models\Classes\Korisnik.cs" />
     <Compile Include="Models\Classes\Lokacija.cs" />
-    <Compile Include="Models\Classes\Musterija.cs" />
     <Compile Include="Models\Classes\Vozac.cs" />
     <Compile Include="Models\Classes\Voznja.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Data\Korisnici.txt" />
     <Content Include="Areas\HelpPage\HelpPage.css" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
@@ -254,6 +255,7 @@
     <Content Include="StyleHtml\css\font-awesome.min.css" />
     <Content Include="StyleHtml\index.html" />
     <Content Include="StyleHtml\login.html" />
+    <Content Include="StyleHtml\Scripts\jquery-1.12.4.min.js" />
     <Content Include="StyleHtml\signup.html" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -268,9 +270,7 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="App_Data\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

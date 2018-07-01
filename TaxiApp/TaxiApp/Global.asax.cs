@@ -6,6 +6,7 @@ using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
+using TaxiApp.Models.Classes;
 
 namespace TaxiApp
 {
@@ -18,6 +19,9 @@ namespace TaxiApp
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
-        }
+
+			Korisnici users = new Korisnici(@"C:\Users\stefan\Desktop\FAX\Web\TaxiApp_PR782015\TaxiApp\TaxiApp\App_Data\Korisnici.txt");
+			HttpContext.Current.Application["korisnici"] = users;
+		}
     }
 }

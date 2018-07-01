@@ -1,0 +1,8 @@
+﻿username1|password123|Marko|Markovic|M|42142142|5121251|sddw@dwadaw.com|Musterija
+username2|password123|Jovana|Jovanovic|Z|25521232|5152421|s5wda@dwadaw.com|Musterija
+username3|password123|Milica|Jovic|Z|44215522|5112451|dwaadwwda@dwadaw.com|Musterija
+dwaadwaw|awdadwdw|awddawdaw|awdawdaw|Z| 4212|421421|dwa@dwadwa.com|Musterija
+dwa522|awdadwdw|awddawdaw|awdawdaw|Z| 4212|421421|dwa@dwadwa.com|Musterija
+dwa12214|dwaadwa|dwa251|wdadwa51|M| 521512|521125125|wdadw@dwa.com|Musterija
+54221dwa|dwaadwa|dwa251|wdadwa51|M| 521512|521125125|wdadw@dwa.com|Musterija
+dwadwaawd124412124|4124124|124124|142142142142|M| 41412142|241142412|421241@24114.com|Musterija

@@ -7,24 +7,9 @@ namespace TaxiApp.Models.Classes
 {
 	public class Lokacija
 	{
-		double xKoordinate;
-		double yKoordinate;
-		Adresa adresa;
-
-		public Lokacija()
-		{
-
-		}
-
-		public Lokacija(double xk, double yk, Adresa adr)
-		{
-			this.XKoordinate = xk;
-			this.YKoordinate = yk;
-			this.Adresa = adr;
-		}
-
-		public double XKoordinate { get => xKoordinate; set => xKoordinate = value; }
-		public double YKoordinate { get => yKoordinate; set => yKoordinate = value; }
-		public Adresa Adresa { get => adresa; set => adresa = value; }
+		public string Id { get; set; }
+		public int X { get; set; }
+		public int Y { get; set; }
+		public Adresa Adresa { get; set; }
 	}
 }

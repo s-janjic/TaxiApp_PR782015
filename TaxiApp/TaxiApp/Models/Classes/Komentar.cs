@@ -7,25 +7,12 @@ namespace TaxiApp.Models.Classes
 {
 	public class Komentar
 	{
-		string opis;
-		DateTime datumObjave;
-		Korisnik korisnik;
-		Voznja voznja;
-		Ocene ocena;
+		public string Opis { get; set; }
+		public DateTime DTObjave { get; set; }
 
-		public Komentar(string opis, DateTime dateTime, Korisnik korisnik, Voznja voznja, Ocene ocene)
-		{
-			this.Opis = opis;
-			this.DatumObjave = dateTime;
-			this.Korisnik = korisnik;
-			this.Voznja = voznja;
-			this.Ocena = ocene;
-		}
+		public Korisnik KorisnikKomentar { get; set; }
+		public Voznja VoznjaKomentar { get; set; }
 
-		public string Opis { get => opis; set => opis = value; }
-		public DateTime DatumObjave { get => datumObjave; set => datumObjave = value; }
-		public Korisnik Korisnik { get => korisnik; set => korisnik = value; }
-		public Voznja Voznja { get => voznja; set => voznja = value; }
-		public Ocene Ocena { get => ocena; set => ocena = value; }
+		public int Ocena { get; set; }
 	}
 }
