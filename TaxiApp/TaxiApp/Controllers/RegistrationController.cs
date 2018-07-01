@@ -8,7 +8,7 @@ using System.Web;
 using System.Web.Http;
 using TaxiApp.Models.Classes;
 
-namespace WebAPI.Controllers
+namespace TaxiApp.Controllers
 {
 	public class RegistrationController : ApiController
 	{
@@ -21,7 +21,6 @@ namespace WebAPI.Controllers
 
 			if (korisnici3 != null)
 			{
-
 				foreach (Korisnik kor in korisnici3.Values)
 				{
 					if (kor.KorisnickoIme == korisnik.KorisnickoIme)
@@ -31,6 +30,7 @@ namespace WebAPI.Controllers
 					}
 				}
 			}
+
 			if (!exist)
 			{
 				korisnici3 = new Dictionary<string, Korisnik>();
@@ -39,7 +39,6 @@ namespace WebAPI.Controllers
 				HttpContext.Current.Application["korisnici"] = korisnici3;
 				UpisTxt(korisnik);
 			}
-
 		}
 
 		private void UpisTxt(Korisnik k)
