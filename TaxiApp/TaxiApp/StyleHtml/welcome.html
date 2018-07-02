@@ -4,11 +4,11 @@
     <meta charset="utf-8" />
 
     <style>
-        #div1 {
+        #korisnikDiv {
             display: none;
         }
 
-        #div2 {
+        #dispecerDiv {
             display: none;
         }
     </style>
@@ -28,6 +28,7 @@
     <script type="text/javascript">
         $(document).ready(function () {
             let primljeno = localStorage.getItem("logovan");
+            let usernameKor;
             $.ajax({
                 type: 'POST',
                 url: '/api/Start',
@@ -35,14 +36,22 @@
                 contentType: 'application/json; charset=utf-8',
                 dataType: 'json',
                 success: function (data) {
+                    dataTmp = data;
+                    usernameKor = `${dataTmp.KorisnickoIme}`;
                     if (data != null) {
                         alert('Uspesno slanje.');
                         if (data.Uloga == 2) {
-                            $("#div2").show();
-                            $("#div1").hide();
+                            $("#dispecerDiv").hide();
+                            $("#izmeniKorisnika").hide();
+                            $("#korisnikDiv").hide();
+                            $("usernameKorisnika").show();
+                            $("#usernameKorisnika").html(usernameKor);
                         } else if (data.Uloga == 0) {
-                            $("#div1").show();
-                            $("#div2").hide();
+                            $("#korisnikDiv").show();
+                            $("#izmeniKorisnika").hide();
+                            $("#dispecerDiv").hide();
+                            $("usernameKorisnika").show();
+                            $("#usernameKorisnika").html(usernameKor);
                         } else {
                         }
                     } else {
@@ -50,15 +59,55 @@
                     }
                 },
             })
+
+            $("#showInfo").click(function () {
+                //$("#IzmenaKorisnik").hide();
+                //$("#PrikazDispecer").hide();
+                $("#PrikazKorisnikInfo").show();
+
+                let tableofData = "<table class=\"table\">";
+                tableofData += `<tr><td>Korisnicko ime</td><td>${dataTmp.KorisnickoIme}</td></tr>`;
+                tableofData += `<tr><td>Lozinka</td><td>${dataTmp.Lozinka}</td></tr>`;
+                tableofData += `<tr><td>Ime</td><td>${dataTmp.Ime}</td></tr>`;
+                tableofData += `<tr><td>Prezime</td><td>${dataTmp.Prezime}</td></tr>`;
+                tableofData += `<tr><td>JMBG</td><td>${dataTmp.JMBG}</td></tr>`;
+                tableofData += `<tr><td>Kontakt telefon</td><td>${dataTmp.KontaktTelefon}</td></tr>`;
+                tableofData += `<tr><td>Email</td><td>${dataTmp.Email}</td></tr>`;
+                tableofData += "</table>";
+                $("#PrikazKorisnikInfo").html(tableofData);
+            });
         });
     </script>
 </head>
 <body>
-    <div id="div1">
-        <p>Div za korisnika</p>
+    <div class="container" id="korisnikDiv">
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <div class="well">
+                    <h3 align="center">
+                        <span>
+                            Hello, <span id="usernameKorisnika"></span>
+                        </span>
+                    </h3>
+                    <span>
+                        <button type="button" class="btn btn-success">Edit info</button>
+                        <button type="button" class="btn btn-warning" id="showInfo">Show info</button>
+                    </span>
+                </div>
+            </div>
+        </div>
     </div>
-    <div id="div2">
-        <p>Div za dispecera</p>
+
+    <div class="container" id="PrikazKorisnikInfo">
+        <div class="row">
+            <div class="well well-float">
+
+            </div>
+        </div>
     </div>
+
+        <div id="dispecerDiv">
+            <p>Div za dispecera</p>
+        </div>
 </body>
 </html>

@@ -184,6 +184,7 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\SampleDirection.cs" />
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
+    <Compile Include="Controllers\EditController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\RegistrationController.cs" />
@@ -202,12 +203,14 @@
     <Compile Include="Models\Classes\Korisnik.cs" />
     <Compile Include="Models\Classes\Lokacija.cs" />
     <Compile Include="Models\Classes\Vozac.cs" />
+    <Compile Include="Models\Classes\Vozaci.cs" />
     <Compile Include="Models\Classes\Voznja.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Data\Dispeceri.txt" />
     <Content Include="App_Data\Korisnici.txt" />
+    <Content Include="App_Data\Vozaci.txt" />
     <Content Include="Areas\HelpPage\HelpPage.css" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
