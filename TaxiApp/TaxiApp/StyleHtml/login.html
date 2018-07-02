@@ -13,36 +13,30 @@
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
 
-    <script src="/Scripts/jquery-1.12.4.min.js"></script>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
     <script type="text/javascript">
         $(document).ready(function () {
-            $("p").click(function () {
-                alert($(this).text());
-            });
-
-            $("#load-products").click(function () {
-                $.get("/api/registration", function (data, status) {
-                    let tableOfProducts = "<table border='1'>";
-                    for (korisnik in data) {
-                        tableOfProducts += `<tr><td>${data[korisnik].KorisnickoIme}</td><td>${data[korisnik].Lozinka}</td></tr>`;
-                    }
-                    tableOfProducts += "</table>";
-                    $("#content").html(tableOfProducts);
-                });
-            });
-
             $("#prijava").click(function () {
-                let korsnik = {
+                let korisnik = {
                     KorisnickoIme: `${$('#korIme').val}`,
-                    Lozinka: `${$('#korLoz').val}`,
+                    Lozinka: `${$('#korLoz').val}`
                 };
 
                 $.ajax({
                     type: 'POST',
                     url: '/api/Login',
-                    data: JSON.stringify(korsnik),
+                    data: JSON.stringify(korisnik),
                     contentType: 'application/json; charset=utf-8',
                     dataType: 'json',
+                    success: function (data) {
+                        if (data) {
+                            alert('Korisnik se uspesno ulogovao');
+                            localStorage.setItem("logovan", korisnik.KorisnickoIme);
+                            $(location).attr('href', 'welcome.html');
+                        } else {
+                            alert('Korisnicko ime ili lozinka nisu ispravni');
+                        }
+                    }
                 })
             });
         });

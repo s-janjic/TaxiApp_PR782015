@@ -16,19 +16,39 @@
     <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
     <script type="text/javascript">
         $(document).ready(function () {
-            $("p").click(function () {
-                alert($(this).text());
+            $("#prijava").click(function () {
+                let korisnik = {
+                    KorisnickoIme: `${$('#korIme').val()}`,
+                    Lozinka: `${$('#korPass').val()}`,
+                };
+
+                $.ajax({
+                    type: 'POST',
+                    url: '/api/Login',
+                    data: JSON.stringify(korisnik),
+                    contentType: 'application/json; charset=utf-8',
+                    dataType: 'json',
+                    success: function (data) {
+                        if (data) {
+                            alert('Uspesno ulogovan korisnik');
+                            localStorage.setItem("logovan", korisnik.KorisnickoIme);
+                            $(location).attr('href', 'welcome.html');
+                        } else {
+                            alert('Neuspesno logovanje jer nije registrovan');
+                        }
+                    },
+                })
             });
 
             $("#registracija").click(function () {
                 let korisnik = {
                     KorisnickoIme: `${$('#korImeReg').val()}`,
-                    Lozinka: `${$('#korLozReg').val()}`,
+                    Lozinka: `${$('#korPassReg').val()}`,
                     Ime: `${$('#ime').val()}`,
                     Prezime: `${$('#prezime').val()}`,
                     Pol: `${$('#pol').val()}`,
                     JMBG: ` ${$('#jmbg').val()}`,
-                    Email: `${$('#emailAdresa').val()}`,
+                    Email: `${$('#email').val()}`,
                     KontaktTelefon: `${$('#brTelefona').val()}`,
                 };
 
@@ -38,6 +58,14 @@
                     data: JSON.stringify(korisnik),
                     contentType: 'application/json; charset=utf-8',
                     dataType: 'json',
+                    success: function (data) {
+                        if (data) {
+                            alert('Uspesno registrovan korisnik');
+                            $(location).attr('href', 'index.html');
+                        } else {
+                            alert('Vec je registrovan korisnik');
+                        }
+                    },
                 })
             });
         });
@@ -56,7 +84,7 @@
                 </button>
                 <a class="navbar-brand" href="/">Taxi Application</a>
             </div>
-        
+
             <div id="navbar" class="collapse navbar-collapse">
                 <ul class="nav navbar-nav navbar-right">
                     <li><a href="index.html">Home</a></li>
@@ -66,6 +94,27 @@
             </div>
         </div>
     </nav>
+
+    <!-- login form -->
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <div class="well">
+                    <div class="form-group">
+                        <label class="control-label">Username</label>
+                        <input type="text" class="form-control" id="korIme" name="KorisnickoIme">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label">Password</label>
+                        <input type="password" class="form-control" id="korPass" name="Lozinka">
+                    </div>
+
+                    <button type="submit" class="btn btn-primary" id="prijava">Sign in</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- registration form -->
     <div class="container">
@@ -79,7 +128,7 @@
 
                     <div class="form-group">
                         <label class="control-label">Password</label>
-                        <input type="password" class="form-control" id="korLozReg" name="Lozinka">
+                        <input type="password" class="form-control" id="korPassReg" name="Lozinka">
                     </div>
 
                     <div class="form-group">
@@ -112,7 +161,7 @@
 
                     <div class="form-group">
                         <label class="control-label">Email</label>
-                        <input type="email" class="form-control" id="emailAdresa" name="EmailAdresa">
+                        <input type="email" class="form-control" id="email" name="Email">
                     </div>
 
                     <button type="submit" class="btn btn-primary" id="registracija">Sign up</button>

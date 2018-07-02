@@ -1,0 +1,64 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+
+    <style>
+        #div1 {
+            display: none;
+        }
+
+        #div2 {
+            display: none;
+        }
+    </style>
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Taxi Application</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="/StyleHtml/css/bootstrap.css" />
+    <link rel="stylesheet" type="text/css" href="/StyleHtml/css/font-awesome.min.css">
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            let primljeno = localStorage.getItem("logovan");
+            $.ajax({
+                type: 'POST',
+                url: '/api/Start',
+                data: JSON.stringify(primljeno),
+                contentType: 'application/json; charset=utf-8',
+                dataType: 'json',
+                success: function (data) {
+                    if (data != null) {
+                        alert('Uspesno slanje.');
+                        if (data.Uloga == 2) {
+                            $("#div2").show();
+                            $("#div1").hide();
+                        } else if (data.Uloga == 0) {
+                            $("#div1").show();
+                            $("#div2").hide();
+                        } else {
+                        }
+                    } else {
+                        alert('Neuspesno slanje.');
+                    }
+                },
+            })
+        });
+    </script>
+</head>
+<body>
+    <div id="div1">
+        <p>Div za korisnika</p>
+    </div>
+    <div id="div2">
+        <p>Div za dispecera</p>
+    </div>
+</body>
+</html>

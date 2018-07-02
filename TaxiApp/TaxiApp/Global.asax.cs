@@ -21,7 +21,7 @@ namespace TaxiApp
             BundleConfig.RegisterBundles(BundleTable.Bundles);
 
 			Korisnici users = new Korisnici(@"C:\Users\stefan\Desktop\FAX\Web\TaxiApp_PR782015\TaxiApp\TaxiApp\App_Data\Korisnici.txt");
-			HttpContext.Current.Application["korisnici"] = users;
+			Dispeceri disp = new Dispeceri(@"C:\Users\stefan\Desktop\FAX\Web\TaxiApp_PR782015\TaxiApp\TaxiApp\App_Data\Dispeceri.txt");
 		}
     }
 }

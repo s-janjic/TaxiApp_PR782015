@@ -12,33 +12,22 @@ namespace TaxiApp.Controllers
 {
 	public class RegistrationController : ApiController
 	{
-		bool exist = false;
-		public void Post([FromBody]Korisnik korisnik)
+		public bool Post([FromBody]Korisnik korisnik)
 		{
-			var korisnici2 = Korisnici.korisnici;
-			HttpContext.Current.Application["korisnici"] = korisnici2;
-			var korisnici3 = HttpContext.Current.Application["korisnici"] as Dictionary<string, Korisnik>;
-
-			if (korisnici3 != null)
+			foreach (Korisnik kor in Korisnici.korisnici.Values)
 			{
-				foreach (Korisnik kor in korisnici3.Values)
+				if (kor.KorisnickoIme == korisnik.KorisnickoIme)
 				{
-					if (kor.KorisnickoIme == korisnik.KorisnickoIme)
-					{
-						exist = true;
-						break;
-					}
+					return false;
 				}
 			}
 
-			if (!exist)
-			{
-				korisnici3 = new Dictionary<string, Korisnik>();
-				korisnik.Uloga = Uloge.Musterija;
-				korisnici3.Add(korisnik.KorisnickoIme, korisnik);
-				HttpContext.Current.Application["korisnici"] = korisnici3;
-				UpisTxt(korisnik);
-			}
+			Korisnici.korisnici = new Dictionary<string, Korisnik>();
+			korisnik.Uloga = Uloge.Musterija;
+			Korisnici.korisnici.Add(korisnik.KorisnickoIme, korisnik);
+			HttpContext.Current.Application["korisnici"] = Korisnici.korisnici;
+			UpisTxt(korisnik);
+			return true;
 		}
 
 		private void UpisTxt(Korisnik k)

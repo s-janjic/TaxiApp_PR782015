@@ -187,12 +187,15 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\RegistrationController.cs" />
+    <Compile Include="Controllers\StartController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Classes\Adresa.cs" />
     <Compile Include="Models\Classes\Automobil.cs" />
+    <Compile Include="Models\Classes\Dispecer.cs" />
+    <Compile Include="Models\Classes\Dispeceri.cs" />
     <Compile Include="Models\Classes\Enums.cs" />
     <Compile Include="Models\Classes\Komentar.cs" />
     <Compile Include="Models\Classes\Korisnici.cs" />
@@ -203,6 +206,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Data\Dispeceri.txt" />
     <Content Include="App_Data\Korisnici.txt" />
     <Content Include="Areas\HelpPage\HelpPage.css" />
     <Content Include="Content\bootstrap-theme.css" />
@@ -257,6 +261,7 @@
     <Content Include="StyleHtml\login.html" />
     <Content Include="StyleHtml\Scripts\jquery-1.12.4.min.js" />
     <Content Include="StyleHtml\signup.html" />
+    <Content Include="StyleHtml\welcome.html" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

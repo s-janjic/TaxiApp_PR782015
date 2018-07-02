@@ -1,20 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
-using System.IO;
-using System.Web.Hosting;
 
 namespace TaxiApp.Models.Classes
 {
-	public class Korisnici
+	public class Dispeceri
 	{
-		// class that reads registered users from file and add them to dic.
-		public static Dictionary<string, Korisnik> korisnici { get; set; } = new Dictionary<string, Korisnik>();
+		public static Dictionary<string, Dispecer> dispeceri { get; set; } = new Dictionary<string, Dispecer>();
 
-		public Korisnici() { }
+		public Dispeceri()
+		{
+		}
 
-		public Korisnici(string path)
+		public Dispeceri(string path)
 		{
 			FileStream stream = new FileStream(path, FileMode.Open);
 			StreamReader sr = new StreamReader(stream);
@@ -46,8 +46,8 @@ namespace TaxiApp.Models.Classes
 					uloga = Uloge.Vozac;
 				}
 
-				Korisnik k = new Korisnik(tokens[0], tokens[1], tokens[2], tokens[3], pol, tokens[5], tokens[6], tokens[7], uloga);
-				korisnici.Add(k.KorisnickoIme, k);
+				Dispecer d = new Dispecer(tokens[0], tokens[1], tokens[2], tokens[3], pol, tokens[5], tokens[6], tokens[7], uloga);
+				dispeceri.Add(d.KorisnickoIme, d);
 			}
 
 			sr.Close();
