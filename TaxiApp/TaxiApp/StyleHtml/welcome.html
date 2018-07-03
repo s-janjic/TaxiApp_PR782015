@@ -40,17 +40,17 @@
                     usernameKor = `${dataTmp.KorisnickoIme}`;
                     if (data != null) {
                         alert('Uspesno slanje.');
-                        if (data.Uloga == 2) {
+                        if (data.Uloga == 2) {   // dispecer login
                             $("#dispecerDiv").hide();
-                            $("#izmeniKorisnika").hide();
+                            $("#IzmeniKorisnika").hide();
                             $("#korisnikDiv").hide();
-                            $("usernameKorisnika").show();
+                            $("#usernameKorisnika").show();
                             $("#usernameKorisnika").html(usernameKor);
-                        } else if (data.Uloga == 0) {
+                        } else if (data.Uloga == 0) { // musterija login
                             $("#korisnikDiv").show();
-                            $("#izmeniKorisnika").hide();
+                            $("#IzmeniKorisnika").hide();
                             $("#dispecerDiv").hide();
-                            $("usernameKorisnika").show();
+                            $("#usernameKorisnika").show();
                             $("#usernameKorisnika").html(usernameKor);
                         } else {
                         }
@@ -61,11 +61,11 @@
             })
 
             $("#showInfo").click(function () {
-                //$("#IzmenaKorisnik").hide();
+                $("#IzmenaKorisnik").hide();
                 //$("#PrikazDispecer").hide();
                 $("#PrikazKorisnikInfo").show();
 
-                let tableofData = "<table class=\"table\">";
+                let tableofData = "<table class=\"table table-bordered\">";
                 tableofData += `<tr><td>Korisnicko ime</td><td>${dataTmp.KorisnickoIme}</td></tr>`;
                 tableofData += `<tr><td>Lozinka</td><td>${dataTmp.Lozinka}</td></tr>`;
                 tableofData += `<tr><td>Ime</td><td>${dataTmp.Ime}</td></tr>`;
@@ -74,7 +74,55 @@
                 tableofData += `<tr><td>Kontakt telefon</td><td>${dataTmp.KontaktTelefon}</td></tr>`;
                 tableofData += `<tr><td>Email</td><td>${dataTmp.Email}</td></tr>`;
                 tableofData += "</table>";
-                $("#PrikazKorisnikInfo").html(tableofData);
+                $("#PrikazKorisnikInfoShow").html(tableofData);
+            });
+
+            $("#izmeniKorisnik").click(function () {
+                $("#IzmenaKorisnik").show();
+                $("#PrikazKorisnikInfo").hide();
+                $("#PrikazDispecer").hide();
+
+                let tableofData = "<table class=\"table table-bordered\">";
+                tableofData += "<tr><td>Korisnicko ime</td><td><input class=\"form-control\" id=\"korImeReg\" type=\"text\" name=\"KorisnickoIme\" value=\"" + dataTmp.KorisnickoIme + "\" disabled /></td></tr>";
+                tableofData += "<tr><td>Lozinka</td><td><input class=\"form-control\" id=\"korPassReg\" type=\"password\" name=\"Lozinka\" value=\"" + dataTmp.Lozinka + "\"/></td></tr>";
+                tableofData += "<tr><td>Ime</td><td><input class=\"form-control\" id=\"ime\" type=\"text\" name=\"Ime\" value=\"" + dataTmp.Ime + "\"/></td></tr>";
+                tableofData += "<tr><td>Prezime</td><td><input class=\"form-control\" id=\"prezime\" type=\"text\" name=\"Prezime\" value=\"" + dataTmp.Prezime + "\"/></td></tr>";
+                tableofData += "<tr><td>JMBG</td><td><input class=\"form-control\" id=\"jmbg\" type=\"text\" name=\"JMBG\" value=\"" + dataTmp.JMBG + "\"/></td></tr>";
+                tableofData += "<tr><td>Email</td><td><input class=\"form-control\" id=\"email\" type=\"email\" name=\"Email\" value=\"" + dataTmp.Email + "\"/></td></tr>";
+                tableofData += "<tr><td>Kontakt telefon</td><td><input class=\"form-control\" id=\"brTelefona\" type=\"text\" name=\"KontaktTelefon\" value=\"" + dataTmp.KontaktTelefon + "\"/></td></tr>";
+                tableofData += "</table>";
+                $("#IzmenaShow").html(tableofData);
+            });
+
+            $("#potvrdiIzmenu").click(function () {
+                let korisnik = {
+                    KorisnickoIme: `${$('#korImeReg').val()}`,
+                    Lozinka: `${$('#korPassReg').val()}`,
+                    Ime: `${$('#ime').val()}`,
+                    Prezime: `${$('#prezime').val()}`,
+                    Pol: dataTmp.Pol,
+                    JMBG: ` ${$('#jmbg').val()}`,
+                    Email: `${$('#email').val()}`,
+                    KontaktTelefon: `${$('#brTelefona').val()}`,
+                    Uloga: dataTmp.Uloga
+                };
+
+                $.ajax({
+                    type: 'POST',
+                    url: '/api/Edit',
+                    data: JSON.stringify(korisnik),
+                    contentType: 'application/json; charset=utf-8',
+                    dataType: 'json',
+                    success: function (data) {
+                        if (data) {
+                            alert('Uspesno izmenjen korisnik');
+                            localStorage.setItem("logovan", korisnik.KorisnickoIme);
+                            $(location).attr('href', 'welcome.html');
+                        } else {
+                            alert('Ne postoji korisnik kojeg zelite da menjate');
+                        }
+                    },
+                })
             });
         });
     </script>
@@ -86,28 +134,60 @@
                 <div class="well">
                     <h3 align="center">
                         <span>
-                            Hello, <span id="usernameKorisnika"></span>
+                            Hello, <span id="usernameKorisnika"></span> <br /> <br />
+                        </span>
+                        <span>
+                            <button type="button" class="btn btn-success" data-toggle="modal" data-target="#editModal" id="izmeniKorisnik">Edit info</button>
+                            <button type="button" class="btn btn-warning" id="showInfo">Show info</button>
                         </span>
                     </h3>
-                    <span>
-                        <button type="button" class="btn btn-success">Edit info</button>
-                        <button type="button" class="btn btn-warning" id="showInfo">Show info</button>
-                    </span>
+                </div>
+            </div>
+        </div>
+
+        <!-- show info div-->
+        <div class="container" id="PrikazKorisnikInfo">
+            <div class="row">
+                <div class="well well-float" id="PrikazKorisnikInfoShow">
+                </div>
+            </div>
+        </div>
+
+        <!-- edit info -->
+        <!--<div id="IzmenaKorisnik">
+            <div id="IzmenaShow">
+
+            </div>
+            <button id="potvrdiIzmenu" type="button"><b>Izmjeni podatke</b></button>
+        </div>-->
+
+        <!-- edit modal -->
+        <div class="modal fade" id="editModal">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h3 class="modal-title">Edit user info</h3>
+                    </div>
+                    <div class="modal-body" id="IzmenaShow">
+                        
+                    </div>
+
+                    <div class="modal-footer">
+                        <a href="" class="btn btn-default" data-dismiss="modal">Close</a>
+                        <button type="submit" class="btn btn-success" id="potvrdiIzmenu">Apply changes</button>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <div class="container" id="PrikazKorisnikInfo">
-        <div class="row">
-            <div class="well well-float">
-
-            </div>
-        </div>
+    <div id="dispecerDiv">
+        <p>Div za dispecera</p>
     </div>
 
-        <div id="dispecerDiv">
-            <p>Div za dispecera</p>
-        </div>
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 </body>
 </html>
