@@ -41,11 +41,11 @@
                     if (data != null) {
                         alert('Uspesno slanje.');
                         if (data.Uloga == 2) {   // dispecer login
-                            $("#dispecerDiv").hide();
+                            $("#dispecerDiv").show();
                             $("#IzmeniKorisnika").hide();
                             $("#korisnikDiv").hide();
-                            $("#usernameKorisnika").show();
-                            $("#usernameKorisnika").html(usernameKor);
+                            $("#usernameDispecera").show();
+                            $("#usernameDispecera").html(usernameKor);
                         } else if (data.Uloga == 0) { // musterija login
                             $("#korisnikDiv").show();
                             $("#IzmeniKorisnika").hide();
@@ -71,6 +71,7 @@
                 tableofData += `<tr><td>Ime</td><td>${dataTmp.Ime}</td></tr>`;
                 tableofData += `<tr><td>Prezime</td><td>${dataTmp.Prezime}</td></tr>`;
                 tableofData += `<tr><td>JMBG</td><td>${dataTmp.JMBG}</td></tr>`;
+                tableofData += `<tr><td>Pol</td><td>${dataTmp.Pol}</td></tr>`;
                 tableofData += `<tr><td>Kontakt telefon</td><td>${dataTmp.KontaktTelefon}</td></tr>`;
                 tableofData += `<tr><td>Email</td><td>${dataTmp.Email}</td></tr>`;
                 tableofData += "</table>";
@@ -128,6 +129,7 @@
     </script>
 </head>
 <body>
+    <!-- korisnicki div -->
     <div class="container" id="korisnikDiv">
         <div class="row">
             <div class="col-md-8 col-md-offset-2">
@@ -176,8 +178,19 @@
         </div>
     </div>
 
-    <div id="dispecerDiv">
-        <p>Div za dispecera</p>
+    <!-- div za dispecere -->
+    <div class="container" id="dispecerDiv">
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <div class="well">
+                    <h3 align="center">
+                        <span>
+                            DISPECER: <span id="usernameDispecera"></span>
+                        </span>
+                    </h3>
+                </div>
+            </div>
+        </div>
     </div>
 
     <!-- Latest compiled and minified JavaScript -->
