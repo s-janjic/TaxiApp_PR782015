@@ -29,6 +29,7 @@
         $(document).ready(function () {
             let primljeno = localStorage.getItem("logovan");
             let usernameKor;
+            let polShow;
             $.ajax({
                 type: 'POST',
                 url: '/api/Start',
@@ -42,16 +43,30 @@
                         alert('Uspesno slanje.');
                         if (data.Uloga == 2) {   // dispecer login
                             $("#dispecerDiv").show();
-                            $("#IzmeniKorisnika").hide();
+                            $("#IzmeniDispecera").hide();
                             $("#korisnikDiv").hide();
                             $("#usernameDispecera").show();
                             $("#usernameDispecera").html(usernameKor);
+                            if (data.Pol == 0) // musko
+                            {
+                                polShow = "Musko";
+                            }
+                            else {
+                                polShow = "Zensko";
+                            }
                         } else if (data.Uloga == 0) { // musterija login
                             $("#korisnikDiv").show();
                             $("#IzmeniKorisnika").hide();
                             $("#dispecerDiv").hide();
                             $("#usernameKorisnika").show();
                             $("#usernameKorisnika").html(usernameKor);
+                            if (data.Pol == 0) // musko
+                            {
+                                polShow = "Musko";
+                            }
+                            else {
+                                polShow = "Zensko";
+                            }
                         } else {
                         }
                     } else {
@@ -61,8 +76,6 @@
             })
 
             $("#showInfo").click(function () {
-                $("#IzmenaKorisnik").hide();
-                //$("#PrikazDispecer").hide();
                 $("#PrikazKorisnikInfo").show();
 
                 let tableofData = "<table class=\"table table-bordered\">";
@@ -71,7 +84,7 @@
                 tableofData += `<tr><td>Ime</td><td>${dataTmp.Ime}</td></tr>`;
                 tableofData += `<tr><td>Prezime</td><td>${dataTmp.Prezime}</td></tr>`;
                 tableofData += `<tr><td>JMBG</td><td>${dataTmp.JMBG}</td></tr>`;
-                tableofData += `<tr><td>Pol</td><td>${dataTmp.Pol}</td></tr>`;
+                tableofData += `<tr><td>Pol</td><td>${polShow}</td></tr>`;
                 tableofData += `<tr><td>Kontakt telefon</td><td>${dataTmp.KontaktTelefon}</td></tr>`;
                 tableofData += `<tr><td>Email</td><td>${dataTmp.Email}</td></tr>`;
                 tableofData += "</table>";
@@ -79,9 +92,7 @@
             });
 
             $("#izmeniKorisnik").click(function () {
-                $("#IzmenaKorisnik").show();
                 $("#PrikazKorisnikInfo").hide();
-                $("#PrikazDispecer").hide();
 
                 let tableofData = "<table class=\"table table-bordered\">";
                 tableofData += "<tr><td>Korisnicko ime</td><td><input class=\"form-control\" id=\"korImeReg\" type=\"text\" name=\"KorisnickoIme\" value=\"" + dataTmp.KorisnickoIme + "\" disabled /></td></tr>";
@@ -95,7 +106,69 @@
                 $("#IzmenaShow").html(tableofData);
             });
 
+            $("#showInfoDisp").click(function () {
+                $("#PrikazKorisnikInfoDisp").show();
+
+                let tableofData = "<table class=\"table table-bordered\">";
+                tableofData += `<tr><td>Korisnicko ime</td><td>${dataTmp.KorisnickoIme}</td></tr>`;
+                tableofData += `<tr><td>Lozinka</td><td>${dataTmp.Lozinka}</td></tr>`;
+                tableofData += `<tr><td>Ime</td><td>${dataTmp.Ime}</td></tr>`;
+                tableofData += `<tr><td>Prezime</td><td>${dataTmp.Prezime}</td></tr>`;
+                tableofData += `<tr><td>JMBG</td><td>${dataTmp.JMBG}</td></tr>`;
+                tableofData += `<tr><td>Pol</td><td>${polShow}</td></tr>`;
+                tableofData += `<tr><td>Kontakt telefon</td><td>${dataTmp.KontaktTelefon}</td></tr>`;
+                tableofData += `<tr><td>Email</td><td>${dataTmp.Email}</td></tr>`;
+                tableofData += "</table>";
+                $("#PrikazKorisnikInfoShowDisp").html(tableofData);
+            });
+
             $("#potvrdiIzmenu").click(function () {
+                let korisnik = {
+                    KorisnickoIme: `${$('#korImeReg').val()}`,
+                    Lozinka: `${$('#korPassReg').val()}`,
+                    Ime: `${$('#ime').val()}`,
+                    Prezime: `${$('#prezime').val()}`,
+                    Pol: dataTmp.Pol,
+                    JMBG: ` ${$('#jmbg').val()}`,
+                    Email: `${$('#email').val()}`,
+                    KontaktTelefon: `${$('#brTelefona').val()}`,
+                    Uloga: dataTmp.Uloga
+                };
+
+                $.ajax({
+                    type: 'POST',
+                    url: '/api/Edit',
+                    data: JSON.stringify(korisnik),
+                    contentType: 'application/json; charset=utf-8',
+                    dataType: 'json',
+                    success: function (data) {
+                        if (data) {
+                            alert('Uspesno izmenjen korisnik');
+                            localStorage.setItem("logovan", korisnik.KorisnickoIme);
+                            $(location).attr('href', 'welcome.html');
+                        } else {
+                            alert('Ne postoji korisnik kojeg zelite da menjate');
+                        }
+                    },
+                })
+            });
+
+            $("#izmeniKorisnikDisp").click(function () {
+                $("#PrikazKorisnikInfoDisp").hide();
+
+                let tableofData = "<table class=\"table table-bordered\">";
+                tableofData += "<tr><td>Korisnicko ime</td><td><input class=\"form-control\" id=\"korImeReg\" type=\"text\" name=\"KorisnickoIme\" value=\"" + dataTmp.KorisnickoIme + "\" disabled /></td></tr>";
+                tableofData += "<tr><td>Lozinka</td><td><input class=\"form-control\" id=\"korPassReg\" type=\"password\" name=\"Lozinka\" value=\"" + dataTmp.Lozinka + "\"/></td></tr>";
+                tableofData += "<tr><td>Ime</td><td><input class=\"form-control\" id=\"ime\" type=\"text\" name=\"Ime\" value=\"" + dataTmp.Ime + "\"/></td></tr>";
+                tableofData += "<tr><td>Prezime</td><td><input class=\"form-control\" id=\"prezime\" type=\"text\" name=\"Prezime\" value=\"" + dataTmp.Prezime + "\"/></td></tr>";
+                tableofData += "<tr><td>JMBG</td><td><input class=\"form-control\" id=\"jmbg\" type=\"text\" name=\"JMBG\" value=\"" + dataTmp.JMBG + "\"/></td></tr>";
+                tableofData += "<tr><td>Email</td><td><input class=\"form-control\" id=\"email\" type=\"email\" name=\"Email\" value=\"" + dataTmp.Email + "\"/></td></tr>";
+                tableofData += "<tr><td>Kontakt telefon</td><td><input class=\"form-control\" id=\"brTelefona\" type=\"text\" name=\"KontaktTelefon\" value=\"" + dataTmp.KontaktTelefon + "\"/></td></tr>";
+                tableofData += "</table>";
+                $("#IzmenaShowDisp").html(tableofData);
+            });
+
+            $("#potvrdiIzmenuDisp").click(function () {
                 let korisnik = {
                     KorisnickoIme: `${$('#korImeReg').val()}`,
                     Lozinka: `${$('#korPassReg').val()}`,
@@ -185,9 +258,42 @@
                 <div class="well">
                     <h3 align="center">
                         <span>
-                            DISPECER: <span id="usernameDispecera"></span>
+                            DISPECER: <span id="usernameDispecera"></span> <br /> <br />
+                        </span>
+                        <span>
+                            <button type="button" class="btn btn-success" data-toggle="modal" data-target="#editModalDisp" id="izmeniKorisnikDisp">Edit info</button>
+                            <button type="button" class="btn btn-warning" id="showInfoDisp">Show info</button>
                         </span>
                     </h3>
+                </div>
+            </div>
+        </div>
+
+        <!-- show info div-->
+        <div class="container" id="PrikazKorisnikInfoDisp">
+            <div class="row">
+                <div class="well well-float" id="PrikazKorisnikInfoShowDisp">
+                </div>
+            </div>
+        </div>
+        
+        <!-- edit info -->
+        <!-- edit modal -->
+        <div class="modal fade" id="editModalDisp">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h3 class="modal-title">Edit dispecer info</h3>
+                    </div>
+                    <div class="modal-body" id="IzmenaShowDisp">
+
+                    </div>
+
+                    <div class="modal-footer">
+                        <a href="" class="btn btn-default" data-dismiss="modal">Close</a>
+                        <button type="submit" class="btn btn-success" id="potvrdiIzmenuDisp">Apply changes</button>
+                    </div>
                 </div>
             </div>
         </div>

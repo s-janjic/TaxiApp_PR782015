@@ -15,11 +15,12 @@ namespace TaxiApp.Models.Classes
 
 		public Lokacija Odrediste { get; set; }
 
-		public Korisnik Dispecer { get; set; }
+		public Dispecer Dispecer { get; set; }
 
 		public Vozac Vozac { get; set; }
 		public int Iznos { get; set; }
 		public Komentar Komentar { get; set; }
 		public StatusVoznje StatusVoznje { get; set; }
+		public TipoviAutomobila TipAutomobila { get; set; }
 	}
 }

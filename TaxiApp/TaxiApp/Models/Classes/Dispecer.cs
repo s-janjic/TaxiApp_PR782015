@@ -18,7 +18,7 @@ namespace TaxiApp.Models.Classes
 			this.Lozinka = l;
 			this.Ime = ime;
 			this.Prezime = p;
-			if (po.Equals("M"))
+			if (po.ToString().Equals("M"))
 			{
 				this.Pol = Polovi.M;
 			}
