@@ -10,7 +10,7 @@ namespace TaxiApp.Models.Classes
 	public class Korisnici
 	{
 		// class that reads registered users from file and add them to dic.
-		public static Dictionary<string, Korisnik> korisnici { get; set; } = new Dictionary<string, Korisnik>();
+		public static Dictionary<int, Korisnik> korisnici { get; set; } = new Dictionary<int, Korisnik>();
 
 		public Korisnici() { }
 
@@ -25,7 +25,7 @@ namespace TaxiApp.Models.Classes
 			while ((line = sr.ReadLine()) != null)
 			{
 				string[] tokens = line.Split('|');
-				if (tokens[4].Equals("M"))
+				if (tokens[5].Equals("M"))
 				{
 					pol = Polovi.M;
 				}
@@ -33,11 +33,11 @@ namespace TaxiApp.Models.Classes
 				{
 					pol = Polovi.Z;
 				}
-				if (tokens[8].Equals("Musterija"))
+				if (tokens[9].Equals("Musterija"))
 				{
 					uloga = Uloge.Musterija;
 				}
-				else if (tokens[8].Equals("Dispecer"))
+				else if (tokens[9].Equals("Dispecer"))
 				{
 					uloga = Uloge.Dispecer;
 				}
@@ -46,8 +46,8 @@ namespace TaxiApp.Models.Classes
 					uloga = Uloge.Vozac;
 				}
 
-				Korisnik k = new Korisnik(tokens[0], tokens[1], tokens[2], tokens[3], pol, tokens[5], tokens[6], tokens[7], uloga);
-				korisnici.Add(k.KorisnickoIme, k);
+				Korisnik k = new Korisnik(Int32.Parse(tokens[0]), tokens[1], tokens[2], tokens[3], tokens[4], pol, tokens[6], tokens[7], tokens[8], uloga);
+				korisnici.Add(k.Id, k);
 			}
 
 			sr.Close();

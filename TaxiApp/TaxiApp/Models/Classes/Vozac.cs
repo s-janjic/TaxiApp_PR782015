@@ -14,8 +14,9 @@ namespace TaxiApp.Models.Classes
 		public Lokacija Lokacija { get; set; }
 		public Automobil Automobil { get; set; }
 
-		public Vozac(string k, string l, string ime, string p, Polovi po, string jmbg, string kont, string email, Uloge ul, Lokacija lokacija, Automobil automobil)
+		public Vozac(int id, string k, string l, string ime, string p, Polovi po, string jmbg, string kont, string email, Uloge ul, Lokacija lokacija, Automobil automobil)
 		{
+			this.Id = id;
 			this.KorisnickoIme = k;
 			this.Lozinka = l;
 			this.Ime = ime;

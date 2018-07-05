@@ -8,7 +8,7 @@ namespace TaxiApp.Models.Classes
 {
 	public class Vozaci
 	{
-		public static Dictionary<string, Korisnik> vozaci { get; set; } = new Dictionary<string, Korisnik>();
+		public static Dictionary<int, Korisnik> vozaci { get; set; } = new Dictionary<int, Korisnik>();
 
 		public Vozaci() { }
 
@@ -18,12 +18,17 @@ namespace TaxiApp.Models.Classes
 			StreamReader sr = new StreamReader(stream);
 			Polovi pol;
 			Uloge uloga;
+			TipoviAutomobila tipAuta;
+			Lokacija lokacija;
+			Automobil automobil;
+			Adresa adresa;
+
 			string line = "";
 
 			while ((line = sr.ReadLine()) != null)
 			{
 				string[] tokens = line.Split('|');
-				if (tokens[4].Equals("M"))
+				if (tokens[5].Equals("M"))
 				{
 					pol = Polovi.M;
 				}
@@ -31,11 +36,11 @@ namespace TaxiApp.Models.Classes
 				{
 					pol = Polovi.Z;
 				}
-				if (tokens[8].Equals("Musterija"))
+				if (tokens[9].Equals("Musterija"))
 				{
 					uloga = Uloge.Musterija;
 				}
-				else if (tokens[8].Equals("Dispecer"))
+				else if (tokens[9].Equals("Dispecer"))
 				{
 					uloga = Uloge.Dispecer;
 				}
@@ -43,6 +48,8 @@ namespace TaxiApp.Models.Classes
 				{
 					uloga = Uloge.Vozac;
 				}
+
+				// TODO: store lokacija,automobil, adresa
 
 				//Vozac v = new Vozac(tokens[0], tokens[1], tokens[2], tokens[3], pol, tokens[5], tokens[6], tokens[7], uloga, tokens[9], tokens[10]);
 				//vozaci.Add(v.KorisnickoIme, v);

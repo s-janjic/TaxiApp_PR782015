@@ -12,8 +12,9 @@ namespace TaxiApp.Models.Classes
 
 		}
 
-		public Dispecer(string k, string l, string ime, string p, Polovi po, string jmbg, string kont, string ema, Uloge ul)
+		public Dispecer(int id, string k, string l, string ime, string p, Polovi po, string jmbg, string kont, string ema, Uloge ul)
 		{
+			this.Id = id;
 			this.KorisnickoIme = k;
 			this.Lozinka = l;
 			this.Ime = ime;

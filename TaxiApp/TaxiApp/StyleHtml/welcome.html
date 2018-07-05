@@ -124,6 +124,7 @@
 
             $("#potvrdiIzmenu").click(function () {
                 let korisnik = {
+                    Id: dataTmp.Id,
                     KorisnickoIme: `${$('#korImeReg').val()}`,
                     Lozinka: `${$('#korPassReg').val()}`,
                     Ime: `${$('#ime').val()}`,
@@ -136,8 +137,8 @@
                 };
 
                 $.ajax({
-                    type: 'POST',
-                    url: '/api/Edit',
+                    type: 'PUT',
+                    url: '/api/Korisnik/' + dataTmp.Id,
                     data: JSON.stringify(korisnik),
                     contentType: 'application/json; charset=utf-8',
                     dataType: 'json',
@@ -170,6 +171,7 @@
 
             $("#potvrdiIzmenuDisp").click(function () {
                 let korisnik = {
+                    Id: dataTmp.Id,
                     KorisnickoIme: `${$('#korImeReg').val()}`,
                     Lozinka: `${$('#korPassReg').val()}`,
                     Ime: `${$('#ime').val()}`,
@@ -182,8 +184,8 @@
                 };
 
                 $.ajax({
-                    type: 'POST',
-                    url: '/api/Edit',
+                    type: 'PUT',
+                    url: '/api/Korisnik/' + dataTmp.Id,
                     data: JSON.stringify(korisnik),
                     contentType: 'application/json; charset=utf-8',
                     dataType: 'json',

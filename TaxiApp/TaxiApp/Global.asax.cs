@@ -22,6 +22,7 @@ namespace TaxiApp
 
 			Korisnici users = new Korisnici(@"C:\Users\stefan\Desktop\FAX\Web\TaxiApp_PR782015\TaxiApp\TaxiApp\App_Data\Korisnici.txt");
 			Dispeceri disp = new Dispeceri(@"C:\Users\stefan\Desktop\FAX\Web\TaxiApp_PR782015\TaxiApp\TaxiApp\App_Data\Dispeceri.txt");
+			Vozaci vozaci1 = new Vozaci(@"C:\Users\stefan\Desktop\FAX\Web\TaxiApp_PR782015\TaxiApp\TaxiApp\App_Data\Vozaci.txt");
 		}
     }
 }

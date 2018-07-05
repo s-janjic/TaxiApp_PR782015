@@ -8,6 +8,7 @@ namespace TaxiApp.Models.Classes
 {
 	public class Korisnik
 	{
+		public int Id { get; set; }
 		public string KorisnickoIme { get; set; }
 		public string Lozinka { get; set; }
 		public string Ime { get; set; }
@@ -22,8 +23,9 @@ namespace TaxiApp.Models.Classes
 		{
 		}
 
-		public Korisnik(string k, string l, string ime, string p, Polovi po, string jmbg, string kont, string ema, Uloge ul)
+		public Korisnik(int id, string k, string l, string ime, string p, Polovi po, string jmbg, string kont, string ema, Uloge ul)
 		{
+			this.Id = id;
 			this.KorisnickoIme = k;
 			this.Lozinka = l;
 			this.Ime = ime;

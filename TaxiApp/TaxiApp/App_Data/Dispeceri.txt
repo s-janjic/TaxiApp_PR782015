@@ -1,2 +1,1 @@
-disp1|disp1|StefanS|wawdadw|M| 5521|00202002|wdadw@dwadaw.som|Dispecer
-disp2|disp2|StefanS|Janjicsa|M|   555|00202002|wdadw@dwadaw.som|Dispecer
+1234234|disp1|disp1|Ime|Test|Z| 5521321|5231232|wdawffwa@gmail.com|Dispecer
