@@ -58,14 +58,13 @@ namespace TaxiApp.Controllers
 			string allString = "";
 			for (int i = 0; i < lines.Length; i++)
 			{
-				if (lines[i].Contains(k.Id.ToString()))
+				if (lines[i].Split('|')[1].Equals(k.KorisnickoIme.ToString()))
 				{
 					allString += k.Id.ToString() + '|' + k.KorisnickoIme + '|' + k.Lozinka + '|' + k.Ime + '|' + k.Prezime + '|' + k.Pol + '|' + k.JMBG + '|' + k.KontaktTelefon + '|' + k.Email + '|' + k.Uloga;
 					lines[i] = allString;
 				}
 			}
 			File.WriteAllLines(@"C:\Users\stefan\Desktop\FAX\Web\TaxiApp_PR782015\TaxiApp\TaxiApp\App_Data\Korisnici.txt", lines);
-
 		}
 
 		private void UpisIzmenaDispTxt(Korisnik k)
@@ -74,7 +73,7 @@ namespace TaxiApp.Controllers
 			string allString = "";
 			for (int i = 0; i < lines.Length; i++)
 			{
-				if (lines[i].Contains(k.Id.ToString()))
+				if (lines[i].Split('|')[1].Equals(k.KorisnickoIme.ToString()))
 				{
 					allString += k.Id.ToString() + '|' + k.KorisnickoIme + '|' + k.Lozinka + '|' + k.Ime + '|' + k.Prezime + '|' + k.Pol + '|' + k.JMBG + '|' + k.KontaktTelefon + '|' + k.Email + '|' + k.Uloga;
 					lines[i] = allString;
