@@ -54,7 +54,7 @@ namespace TaxiApp.Controllers
 
 		private void UpisIzmenaTxt(Korisnik k)
 		{
-			string[] lines = System.IO.File.ReadAllLines(@"C:\Users\stefan\Desktop\FAX\Web\TaxiApp_PR782015\TaxiApp\TaxiApp\App_Data\Korisnici.txt");
+			string[] lines = File.ReadAllLines(@"C:\Users\stefan\Desktop\FAX\Web\TaxiApp_PR782015\TaxiApp\TaxiApp\App_Data\Korisnici.txt");
 			string allString = "";
 			for (int i = 0; i < lines.Length; i++)
 			{
@@ -64,13 +64,13 @@ namespace TaxiApp.Controllers
 					lines[i] = allString;
 				}
 			}
-			System.IO.File.WriteAllLines(@"C:\Users\stefan\Desktop\FAX\Web\TaxiApp_PR782015\TaxiApp\TaxiApp\App_Data\Korisnici.txt", lines);
+			File.WriteAllLines(@"C:\Users\stefan\Desktop\FAX\Web\TaxiApp_PR782015\TaxiApp\TaxiApp\App_Data\Korisnici.txt", lines);
 
 		}
 
 		private void UpisIzmenaDispTxt(Korisnik k)
 		{
-			string[] lines = System.IO.File.ReadAllLines(@"C:\Users\stefan\Desktop\FAX\Web\TaxiApp_PR782015\TaxiApp\TaxiApp\App_Data\Dispeceri.txt");
+			string[] lines = File.ReadAllLines(@"C:\Users\stefan\Desktop\FAX\Web\TaxiApp_PR782015\TaxiApp\TaxiApp\App_Data\Dispeceri.txt");
 			string allString = "";
 			for (int i = 0; i < lines.Length; i++)
 			{
@@ -80,7 +80,7 @@ namespace TaxiApp.Controllers
 					lines[i] = allString;
 				}
 			}
-			System.IO.File.WriteAllLines(@"C:\Users\stefan\Desktop\FAX\Web\TaxiApp_PR782015\TaxiApp\TaxiApp\App_Data\Dispeceri.txt", lines);
+			File.WriteAllLines(@"C:\Users\stefan\Desktop\FAX\Web\TaxiApp_PR782015\TaxiApp\TaxiApp\App_Data\Dispeceri.txt", lines);
 		}
 
 		// POST api/korisnik
@@ -95,14 +95,14 @@ namespace TaxiApp.Controllers
 				}
 			}
 
+			string[] idCount = File.ReadAllLines(@"C:\Users\stefan\Desktop\FAX\Web\TaxiApp_PR782015\TaxiApp\TaxiApp\App_Data\Korisnici.txt");
+
 			Korisnici.korisnici = new Dictionary<int, Korisnik>();
-			SomeType s = new SomeType();
-			korisnik.Id = s.GetHashCode();
+			korisnik.Id = idCount.Length + 1;
 			korisnik.Uloga = Uloge.Musterija;
 			Korisnici.korisnici.Add(korisnik.Id, korisnik);
 			UpisTxt(korisnik);
 			return true;
-
 		}
 
 		private void UpisTxt(Korisnik k)
@@ -114,19 +114,6 @@ namespace TaxiApp.Controllers
 				tw.WriteLine(upis);
 			}
 			stream.Close();
-		}
-
-		public class SomeType
-		{
-			public override int GetHashCode()
-			{
-				return base.GetHashCode();
-			}
-		}
-
-		public static int GetHashCode2()
-		{
-			return Int32.MaxValue.GetHashCode();
 		}
 	}
 }
