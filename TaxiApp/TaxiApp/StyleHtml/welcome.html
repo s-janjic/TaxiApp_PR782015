@@ -202,6 +202,31 @@
                     },
                 })
             });
+
+            $("#dodajVozaca").click(function () {
+                $("#PrikazKorisnikInfoDisp").hide();
+            });
+
+            $("#addVozac").click(function () {
+                // take info from inputs
+
+                ////////////////////////
+                $.ajax({
+                    type: 'POST',
+                    url: 'api/Vozac',
+                    data: JSON.stringify(vozac),
+                    contentType: 'application/json; charset=utf-8',
+                    dataType: 'json',
+                    success: function (data) {
+                        if (data) {
+                            alert('Uspesno registrovan vozac');
+                            $(location).attr('href', 'welcome.html');
+                        } else {
+                            alert('Vozac vec postoji');
+                        }
+                    }
+                })
+            });
         });
     </script>
 </head>
@@ -267,6 +292,7 @@
                         <span>
                             <button type="button" class="btn btn-success" data-toggle="modal" data-target="#editModalDisp" id="izmeniKorisnikDisp">Edit info</button>
                             <button type="button" class="btn btn-warning" id="showInfoDisp">Show info</button>
+                            <button type="button" class="btn btn-info" data-toggle="modal" data-target="#addDriver" id="dodajVozaca">Add new driver</button>
                         </span>
                     </h3>
                 </div>
@@ -280,7 +306,7 @@
                 </div>
             </div>
         </div>
-        
+
         <!-- edit info -->
         <!-- edit modal -->
         <div class="modal fade" id="editModalDisp">
@@ -301,6 +327,131 @@
                 </div>
             </div>
         </div>
+
+        <!-- vozac register modal -->
+        <div class="modal fade" id="addDriver">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h3 class="modal-title">Add new driver</h3>
+                    </div>
+                    <div class="modal-body" id="DodavanjeVozaca">
+                        <div class="form-group">
+                            <label class="control-label">Username</label>
+                            <input type="text" class="form-control" id="korImeRegVoz" name="KorisnickoIme">
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label">Password</label>
+                            <input type="password" class="form-control" id="korPassRegVoz" name="Lozinka">
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label">Name</label>
+                            <input type="text" class="form-control" id="imeVoz" name="Ime">
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label">Surname</label>
+                            <input type="text" class="form-control" id="prezimeVoz" name="Prezime">
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label">Gender</label>
+                            <select class="form-control" id="polVoz" name="Pol">
+                                <option value="M">M</option>
+                                <option value="Z">Z</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label">JMBG</label>
+                            <input type="text" class="form-control" id="jmbgVoz" name="JMBG">
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label">Phone</label>
+                            <input type="text" class="form-control" id="brTelefonaVoz" name="KontaktTelefon">
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label">Email</label>
+                            <input type="email" class="form-control" id="emailVoz" name="Email">
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label">Year of car</label>
+                            <input type="text" class="form-control" id="godiste" name="Godiste">
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label">Registration num</label>
+                            <input type="text" class="form-control" id="registracija" name="Registracija">
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label">Car number</label>
+                            <input type="text" class="form-control" id="brojvozila" name="BrojVozila">
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label">Year of car</label>
+                            <input type="text" class="form-control" id="godiste" name="Godiste">
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label">Type of car</label>
+                            <select class="form-control" id="tipauta" name="TipAuta">
+                                <option value="Putnicki">Putnicki</option>
+                                <option value="Kombi">Kombi</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label">ID location</label>
+                            <input type="text" class="form-control" id="idlokacije" name="IdLokacije">
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label">X coordinates</label>
+                            <input type="text" class="form-control" id="x" name="X">
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label">Y coordinates</label>
+                            <input type="text" class="form-control" id="y" name="Y">
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label">Address ID</label>
+                            <input type="text" class="form-control" id="idadrese" name="IdAdrese">
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label">Street and number</label>
+                            <input type="text" class="form-control" id="ulicaibroj" name="UlicaIBroj">
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label">City</label>
+                            <input type="text" class="form-control" id="naseljenomesto" name="NaseljenoMesto">
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label">Zip code</label>
+                            <input type="text" class="form-control" id="pozivnibroj" name="PozivniBroj">
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <a href="" class="btn btn-default" data-dismiss="modal">Close</a>
+                        <button type="submit" class="btn btn-success" id="addVozac">Add driver</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </div>
 
     <!-- Latest compiled and minified JavaScript -->
