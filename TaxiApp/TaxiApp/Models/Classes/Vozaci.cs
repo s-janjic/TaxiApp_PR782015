@@ -8,7 +8,7 @@ namespace TaxiApp.Models.Classes
 {
 	public class Vozaci
 	{
-		public static Dictionary<int, Korisnik> vozaci { get; set; } = new Dictionary<int, Korisnik>();
+		public static Dictionary<int, Vozac> vozaci { get; set; } = new Dictionary<int, Vozac>();
 
 		public Vozaci() { }
 

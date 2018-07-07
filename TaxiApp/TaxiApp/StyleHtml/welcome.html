@@ -208,23 +208,54 @@
             });
 
             $("#addVozac").click(function () {
-                // take info from inputs
+                let adresa = {
+                    Id: `${$('#idadrese').val()}`,
+                    UlicaIBroj: `${$('#ulicaibroj').val()}`,
+                    NaseljenoMesto: `${$('#naseljenomesto').val()}`,
+                    PozivniBroj: `${$('#pozivnibroj').val()}`
+                };
 
-                ////////////////////////
+                let lokacija = {
+                    Id: `${$('#idlokacije').val()}`,
+                    X: `${$('#x').val()}`,
+                    Y: `${$('#y').val()}`,
+                    Adresa: adresa
+                };
+
+                let automobil = {
+                    Godiste: `${$('#godiste').val()}`,
+                    Registracija: `${$('#registracija').val()}`,
+                    BrojVozila: `${$('#brojvozila').val()}`,
+                    TipAuta: `${$('#tipauta').val()}`
+                };
+
+                let vozac = {
+                    KorisnickoIme: `${$('#korImeRegVoz').val()}`,
+                    Lozinka: `${$('#korPassRegVoz').val()}`,
+                    Ime: `${$('#imeVoz').val()}`,
+                    Prezime: `${$('#prezimeVoz').val()}`,
+                    Pol: `${$('#polVoz').val()}`,
+                    JMBG: `${$('#jmbgVoz').val()}`,
+                    KontaktTelefon: `${$('#brTelefonaVoz').val()}`,
+                    Email: `${$('#emailVoz').val()}`,
+                    Lokacija: lokacija,
+                    Automobil: automobil
+                };
+
                 $.ajax({
                     type: 'POST',
-                    url: 'api/Vozac',
+                    url: '/api/Vozac',
                     data: JSON.stringify(vozac),
                     contentType: 'application/json; charset=utf-8',
                     dataType: 'json',
                     success: function (data) {
                         if (data) {
-                            alert('Uspesno registrovan vozac');
+                            alert('Uspesno registovan vozac');
                             $(location).attr('href', 'welcome.html');
                         } else {
-                            alert('Vozac vec postoji');
+                            alert('Vozac je vec registrovan');
                         }
-                    }
+                    },
                 })
             });
         });
@@ -396,11 +427,6 @@
                         </div>
 
                         <div class="form-group">
-                            <label class="control-label">Year of car</label>
-                            <input type="text" class="form-control" id="godiste" name="Godiste">
-                        </div>
-
-                        <div class="form-group">
                             <label class="control-label">Type of car</label>
                             <select class="form-control" id="tipauta" name="TipAuta">
                                 <option value="Putnicki">Putnicki</option>
@@ -410,7 +436,7 @@
 
                         <div class="form-group">
                             <label class="control-label">ID location</label>
-                            <input type="text" class="form-control" id="idlokacije" name="IdLokacije">
+                            <input type="text" class="form-control" id="idlokacije" name="Id">
                         </div>
 
                         <div class="form-group">
@@ -425,7 +451,7 @@
 
                         <div class="form-group">
                             <label class="control-label">Address ID</label>
-                            <input type="text" class="form-control" id="idadrese" name="IdAdrese">
+                            <input type="text" class="form-control" id="idadrese" name="Id">
                         </div>
 
                         <div class="form-group">
