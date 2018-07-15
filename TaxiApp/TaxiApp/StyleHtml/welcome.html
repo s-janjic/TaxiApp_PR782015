@@ -45,6 +45,7 @@
                             $("#dispecerDiv").show();
                             $("#IzmeniDispecera").hide();
                             $("#korisnikDiv").hide();
+                            $("#vozacDiv").hide();
                             $("#usernameDispecera").show();
                             $("#usernameDispecera").html(usernameKor);
                             if (data.Pol == 0) // musko
@@ -58,6 +59,7 @@
                             $("#korisnikDiv").show();
                             $("#IzmeniKorisnika").hide();
                             $("#dispecerDiv").hide();
+                            $("#vozacDiv").hide();
                             $("#usernameKorisnika").show();
                             $("#usernameKorisnika").html(usernameKor);
                             if (data.Pol == 0) // musko
@@ -68,6 +70,18 @@
                                 polShow = "Zensko";
                             }
                         } else {
+                            $("#vozacDiv").show();
+                            $("#dispecerDiv").hide();
+                            $("#korisnikDiv").hide();
+                            $("#usernameVozaca").show();
+                            $("#usernameVozaca").html(usernameKor);
+                            if (data.Pol == 0) // musko
+                            {
+                                polShow = "Musko";
+                            }
+                            else {
+                                polShow = "Zensko";
+                            }
                         }
                     } else {
                         alert('Neuspesno slanje.');
@@ -187,7 +201,7 @@
 
                 $.ajax({
                     type: 'PUT',
-                    url: '/api/Korisnik/' + dataTmp.Id,
+                    url: '/api/Dispecer/' + dataTmp.Id,
                     data: JSON.stringify(korisnik),
                     contentType: 'application/json; charset=utf-8',
                     dataType: 'json',
@@ -250,7 +264,7 @@
                     dataType: 'json',
                     success: function (data) {
                         if (data) {
-                            alert('Uspesno registovan vozac');
+                            alert('Uspesno registrovan vozac');
                             $(location).attr('href', 'welcome.html');
                         } else {
                             alert('Vozac je vec registrovan');
@@ -289,7 +303,6 @@
         </div>
 
         <!-- edit info -->
-
         <!-- edit modal -->
         <div class="modal fade" id="editModal">
             <div class="modal-dialog modal-lg">
@@ -299,7 +312,7 @@
                         <h3 class="modal-title">Edit user info</h3>
                     </div>
                     <div class="modal-body" id="IzmenaShow">
-                        
+
                     </div>
 
                     <div class="modal-footer">
@@ -477,7 +490,25 @@
                 </div>
             </div>
         </div>
+    </div>
 
+    <!-- div za vozaca -->
+    <div class="container" id="vozacDiv">
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <div class="well">
+                    <h3 align="center">
+                        <span>
+                            VOZAC: <span id="usernameVozaca"></span> <br /> <br />
+                        </span>
+                        <span>
+                            <button type="button" class="btn btn-success" data-toggle="modal" data-target="#editModal" id="izmeniKorisnik">Edit info</button>
+                            <button type="button" class="btn btn-warning" id="showInfo">Show info</button>
+                        </span>
+                    </h3>
+                </div>
+            </div>
+        </div>
     </div>
 
     <!-- Latest compiled and minified JavaScript -->

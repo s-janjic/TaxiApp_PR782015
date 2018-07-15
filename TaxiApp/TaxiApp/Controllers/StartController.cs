@@ -29,6 +29,14 @@ namespace TaxiApp.Controllers
 				}
 			}
 
+			foreach (var v in Vozaci.vozaci.Values)
+			{
+				if (v.KorisnickoIme == value)
+				{
+					return v; // vraca obj vozaca
+				}
+			}
+
 			// ako ne nadje nista = null
 			return null;
 		}

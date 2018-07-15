@@ -22,6 +22,22 @@ namespace TaxiApp.Controllers
 				}
 			}
 
+			foreach (Korisnik k in Korisnici.korisnici.Values)
+			{
+				if (k.KorisnickoIme == vozac.KorisnickoIme)
+				{
+					return false; // if username already exists
+				}
+			}
+
+			foreach (Dispecer d in Dispeceri.dispeceri.Values)
+			{
+				if (d.KorisnickoIme == vozac.KorisnickoIme)
+				{
+					return false; // if username already exists
+				}
+			}
+
 			string[] idCount = File.ReadAllLines(@"C:\Users\stefan\Desktop\FAX\Web\TaxiApp_PR782015\TaxiApp\TaxiApp\App_Data\Vozaci.txt");
 
 			Vozaci.vozaci = new Dictionary<int, Vozac>();
@@ -42,6 +58,39 @@ namespace TaxiApp.Controllers
 				tw.WriteLine(upis);
 			}
 			stream.Close();
+		}
+
+		// PUT api/Vozac/1
+		public bool Put(int id, [FromBody]Vozac vozac)
+		{
+			foreach (Vozac v in Vozaci.vozaci.Values)
+			{
+				if (v.Id == id)
+				{
+					Vozaci.vozaci.Remove(v.Id);
+					Vozaci.vozaci.Add(vozac.Id, vozac);
+					UpisTxtIzmena(vozac);
+					return true;
+				}
+			}
+			return false;
+		}
+
+		private void UpisTxtIzmena(Vozac vozac)
+		{
+			string[] lines = File.ReadAllLines(@"C:\Users\stefan\Desktop\FAX\Web\TaxiApp_PR782015\TaxiApp\TaxiApp\App_Data\Vozaci.txt");
+			string allString = "";
+
+			for (int i = 0; i < lines.Length; i++)
+			{
+				if (lines[i].Split('|')[1].Equals(vozac.KorisnickoIme.ToString()))
+				{
+					allString += vozac.Id.ToString() + '|' + vozac.KorisnickoIme + '|' + vozac.Lozinka + '|' + vozac.Ime + '|' + vozac.Prezime + '|' + vozac.Pol + '|' + vozac.JMBG + '|' + vozac.KontaktTelefon + '|' + vozac.Email + '|' + vozac.Uloga;
+					lines[i] = allString;
+				}
+			}
+
+			File.WriteAllLines(@"C:\Users\stefan\Desktop\FAX\Web\TaxiApp_PR782015\TaxiApp\TaxiApp\App_Data\Vozaci.txt", lines);
 		}
 	}
 }

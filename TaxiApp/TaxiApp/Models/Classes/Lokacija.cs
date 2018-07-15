@@ -10,7 +10,7 @@ namespace TaxiApp.Models.Classes
 		public int Id { get; set; }
 		public double X { get; set; }
 		public double Y { get; set; }
-		public Adresa Adresa { get; set; }
+		public virtual Adresa Adresa { get; set; }
 
 		public Lokacija()
 		{

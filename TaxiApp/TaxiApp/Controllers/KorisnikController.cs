@@ -15,41 +15,17 @@ namespace TaxiApp.Controllers
 		// PUT api/Korisnik/1
 		public bool Put(int id, [FromBody]Korisnik korisnik)
 		{
-			if (korisnik.Uloga == Uloge.Musterija)
+			foreach (Korisnik kor in Korisnici.korisnici.Values)
 			{
-				foreach (Korisnik kor in Korisnici.korisnici.Values)
+				if (kor.Id == id)
 				{
-					if (kor.Id == id)
-					{
-						Korisnici.korisnici.Remove(kor.Id);
-						Korisnici.korisnici.Add(korisnik.Id, korisnik);
-						UpisIzmenaTxt(korisnik);
-						return true;
-					}
+					Korisnici.korisnici.Remove(kor.Id);
+					Korisnici.korisnici.Add(korisnik.Id, korisnik);
+					UpisIzmenaTxt(korisnik);
+					return true;
 				}
-				return false;
 			}
-			else if (korisnik.Uloga == Uloge.Dispecer)
-			{
-				foreach (Dispecer kor in Dispeceri.dispeceri.Values)
-				{
-					if (kor.Id == id)
-					{
-						Dispeceri.dispeceri.Remove(kor.Id);
-						Dispecer d = new Dispecer(korisnik.Id, korisnik.KorisnickoIme, korisnik.Lozinka, korisnik.Ime, korisnik.Prezime, korisnik.Pol, korisnik.JMBG, korisnik.KontaktTelefon, korisnik.Email, korisnik.Uloga);
-						Dispeceri.dispeceri.Add(d.Id, d);
-						UpisIzmenaDispTxt(korisnik);
-						return true;
-					}
-				}
-				return false;
-			}
-			else
-			{
-
-				return false;
-			}
-
+			return false;
 		}
 
 		private void UpisIzmenaTxt(Korisnik k)
@@ -67,21 +43,6 @@ namespace TaxiApp.Controllers
 			File.WriteAllLines(@"C:\Users\stefan\Desktop\FAX\Web\TaxiApp_PR782015\TaxiApp\TaxiApp\App_Data\Korisnici.txt", lines);
 		}
 
-		private void UpisIzmenaDispTxt(Korisnik k)
-		{
-			string[] lines = File.ReadAllLines(@"C:\Users\stefan\Desktop\FAX\Web\TaxiApp_PR782015\TaxiApp\TaxiApp\App_Data\Dispeceri.txt");
-			string allString = "";
-			for (int i = 0; i < lines.Length; i++)
-			{
-				if (lines[i].Split('|')[1].Equals(k.KorisnickoIme.ToString()))
-				{
-					allString += k.Id.ToString() + '|' + k.KorisnickoIme + '|' + k.Lozinka + '|' + k.Ime + '|' + k.Prezime + '|' + k.Pol + '|' + k.JMBG + '|' + k.KontaktTelefon + '|' + k.Email + '|' + k.Uloga;
-					lines[i] = allString;
-				}
-			}
-			File.WriteAllLines(@"C:\Users\stefan\Desktop\FAX\Web\TaxiApp_PR782015\TaxiApp\TaxiApp\App_Data\Dispeceri.txt", lines);
-		}
-
 		// POST api/korisnik
 		public bool Post([FromBody]Korisnik korisnik)
 		{
@@ -89,6 +50,22 @@ namespace TaxiApp.Controllers
 			foreach (Korisnik kor in Korisnici.korisnici.Values)
 			{
 				if (kor.KorisnickoIme == korisnik.KorisnickoIme)
+				{
+					return false;
+				}
+			}
+
+			foreach (Dispecer d in Dispeceri.dispeceri.Values)
+			{
+				if (d.KorisnickoIme == korisnik.KorisnickoIme)
+				{
+					return false;
+				}
+			}
+
+			foreach (Vozac v in Vozaci.vozaci.Values)
+			{
+				if (v.KorisnickoIme == korisnik.KorisnickoIme)
 				{
 					return false;
 				}
