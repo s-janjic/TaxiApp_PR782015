@@ -272,6 +272,122 @@
                     },
                 })
             });
+
+            $("#showInfoVozac").click(function () {
+                $("#PrikazVozacInfo").show();
+
+                let tableofData = "<table class=\"table table-bordered\">";
+                tableofData += `<tr><td>ID</td><td>${dataTmp.Id}</td></tr>`;
+                tableofData += `<tr><td>Korisnicko ime</td><td>${dataTmp.KorisnickoIme}</td></tr>`;
+                tableofData += `<tr><td>Lozinka</td><td>${dataTmp.Lozinka}</td></tr>`;
+                tableofData += `<tr><td>Ime</td><td>${dataTmp.Ime}</td></tr>`;
+                tableofData += `<tr><td>Prezime</td><td>${dataTmp.Prezime}</td></tr>`;
+                tableofData += `<tr><td>JMBG</td><td>${dataTmp.JMBG}</td></tr>`;
+                tableofData += `<tr><td>Pol</td><td>${polShow}</td></tr>`;
+                tableofData += `<tr><td>Kontakt telefon</td><td>${dataTmp.KontaktTelefon}</td></tr>`;
+                tableofData += `<tr><td>Email</td><td>${dataTmp.Email}</td></tr>`;
+                tableofData += `<tr><td>ID Lokacije</td><td>${dataTmp.Lokacija.Id}</td></tr>`;
+                tableofData += `<tr><td>X</td><td>${dataTmp.Lokacija.X}</td></tr>`;
+                tableofData += `<tr><td>Y</td><td>${dataTmp.Lokacija.Y}</td></tr>`;
+                tableofData += `<tr><td>Ulica</td><td>${dataTmp.Lokacija.Adresa.UlicaIBroj}</td></tr>`;
+                tableofData += `<tr><td>ID Adrese</td><td>${dataTmp.Lokacija.Adresa.Id}</td></tr>`;
+                tableofData += `<tr><td>Naseljeno mesto</td><td>${dataTmp.Lokacija.Adresa.NaseljenoMesto}</td></tr>`;
+                tableofData += `<tr><td>Pozivni broj</td><td>${dataTmp.Lokacija.Adresa.PozivniBroj}</td></tr>`;
+                tableofData += `<tr><td>ID Vozaca</td><td>${dataTmp.Id}</td></tr>`;
+                tableofData += `<tr><td>Godiste auta</td><td>${dataTmp.Automobil.Godiste}</td></tr>`;
+                tableofData += `<tr><td>Registracija</td><td>${dataTmp.Automobil.Registracija}</td></tr>`;
+                tableofData += `<tr><td>Broj vozila</td><td>${dataTmp.Automobil.BrojVozila}</td></tr>`;
+                if (dataTmp.Automobil.TipAuta == 0) { // putnicki
+                    tableofData += `<tr><td>Tip automobila</td><td>Putnicki</td></tr>`;
+                }
+                else { // kombi
+                    tableofData += `<tr><td>Tip automobila</td><td>Kombi</td></tr>`;
+                }
+                tableofData += "</table>";
+                $("#PrikazVozacInfoShow").html(tableofData);
+            });
+
+            $("#izmeniVozac").click(function () {
+                $("#PrikazVozacInfo").hide();
+
+                let tableofData = "<table class=\"table table-bordered\">";
+                tableofData += "<tr><td>Korisnicko ime</td><td><input class=\"form-control\" id=\"korImeReg2\" type=\"text\" name=\"KorisnickoIme\" value=\"" + dataTmp.KorisnickoIme + "\" disabled /></td></tr>";
+                tableofData += "<tr><td>Lozinka</td><td><input class=\"form-control\" id=\"korPassReg2\" type=\"password\" name=\"Lozinka\" value=\"" + dataTmp.Lozinka + "\"/></td></tr>";
+                tableofData += "<tr><td>Ime</td><td><input class=\"form-control\" id=\"ime2\" type=\"text\" name=\"Ime\" value=\"" + dataTmp.Ime + "\"/></td></tr>";
+                tableofData += "<tr><td>Prezime</td><td><input class=\"form-control\" id=\"prezime2\" type=\"text\" name=\"Prezime\" value=\"" + dataTmp.Prezime + "\"/></td></tr>";
+                tableofData += "<tr><td>JMBG</td><td><input class=\"form-control\" id=\"jmbg2\" type=\"text\" name=\"JMBG\" value=\"" + dataTmp.JMBG + "\"/></td></tr>";
+                tableofData += "<tr><td>Email</td><td><input class=\"form-control\" id=\"email2\" type=\"email\" name=\"Email\" value=\"" + dataTmp.Email + "\"/></td></tr>";
+                tableofData += "<tr><td>Kontakt telefon</td><td><input class=\"form-control\" id=\"brTelefona2\" type=\"text\" name=\"KontaktTelefon\" value=\"" + dataTmp.KontaktTelefon + "\"/></td></tr>";
+                tableofData += "<tr><td>ID Lokacije</td><td><input class=\"form-control\" id=\"idlokacija2\" type=\"text\" name=\"IdLok\" value=\"" + dataTmp.Lokacija.Id + "\"/></td></tr>";
+                tableofData += "<tr><td>X</td><td><input class=\"form-control\" id=\"x2\" type=\"text\" name=\"X\" value=\"" + dataTmp.Lokacija.X + "\"/></td></tr>";
+                tableofData += "<tr><td>Y</td><td><input class=\"form-control\" id=\"y2\" type=\"text\" name=\"Y\" value=\"" + dataTmp.Lokacija.Y + "\"/></td></tr>";
+                tableofData += "<tr><td>ID Adrese</td><td><input class=\"form-control\" id=\"idadrese2\" type=\"text\" name=\"IdAddr\" value=\"" + dataTmp.Lokacija.Adresa.Id + "\"/></td></tr>";
+                tableofData += "<tr><td>Ulica</td><td><input class=\"form-control\" id=\"ulicaibroj2\" type=\"text\" name=\"UlicaIBroj\" value=\"" + dataTmp.Lokacija.Adresa.UlicaIBroj + "\"/></td></tr>";
+                tableofData += "<tr><td>Naseljeno mesto</td><td><input class=\"form-control\" id=\"naseljenomesto2\" type=\"text\" name=\"NaseljenoMesto\" value=\"" + dataTmp.Lokacija.Adresa.NaseljenoMesto + "\"/></td></tr>";
+                tableofData += "<tr><td>Pozivni broj</td><td><input class=\"form-control\" id=\"pozivnibroj2\" type=\"text\" name=\"PozivniBroj\" value=\"" + dataTmp.Lokacija.Adresa.PozivniBroj + "\"/></td></tr>";
+                tableofData += "<tr><td>Godiste automobila</td><td><input class=\"form-control\" id=\"godiste2\" type=\"text\" name=\"Godiste\" value=\"" + dataTmp.Automobil.Godiste + "\"/></td></tr>";
+                tableofData += "<tr><td>Registracija</td><td><input class=\"form-control\" id=\"registracija2\" type=\"text\" name=\"Registracija\" value=\"" + dataTmp.Automobil.Registracija + "\"/></td></tr>";
+                tableofData += "<tr><td>Broj vozila</td><td><input class=\"form-control\" id=\"brojvozila2\" type=\"text\" name=\"BrojVozila\" value=\"" + dataTmp.Automobil.BrojVozila + "\"/></td></tr>";
+                tableofData += "</table>";
+                $("#IzmenaShowVozac").html(tableofData);
+            });
+
+            $("#potvrdiIzmenuVozac").click(function () {
+                let adresa = {
+                    Id: `${$('#idadrese2').val()}`,
+                    UlicaIBroj: `${$('#ulicaibroj2').val()}`,
+                    NaseljenoMesto: `${$('#naseljenomesto2').val()}`,
+                    PozivniBroj: `${$('#pozivnibroj2').val()}`
+                };
+
+                let lokacija = {
+                    Id: `${$('#idlokacija2').val()}`,
+                    X: `${$('#x2').val()}`,
+                    Y: `${$('#y2').val()}`,
+                    Adresa: adresa
+                };
+
+                let automobil = {
+                    IdVozaca: dataTmp.Id,
+                    Godiste: `${$('#godiste2').val()}`,
+                    Registracija: `${$('#registracija2').val()}`,
+                    BrojVozila: `${$('#brojvozila2').val()}`,
+                    TipAuta: dataTmp.Automobil.TipAuta
+                };
+
+                let vozac = {
+                    Id: dataTmp.Id,
+                    KorisnickoIme: `${$('#korImeReg2').val()}`,
+                    Lozinka: `${$('#korPassReg2').val()}`,
+                    Ime: `${$('#ime2').val()}`,
+                    Prezime: `${$('#prezime2').val()}`,
+                    Pol: dataTmp.Pol,
+                    JMBG: `${$('#jmbg2').val()}`,
+                    KontaktTelefon: `${$('#brTelefona2').val()}`,
+                    Email: `${$('#email2').val()}`,
+                    Uloga: dataTmp.Uloga,
+                    Lokacija: lokacija,
+                    Automobil: automobil
+                };
+
+                $.ajax({
+                    type: 'PUT',
+                    url: '/api/Vozac/' + automobil.IdVozaca,
+                    data: JSON.stringify(vozac),
+                    contentType: 'application/json; charset=utf-8',
+                    dataType: 'json',
+                    success: function (data) {
+                        if (data) {
+                            alert('Uspesno izmenjen vozac');
+                            localStorage.setItem("logovan", vozac.KorisnickoIme);
+                            $(location).attr('href', 'welcome.html');
+                        }
+                        else {
+                            alert('Neuspesna izmena');
+                        }
+                    }
+                })
+            });
         });
     </script>
 </head>
@@ -502,13 +618,43 @@
                             VOZAC: <span id="usernameVozaca"></span> <br /> <br />
                         </span>
                         <span>
-                            <button type="button" class="btn btn-success" data-toggle="modal" data-target="#editModal" id="izmeniKorisnik">Edit info</button>
-                            <button type="button" class="btn btn-warning" id="showInfo">Show info</button>
+                            <button type="button" class="btn btn-success" data-toggle="modal" data-target="#editVozacModal" id="izmeniVozac">Edit info</button>
+                            <button type="button" class="btn btn-warning" id="showInfoVozac">Show info</button>
                         </span>
                     </h3>
                 </div>
             </div>
         </div>
+
+        <!-- show info div-->
+        <div class="container" id="PrikazVozacInfo">
+            <div class="row">
+                <div class="well well-float" id="PrikazVozacInfoShow">
+                </div>
+            </div>
+        </div>
+
+        <!-- edit info -->
+        <!-- edit vozac modal -->
+        <div class="modal fade" id="editVozacModal">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h3 class="modal-title">Edit driver info</h3>
+                    </div>
+                    <div class="modal-body" id="IzmenaShowVozac">
+
+                    </div>
+
+                    <div class="modal-footer">
+                        <a href="" class="btn btn-default" data-dismiss="modal">Close</a>
+                        <button type="submit" class="btn btn-success" id="potvrdiIzmenuVozac">Apply changes</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </div>
 
     <!-- Latest compiled and minified JavaScript -->

@@ -1,1 +1,2 @@
-﻿1|vozac1|vozac1|ddawdaw|wadawdadw|M|52115252|521521|wdawd@dwa.com|Vozac|1|50|60|100|bulevar 5|novi sad|21000|1|2006|5125215|9|Putnicki
+1|vozac1|vozac1|ddawdaw|wadawdadw|M|52115252|521521|wdawd@dwa.com|Vozac|222|50|60|666|bulevar 5|novi sad|21000|0|2006|5125215|9|Putnicki
+2|vozac2|vozac2|Vozaaccc22|Vozzzzzzzz|M|2421421|421421|dwad@dwda.com|Vozac|0|4521|421|0|dwadwa 421|dwa dwa|421321|0|2004|124414|421421|Kombi
