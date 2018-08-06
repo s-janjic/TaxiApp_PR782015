@@ -46,7 +46,6 @@ namespace TaxiApp.Controllers
 		// POST api/korisnik
 		public bool Post([FromBody]Korisnik korisnik)
 		{
-
 			foreach (Korisnik kor in Korisnici.korisnici.Values)
 			{
 				if (kor.KorisnickoIme == korisnik.KorisnickoIme)

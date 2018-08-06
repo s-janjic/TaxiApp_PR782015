@@ -62,6 +62,8 @@
                             $("#vozacDiv").hide();
                             $("#usernameKorisnika").show();
                             $("#usernameKorisnika").html(usernameKor);
+                            $("#PrikaziVoznjeMusterijeDiv").hide();
+                            $("#PrikazKorisnikInfo").hide();
                             if (data.Pol == 0) // musko
                             {
                                 polShow = "Musko";
@@ -90,7 +92,8 @@
             })
 
             $("#showInfo").click(function () {
-                $("#PrikazKorisnikInfo").show();
+                $("#PrikazKorisnikInfo").show("slow");
+                $("#PrikaziVoznjeMusterijeDiv").hide();
 
                 let tableofData = "<table class=\"table table-bordered\">";
                 tableofData += `<tr><td>ID</td><td>${dataTmp.Id}</td></tr>`;
@@ -108,6 +111,7 @@
 
             $("#izmeniKorisnik").click(function () {
                 $("#PrikazKorisnikInfo").hide();
+                $("#PrikaziVoznjeMusterijeDiv").hide();
 
                 let tableofData = "<table class=\"table table-bordered\">";
                 tableofData += "<tr><td>Korisnicko ime</td><td><input class=\"form-control\" id=\"korImeReg\" type=\"text\" name=\"KorisnickoIme\" value=\"" + dataTmp.KorisnickoIme + "\" disabled /></td></tr>";
@@ -388,6 +392,69 @@
                     }
                 })
             });
+
+            $("#newOrderBtn").click(function () {
+                $("#PrikaziVoznjeMusterijeDiv").hide();
+                $("#PrikazKorisnikInfo").hide();
+            });
+
+            $("#dodajVoznjuMusterija").click(function () {
+                let adresaDolazak = {
+                    IdAdr: `${$('#idadr').val()}`,
+                    UlicaIBroj: `${$('#ulicaibr').val()}`,
+                    NaseljenoMesto: `${$('#naseljenom').val()}`,
+                    PozivniBroj: `${$('#pozivnibr').val()}`
+                };
+
+                let lokacijaDolazak = {
+                    IdLok: `${$('#idlokdol').val()}`,
+                    X: `${$('#xkoordinata').val()}`,
+                    Y: `${$('#ykoordinata').val()}`,
+                    Adresa: adresaDolazak
+                };
+
+                let voznja = {
+                    Dolazak: lokacijaDolazak,
+                    TipAutaVoznje: `${$('#tipau').val()}`,
+                    MusterijaVoznja: dataTmp.KorisnickoIme,
+                    VozacVoznja: null,
+                    Iznos: 0,
+                    DispecerVoznja: null,
+                    StatusVoznje: `${$('#stat').val()}`
+                };
+
+                $.ajax({
+                    type: 'POST',
+                    url: '/api/Voznja',
+                    data: JSON.stringify(voznja),
+                    contentType: 'application/json; charset=utf-8',
+                    dataType: 'json',
+                    success: function (data) {
+                        if (data) {
+                            alert('Uspesno zakazana voznja');             
+                            $(location).attr('href', 'welcome.html');
+                        } else {
+                            alert('Ovakva porudzbina vec postoji');
+                        }
+                    }
+                })
+            });
+
+            $("#prikaziVoznjeBtn").click(function () {
+                $("#PrikazKorisnikInfo").hide();
+                $("#PrikaziVoznjeMusterijeDiv").show();
+
+                $.get("/api/Voznja", function (data, status) {
+                    let tableForOrders = "<table class=\"table table-bordered\">";
+                    for (voznja in data) {
+                        if (dataTmp.KorisnickoIme == data[voznja].MusterijaVoznja) {
+                            tableForOrders += `<tr><td>${data[voznja].MusterijaVoznja}</td><td>${data[voznja].Iznos}</td></tr>`;
+                        }
+                    }
+                    tableForOrders += "</table>";
+                    $("#PrikaziVoznjeMusterijeShow").html(tableForOrders);
+                });
+            });
         });
     </script>
 </head>
@@ -402,6 +469,8 @@
                             Hello, <span id="usernameKorisnika"></span> <br /> <br />
                         </span>
                         <span>
+                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#newOrderModal" id="newOrderBtn">New order</button>
+                            <button type="button" class="btn btn-primary" id="prikaziVoznjeBtn">Show orders</button>
                             <button type="button" class="btn btn-success" data-toggle="modal" data-target="#editModal" id="izmeniKorisnik">Edit info</button>
                             <button type="button" class="btn btn-warning" id="showInfo">Show info</button>
                         </span>
@@ -414,6 +483,14 @@
         <div class="container" id="PrikazKorisnikInfo">
             <div class="row">
                 <div class="well well-float" id="PrikazKorisnikInfoShow">
+                </div>
+            </div>
+        </div>
+
+        <!-- show orders div-->
+        <div class="container" id="PrikaziVoznjeMusterijeDiv">
+            <div class="row">
+                <div class="well well-float" id="PrikaziVoznjeMusterijeShow">
                 </div>
             </div>
         </div>
@@ -434,6 +511,74 @@
                     <div class="modal-footer">
                         <a href="" class="btn btn-default" data-dismiss="modal">Close</a>
                         <button type="submit" class="btn btn-success" id="potvrdiIzmenu">Apply changes</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- new order modal -->
+        <div class="modal fade" id="newOrderModal">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h3 class="modal-title">New order</h3>
+                    </div>
+                    <div class="modal-body" id="DodavanjeNoveVoznje">
+                        <div class="form-group">
+                            <label class="control-label">ID Lokacije dolaska</label>
+                            <input type="text" class="form-control" id="idlokdol" name="IdLok" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label">X Lokacije dolaska</label>
+                            <input type="text" class="form-control" id="xkoordinata" name="X" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label">Y Lokacije dolaska</label>
+                            <input type="text" class="form-control" id="ykoordinata" name="Y" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label">IdAdr Lokacije dolaska</label>
+                            <input type="text" class="form-control" id="idadr" name="IdAdr" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label">Ulica i broj dolaska</label>
+                            <input type="text" class="form-control" id="ulicaibr" name="UlicaIBroj" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label">Naseljeno mesto dolaska</label>
+                            <input type="text" class="form-control" id="naseljenom" name="NaseljenoMesto" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label">Pozivni broj mesta dolaska</label>
+                            <input type="text" class="form-control" id="pozivnibr" name="PozivniBroj" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label">Tip auta voznje</label>
+                            <select class="form-control" id="tipau" name="TipAutaVoznje">
+                                <option value="1">Kombi</option>
+                                <option>Putnicki</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label">Status voznje</label>
+                            <select class="form-control" id="stat" name="StatusVoznje">
+                                <option value="0">Kreirana</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <a href="" class="btn btn-default" data-dismiss="modal">Close</a>
+                        <button type="submit" class="btn btn-success" id="dodajVoznjuMusterija">Submit</button>
                     </div>
                 </div>
             </div>
@@ -468,7 +613,7 @@
         </div>
 
         <!-- edit info -->
-        <!-- edit modal -->
+        <!-- edit disp modal -->
         <div class="modal fade" id="editModalDisp">
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">

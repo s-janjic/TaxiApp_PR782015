@@ -26,12 +26,13 @@ namespace TaxiApp.Models.Classes
 
 	public enum StatusVoznje
 	{
-		KREIRANA_NA_CEKANJU,
-		OTKAZANA,
-		FORMIRANA,
-		OBRADJENA,
-		PRIHVACENA,
-		NEUSPESNA,
-		USPESNA
+		Kreirana,
+		Formirana,
+		Obradjena,
+		Prihvacena,
+		Otkazana,
+		Neuspesna,
+		Uspesna,
+		Utoku
 	}
 }

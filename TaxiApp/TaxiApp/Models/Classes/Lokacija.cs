@@ -7,18 +7,19 @@ namespace TaxiApp.Models.Classes
 {
 	public class Lokacija
 	{
-		public int Id { get; set; }
+		public int IdLok { get; set; }
 		public double X { get; set; }
 		public double Y { get; set; }
 		public virtual Adresa Adresa { get; set; }
 
 		public Lokacija()
 		{
+			Adresa = new Adresa();
 		}
 
 		public Lokacija(int id, double x, double y, Adresa adresa)
 		{
-			this.Id = id;
+			this.IdLok = id;
 			this.X = x;
 			this.Y = y;
 			this.Adresa = adresa;

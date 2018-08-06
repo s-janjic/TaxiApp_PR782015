@@ -7,20 +7,77 @@ namespace TaxiApp.Models.Classes
 {
 	public class Voznja
 	{
-		public string Id { get; set; }
-		public DateTime DTPorudzbe { get; set; }
-		public Lokacija LokacijaDolaska { get; set; }
+		public int IdVoznje { get; set; }
+		public DateTime DTPorudzbine { get; set; }
+		public Lokacija Dolazak { get; set; }
 
-		public Korisnik Musterija { get; set; }
+		public string MusterijaVoznja { get; set; }
 
 		public Lokacija Odrediste { get; set; }
 
-		public Dispecer Dispecer { get; set; }
+		public string DispecerVoznja { get; set; }
 
-		public Vozac Vozac { get; set; }
-		public int Iznos { get; set; }
+		public string VozacVoznja { get; set; }
+		public double Iznos { get; set; }
 		public Komentar Komentar { get; set; }
 		public StatusVoznje StatusVoznje { get; set; }
-		public TipoviAutomobila TipAutomobila { get; set; }
+		public TipoviAutomobila TipAutaVoznje { get; set; }
+
+		public Voznja()
+		{
+		}
+
+		public Voznja(int idvoznje, DateTime datumporudzbine, Lokacija dolazak, TipoviAutomobila tipoviAutomobila, string musterija, Lokacija odrediste, string vozac, double iznos, string dispecer, Komentar komentar, StatusVoznje statusVoznje)
+		{
+			this.IdVoznje = idvoznje;
+			this.DTPorudzbine = datumporudzbine;
+			this.Dolazak = dolazak;
+			if (tipoviAutomobila.ToString().Equals("Kombi"))
+			{
+				this.TipAutaVoznje = TipoviAutomobila.Kombi;
+			}
+			else
+			{
+				this.TipAutaVoznje = TipoviAutomobila.Putnicki;
+			}
+			this.MusterijaVoznja = musterija;
+			this.Odrediste = odrediste;
+			this.DispecerVoznja = dispecer;
+			this.VozacVoznja = vozac;
+			this.Iznos = iznos;
+			this.Komentar = komentar;
+			if (statusVoznje.ToString().Equals("Formirana"))
+			{
+				this.StatusVoznje = StatusVoznje.Formirana;
+			}
+			else if (statusVoznje.ToString().Equals("Kreirana"))
+			{
+				this.StatusVoznje = StatusVoznje.Kreirana;
+			}
+			else if (statusVoznje.ToString().Equals("Neuspesna"))
+			{
+				this.StatusVoznje = StatusVoznje.Neuspesna;
+			}
+			else if (statusVoznje.ToString().Equals("Obradjena"))
+			{
+				this.StatusVoznje = StatusVoznje.Obradjena;
+			}
+			else if (statusVoznje.ToString().Equals("Otkazana"))
+			{
+				this.StatusVoznje = StatusVoznje.Otkazana;
+			}
+			else if (statusVoznje.ToString().Equals("Prihvacena"))
+			{
+				this.StatusVoznje = StatusVoznje.Prihvacena;
+			}
+			else if (statusVoznje.ToString().Equals("Uspesna"))
+			{
+				this.StatusVoznje = StatusVoznje.Uspesna;
+			}
+			else
+			{
+				this.StatusVoznje = StatusVoznje.Utoku;
+			}
+		}
 	}
 }

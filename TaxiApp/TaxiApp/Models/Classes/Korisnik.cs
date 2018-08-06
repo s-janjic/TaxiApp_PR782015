@@ -19,6 +19,8 @@ namespace TaxiApp.Models.Classes
 		public string Email { get; set; }
 		public Uloge Uloga { get; set; }
 
+		public List<Voznja> listaVoznji { get; set; }
+
 		public Korisnik()
 		{
 		}
@@ -54,6 +56,7 @@ namespace TaxiApp.Models.Classes
 			{
 				this.Uloga = Uloge.Vozac;
 			}
+			listaVoznji = new List<Voznja>();
 		}
 	}
 }

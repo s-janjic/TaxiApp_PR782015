@@ -23,7 +23,14 @@ namespace TaxiApp.Models.Classes
 			this.Godiste = godiste;
 			this.Registracija = reg;
 			this.BrojVozila = brVozila;
-			this.TipAuta = tipoviAutomobila;
+			if (tipoviAutomobila.ToString().Equals("Kombi"))
+			{
+				this.TipAuta = TipoviAutomobila.Kombi;
+			}
+			else
+			{
+				this.TipAuta = TipoviAutomobila.Putnicki;
+			}
 		}
 	}
 }
