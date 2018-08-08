@@ -3,6 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
     <title>Taxi Application</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" href="/StyleHtml/css/bootstrap.css" />
@@ -14,62 +15,7 @@
     <![endif]-->
 
     <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
-    <script type="text/javascript">
-        $(document).ready(function () {
-            $("#prijava").click(function () {
-                let korisnik = {
-                    KorisnickoIme: `${$('#korIme').val()}`,
-                    Lozinka: `${$('#korPass').val()}`
-                };
-
-                $.ajax({
-                    type: 'POST',
-                    url: '/api/Login',
-                    data: JSON.stringify(korisnik),
-                    contentType: 'application/json; charset=utf-8',
-                    dataType: 'json',
-                    success: function (data) {
-                        if (data) {
-                            alert('Uspesno ulogovan korisnik');
-                            localStorage.setItem("logovan", korisnik.KorisnickoIme);
-                            $(location).attr('href', 'welcome.html');
-                        } else {
-                            alert('Neuspesno logovanje jer nije registrovan');
-                        }
-                    },
-                })
-            });
-
-            $("#registracija").click(function () {
-                let korisnik = {
-                    KorisnickoIme: `${$('#korImeReg').val()}`,
-                    Lozinka: `${$('#korPassReg').val()}`,
-                    Ime: `${$('#ime').val()}`,
-                    Prezime: `${$('#prezime').val()}`,
-                    Pol: `${$('#pol').val()}`,
-                    JMBG: ` ${$('#jmbg').val()}`,
-                    Email: `${$('#email').val()}`,
-                    KontaktTelefon: `${$('#brTelefona').val()}`
-                };
-
-                $.ajax({
-                    type: 'POST',
-                    url: '/api/Korisnik',
-                    data: JSON.stringify(korisnik),
-                    contentType: 'application/json; charset=utf-8',
-                    dataType: 'json',
-                    success: function (data) {
-                        if (data) {
-                            alert('Uspesno registrovan korisnik');
-                            $(location).attr('href', 'index.html');
-                        } else {
-                            alert('Vec je registrovan korisnik');
-                        }
-                    },
-                })
-            });
-        });
-    </script>
+    <script type="text/javascript" src="/StyleHtml/Scripts/index-script.js"></script>
 </head>
 <body>
     <!-- navigacioni bar -->

@@ -2,22 +2,13 @@
 <html>
 <head>
     <meta charset="utf-8" />
-
-    <style>
-        #korisnikDiv {
-            display: none;
-        }
-
-        #dispecerDiv {
-            display: none;
-        }
-    </style>
-
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
     <title>Taxi Application</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" href="/StyleHtml/css/bootstrap.css" />
     <link rel="stylesheet" type="text/css" href="/StyleHtml/css/font-awesome.min.css">
+    <link type="text/css" href="/StyleHtml/css/hide-divs.css" rel="stylesheet" />
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
     <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
@@ -25,438 +16,7 @@
     <![endif]-->
 
     <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
-    <script type="text/javascript">
-        $(document).ready(function () {
-            let primljeno = localStorage.getItem("logovan");
-            let usernameKor;
-            let polShow;
-            $.ajax({
-                type: 'POST',
-                url: '/api/Start',
-                data: JSON.stringify(primljeno),
-                contentType: 'application/json; charset=utf-8',
-                dataType: 'json',
-                success: function (data) {
-                    dataTmp = data;
-                    usernameKor = `${dataTmp.KorisnickoIme}`;
-                    if (data != null) {
-                        alert('Uspesno slanje.');
-                        if (data.Uloga == 2) {   // dispecer login
-                            $("#dispecerDiv").show();
-                            $("#IzmeniDispecera").hide();
-                            $("#korisnikDiv").hide();
-                            $("#vozacDiv").hide();
-                            $("#usernameDispecera").show();
-                            $("#usernameDispecera").html(usernameKor);
-                            if (data.Pol == 0) // musko
-                            {
-                                polShow = "Musko";
-                            }
-                            else {
-                                polShow = "Zensko";
-                            }
-                        } else if (data.Uloga == 0) { // musterija login
-                            $("#korisnikDiv").show();
-                            $("#IzmeniKorisnika").hide();
-                            $("#dispecerDiv").hide();
-                            $("#vozacDiv").hide();
-                            $("#usernameKorisnika").show();
-                            $("#usernameKorisnika").html(usernameKor);
-                            $("#PrikaziVoznjeMusterijeDiv").hide();
-                            $("#PrikazKorisnikInfo").hide();
-                            if (data.Pol == 0) // musko
-                            {
-                                polShow = "Musko";
-                            }
-                            else {
-                                polShow = "Zensko";
-                            }
-                        } else {
-                            $("#vozacDiv").show();
-                            $("#dispecerDiv").hide();
-                            $("#korisnikDiv").hide();
-                            $("#usernameVozaca").show();
-                            $("#usernameVozaca").html(usernameKor);
-                            if (data.Pol == 0) // musko
-                            {
-                                polShow = "Musko";
-                            }
-                            else {
-                                polShow = "Zensko";
-                            }
-                        }
-                    } else {
-                        alert('Neuspesno slanje.');
-                    }
-                },
-            })
-
-            $("#showInfo").click(function () {
-                $("#PrikazKorisnikInfo").show("slow");
-                $("#PrikaziVoznjeMusterijeDiv").hide();
-
-                let tableofData = "<table class=\"table table-bordered\">";
-                tableofData += `<tr><td>ID</td><td>${dataTmp.Id}</td></tr>`;
-                tableofData += `<tr><td>Korisnicko ime</td><td>${dataTmp.KorisnickoIme}</td></tr>`;
-                tableofData += `<tr><td>Lozinka</td><td>${dataTmp.Lozinka}</td></tr>`;
-                tableofData += `<tr><td>Ime</td><td>${dataTmp.Ime}</td></tr>`;
-                tableofData += `<tr><td>Prezime</td><td>${dataTmp.Prezime}</td></tr>`;
-                tableofData += `<tr><td>JMBG</td><td>${dataTmp.JMBG}</td></tr>`;
-                tableofData += `<tr><td>Pol</td><td>${polShow}</td></tr>`;
-                tableofData += `<tr><td>Kontakt telefon</td><td>${dataTmp.KontaktTelefon}</td></tr>`;
-                tableofData += `<tr><td>Email</td><td>${dataTmp.Email}</td></tr>`;
-                tableofData += "</table>";
-                $("#PrikazKorisnikInfoShow").html(tableofData);
-            });
-
-            $("#izmeniKorisnik").click(function () {
-                $("#PrikazKorisnikInfo").hide();
-                $("#PrikaziVoznjeMusterijeDiv").hide();
-
-                let tableofData = "<table class=\"table table-bordered\">";
-                tableofData += "<tr><td>Korisnicko ime</td><td><input class=\"form-control\" id=\"korImeReg\" type=\"text\" name=\"KorisnickoIme\" value=\"" + dataTmp.KorisnickoIme + "\" disabled /></td></tr>";
-                tableofData += "<tr><td>Lozinka</td><td><input class=\"form-control\" id=\"korPassReg\" type=\"password\" name=\"Lozinka\" value=\"" + dataTmp.Lozinka + "\"/></td></tr>";
-                tableofData += "<tr><td>Ime</td><td><input class=\"form-control\" id=\"ime\" type=\"text\" name=\"Ime\" value=\"" + dataTmp.Ime + "\"/></td></tr>";
-                tableofData += "<tr><td>Prezime</td><td><input class=\"form-control\" id=\"prezime\" type=\"text\" name=\"Prezime\" value=\"" + dataTmp.Prezime + "\"/></td></tr>";
-                tableofData += "<tr><td>JMBG</td><td><input class=\"form-control\" id=\"jmbg\" type=\"text\" name=\"JMBG\" value=\"" + dataTmp.JMBG + "\"/></td></tr>";
-                tableofData += "<tr><td>Email</td><td><input class=\"form-control\" id=\"email\" type=\"email\" name=\"Email\" value=\"" + dataTmp.Email + "\"/></td></tr>";
-                tableofData += "<tr><td>Kontakt telefon</td><td><input class=\"form-control\" id=\"brTelefona\" type=\"text\" name=\"KontaktTelefon\" value=\"" + dataTmp.KontaktTelefon + "\"/></td></tr>";
-                tableofData += "</table>";
-                $("#IzmenaShow").html(tableofData);
-            });
-
-            $("#showInfoDisp").click(function () {
-                $("#PrikazKorisnikInfoDisp").show();
-
-                let tableofData = "<table class=\"table table-bordered\">";
-                tableofData += `<tr><td>ID</td><td>${dataTmp.Id}</td></tr>`;
-                tableofData += `<tr><td>Korisnicko ime</td><td>${dataTmp.KorisnickoIme}</td></tr>`;
-                tableofData += `<tr><td>Lozinka</td><td>${dataTmp.Lozinka}</td></tr>`;
-                tableofData += `<tr><td>Ime</td><td>${dataTmp.Ime}</td></tr>`;
-                tableofData += `<tr><td>Prezime</td><td>${dataTmp.Prezime}</td></tr>`;
-                tableofData += `<tr><td>JMBG</td><td>${dataTmp.JMBG}</td></tr>`;
-                tableofData += `<tr><td>Pol</td><td>${polShow}</td></tr>`;
-                tableofData += `<tr><td>Kontakt telefon</td><td>${dataTmp.KontaktTelefon}</td></tr>`;
-                tableofData += `<tr><td>Email</td><td>${dataTmp.Email}</td></tr>`;
-                tableofData += "</table>";
-                $("#PrikazKorisnikInfoShowDisp").html(tableofData);
-            });
-
-            $("#potvrdiIzmenu").click(function () {
-                let korisnik = {
-                    Id: dataTmp.Id,
-                    KorisnickoIme: `${$('#korImeReg').val()}`,
-                    Lozinka: `${$('#korPassReg').val()}`,
-                    Ime: `${$('#ime').val()}`,
-                    Prezime: `${$('#prezime').val()}`,
-                    Pol: dataTmp.Pol,
-                    JMBG: ` ${$('#jmbg').val()}`,
-                    Email: `${$('#email').val()}`,
-                    KontaktTelefon: `${$('#brTelefona').val()}`,
-                    Uloga: dataTmp.Uloga
-                };
-
-                $.ajax({
-                    type: 'PUT',
-                    url: '/api/Korisnik/' + dataTmp.Id,
-                    data: JSON.stringify(korisnik),
-                    contentType: 'application/json; charset=utf-8',
-                    dataType: 'json',
-                    success: function (data) {
-                        if (data) {
-                            alert('Uspesno izmenjen korisnik');
-                            localStorage.setItem("logovan", korisnik.KorisnickoIme);
-                            $(location).attr('href', 'welcome.html');
-                        } else {
-                            alert('Ne postoji korisnik kojeg zelite da menjate');
-                        }
-                    },
-                })
-            });
-
-            $("#izmeniKorisnikDisp").click(function () {
-                $("#PrikazKorisnikInfoDisp").hide();
-
-                let tableofData = "<table class=\"table table-bordered\">";
-                tableofData += "<tr><td>Korisnicko ime</td><td><input class=\"form-control\" id=\"korImeReg\" type=\"text\" name=\"KorisnickoIme\" value=\"" + dataTmp.KorisnickoIme + "\" disabled /></td></tr>";
-                tableofData += "<tr><td>Lozinka</td><td><input class=\"form-control\" id=\"korPassReg\" type=\"password\" name=\"Lozinka\" value=\"" + dataTmp.Lozinka + "\"/></td></tr>";
-                tableofData += "<tr><td>Ime</td><td><input class=\"form-control\" id=\"ime\" type=\"text\" name=\"Ime\" value=\"" + dataTmp.Ime + "\"/></td></tr>";
-                tableofData += "<tr><td>Prezime</td><td><input class=\"form-control\" id=\"prezime\" type=\"text\" name=\"Prezime\" value=\"" + dataTmp.Prezime + "\"/></td></tr>";
-                tableofData += "<tr><td>JMBG</td><td><input class=\"form-control\" id=\"jmbg\" type=\"text\" name=\"JMBG\" value=\"" + dataTmp.JMBG + "\"/></td></tr>";
-                tableofData += "<tr><td>Email</td><td><input class=\"form-control\" id=\"email\" type=\"email\" name=\"Email\" value=\"" + dataTmp.Email + "\"/></td></tr>";
-                tableofData += "<tr><td>Kontakt telefon</td><td><input class=\"form-control\" id=\"brTelefona\" type=\"text\" name=\"KontaktTelefon\" value=\"" + dataTmp.KontaktTelefon + "\"/></td></tr>";
-                tableofData += "</table>";
-                $("#IzmenaShowDisp").html(tableofData);
-            });
-
-            $("#potvrdiIzmenuDisp").click(function () {
-                let korisnik = {
-                    Id: dataTmp.Id,
-                    KorisnickoIme: `${$('#korImeReg').val()}`,
-                    Lozinka: `${$('#korPassReg').val()}`,
-                    Ime: `${$('#ime').val()}`,
-                    Prezime: `${$('#prezime').val()}`,
-                    Pol: dataTmp.Pol,
-                    JMBG: ` ${$('#jmbg').val()}`,
-                    Email: `${$('#email').val()}`,
-                    KontaktTelefon: `${$('#brTelefona').val()}`,
-                    Uloga: dataTmp.Uloga
-                };
-
-                $.ajax({
-                    type: 'PUT',
-                    url: '/api/Dispecer/' + dataTmp.Id,
-                    data: JSON.stringify(korisnik),
-                    contentType: 'application/json; charset=utf-8',
-                    dataType: 'json',
-                    success: function (data) {
-                        if (data) {
-                            alert('Uspesno izmenjen korisnik');
-                            localStorage.setItem("logovan", korisnik.KorisnickoIme);
-                            $(location).attr('href', 'welcome.html');
-                        } else {
-                            alert('Ne postoji korisnik kojeg zelite da menjate');
-                        }
-                    },
-                })
-            });
-
-            $("#dodajVozaca").click(function () {
-                $("#PrikazKorisnikInfoDisp").hide();
-            });
-
-            $("#addVozac").click(function () {
-                let adresa = {
-                    Id: `${$('#idadrese').val()}`,
-                    UlicaIBroj: `${$('#ulicaibroj').val()}`,
-                    NaseljenoMesto: `${$('#naseljenomesto').val()}`,
-                    PozivniBroj: `${$('#pozivnibroj').val()}`
-                };
-
-                let lokacija = {
-                    Id: `${$('#idlokacije').val()}`,
-                    X: `${$('#x').val()}`,
-                    Y: `${$('#y').val()}`,
-                    Adresa: adresa
-                };
-
-                let automobil = {
-                    Godiste: `${$('#godiste').val()}`,
-                    Registracija: `${$('#registracija').val()}`,
-                    BrojVozila: `${$('#brojvozila').val()}`,
-                    TipAuta: `${$('#tipauta').val()}`
-                };
-
-                let vozac = {
-                    KorisnickoIme: `${$('#korImeRegVoz').val()}`,
-                    Lozinka: `${$('#korPassRegVoz').val()}`,
-                    Ime: `${$('#imeVoz').val()}`,
-                    Prezime: `${$('#prezimeVoz').val()}`,
-                    Pol: `${$('#polVoz').val()}`,
-                    JMBG: `${$('#jmbgVoz').val()}`,
-                    KontaktTelefon: `${$('#brTelefonaVoz').val()}`,
-                    Email: `${$('#emailVoz').val()}`,
-                    Lokacija: lokacija,
-                    Automobil: automobil
-                };
-
-                $.ajax({
-                    type: 'POST',
-                    url: '/api/Vozac',
-                    data: JSON.stringify(vozac),
-                    contentType: 'application/json; charset=utf-8',
-                    dataType: 'json',
-                    success: function (data) {
-                        if (data) {
-                            alert('Uspesno registrovan vozac');
-                            $(location).attr('href', 'welcome.html');
-                        } else {
-                            alert('Vozac je vec registrovan');
-                        }
-                    },
-                })
-            });
-
-            $("#showInfoVozac").click(function () {
-                $("#PrikazVozacInfo").show();
-
-                let tableofData = "<table class=\"table table-bordered\">";
-                tableofData += `<tr><td>ID</td><td>${dataTmp.Id}</td></tr>`;
-                tableofData += `<tr><td>Korisnicko ime</td><td>${dataTmp.KorisnickoIme}</td></tr>`;
-                tableofData += `<tr><td>Lozinka</td><td>${dataTmp.Lozinka}</td></tr>`;
-                tableofData += `<tr><td>Ime</td><td>${dataTmp.Ime}</td></tr>`;
-                tableofData += `<tr><td>Prezime</td><td>${dataTmp.Prezime}</td></tr>`;
-                tableofData += `<tr><td>JMBG</td><td>${dataTmp.JMBG}</td></tr>`;
-                tableofData += `<tr><td>Pol</td><td>${polShow}</td></tr>`;
-                tableofData += `<tr><td>Kontakt telefon</td><td>${dataTmp.KontaktTelefon}</td></tr>`;
-                tableofData += `<tr><td>Email</td><td>${dataTmp.Email}</td></tr>`;
-                tableofData += `<tr><td>ID Lokacije</td><td>${dataTmp.Lokacija.Id}</td></tr>`;
-                tableofData += `<tr><td>X</td><td>${dataTmp.Lokacija.X}</td></tr>`;
-                tableofData += `<tr><td>Y</td><td>${dataTmp.Lokacija.Y}</td></tr>`;
-                tableofData += `<tr><td>Ulica</td><td>${dataTmp.Lokacija.Adresa.UlicaIBroj}</td></tr>`;
-                tableofData += `<tr><td>ID Adrese</td><td>${dataTmp.Lokacija.Adresa.Id}</td></tr>`;
-                tableofData += `<tr><td>Naseljeno mesto</td><td>${dataTmp.Lokacija.Adresa.NaseljenoMesto}</td></tr>`;
-                tableofData += `<tr><td>Pozivni broj</td><td>${dataTmp.Lokacija.Adresa.PozivniBroj}</td></tr>`;
-                tableofData += `<tr><td>ID Vozaca</td><td>${dataTmp.Id}</td></tr>`;
-                tableofData += `<tr><td>Godiste auta</td><td>${dataTmp.Automobil.Godiste}</td></tr>`;
-                tableofData += `<tr><td>Registracija</td><td>${dataTmp.Automobil.Registracija}</td></tr>`;
-                tableofData += `<tr><td>Broj vozila</td><td>${dataTmp.Automobil.BrojVozila}</td></tr>`;
-                if (dataTmp.Automobil.TipAuta == 0) { // putnicki
-                    tableofData += `<tr><td>Tip automobila</td><td>Putnicki</td></tr>`;
-                }
-                else { // kombi
-                    tableofData += `<tr><td>Tip automobila</td><td>Kombi</td></tr>`;
-                }
-                tableofData += "</table>";
-                $("#PrikazVozacInfoShow").html(tableofData);
-            });
-
-            $("#izmeniVozac").click(function () {
-                $("#PrikazVozacInfo").hide();
-
-                let tableofData = "<table class=\"table table-bordered\">";
-                tableofData += "<tr><td>Korisnicko ime</td><td><input class=\"form-control\" id=\"korImeReg2\" type=\"text\" name=\"KorisnickoIme\" value=\"" + dataTmp.KorisnickoIme + "\" disabled /></td></tr>";
-                tableofData += "<tr><td>Lozinka</td><td><input class=\"form-control\" id=\"korPassReg2\" type=\"password\" name=\"Lozinka\" value=\"" + dataTmp.Lozinka + "\"/></td></tr>";
-                tableofData += "<tr><td>Ime</td><td><input class=\"form-control\" id=\"ime2\" type=\"text\" name=\"Ime\" value=\"" + dataTmp.Ime + "\"/></td></tr>";
-                tableofData += "<tr><td>Prezime</td><td><input class=\"form-control\" id=\"prezime2\" type=\"text\" name=\"Prezime\" value=\"" + dataTmp.Prezime + "\"/></td></tr>";
-                tableofData += "<tr><td>JMBG</td><td><input class=\"form-control\" id=\"jmbg2\" type=\"text\" name=\"JMBG\" value=\"" + dataTmp.JMBG + "\"/></td></tr>";
-                tableofData += "<tr><td>Email</td><td><input class=\"form-control\" id=\"email2\" type=\"email\" name=\"Email\" value=\"" + dataTmp.Email + "\"/></td></tr>";
-                tableofData += "<tr><td>Kontakt telefon</td><td><input class=\"form-control\" id=\"brTelefona2\" type=\"text\" name=\"KontaktTelefon\" value=\"" + dataTmp.KontaktTelefon + "\"/></td></tr>";
-                tableofData += "<tr><td>ID Lokacije</td><td><input class=\"form-control\" id=\"idlokacija2\" type=\"text\" name=\"IdLok\" value=\"" + dataTmp.Lokacija.Id + "\"/></td></tr>";
-                tableofData += "<tr><td>X</td><td><input class=\"form-control\" id=\"x2\" type=\"text\" name=\"X\" value=\"" + dataTmp.Lokacija.X + "\"/></td></tr>";
-                tableofData += "<tr><td>Y</td><td><input class=\"form-control\" id=\"y2\" type=\"text\" name=\"Y\" value=\"" + dataTmp.Lokacija.Y + "\"/></td></tr>";
-                tableofData += "<tr><td>ID Adrese</td><td><input class=\"form-control\" id=\"idadrese2\" type=\"text\" name=\"IdAddr\" value=\"" + dataTmp.Lokacija.Adresa.Id + "\"/></td></tr>";
-                tableofData += "<tr><td>Ulica</td><td><input class=\"form-control\" id=\"ulicaibroj2\" type=\"text\" name=\"UlicaIBroj\" value=\"" + dataTmp.Lokacija.Adresa.UlicaIBroj + "\"/></td></tr>";
-                tableofData += "<tr><td>Naseljeno mesto</td><td><input class=\"form-control\" id=\"naseljenomesto2\" type=\"text\" name=\"NaseljenoMesto\" value=\"" + dataTmp.Lokacija.Adresa.NaseljenoMesto + "\"/></td></tr>";
-                tableofData += "<tr><td>Pozivni broj</td><td><input class=\"form-control\" id=\"pozivnibroj2\" type=\"text\" name=\"PozivniBroj\" value=\"" + dataTmp.Lokacija.Adresa.PozivniBroj + "\"/></td></tr>";
-                tableofData += "<tr><td>Godiste automobila</td><td><input class=\"form-control\" id=\"godiste2\" type=\"text\" name=\"Godiste\" value=\"" + dataTmp.Automobil.Godiste + "\"/></td></tr>";
-                tableofData += "<tr><td>Registracija</td><td><input class=\"form-control\" id=\"registracija2\" type=\"text\" name=\"Registracija\" value=\"" + dataTmp.Automobil.Registracija + "\"/></td></tr>";
-                tableofData += "<tr><td>Broj vozila</td><td><input class=\"form-control\" id=\"brojvozila2\" type=\"text\" name=\"BrojVozila\" value=\"" + dataTmp.Automobil.BrojVozila + "\"/></td></tr>";
-                tableofData += "</table>";
-                $("#IzmenaShowVozac").html(tableofData);
-            });
-
-            $("#potvrdiIzmenuVozac").click(function () {
-                let adresa = {
-                    Id: `${$('#idadrese2').val()}`,
-                    UlicaIBroj: `${$('#ulicaibroj2').val()}`,
-                    NaseljenoMesto: `${$('#naseljenomesto2').val()}`,
-                    PozivniBroj: `${$('#pozivnibroj2').val()}`
-                };
-
-                let lokacija = {
-                    Id: `${$('#idlokacija2').val()}`,
-                    X: `${$('#x2').val()}`,
-                    Y: `${$('#y2').val()}`,
-                    Adresa: adresa
-                };
-
-                let automobil = {
-                    IdVozaca: dataTmp.Id,
-                    Godiste: `${$('#godiste2').val()}`,
-                    Registracija: `${$('#registracija2').val()}`,
-                    BrojVozila: `${$('#brojvozila2').val()}`,
-                    TipAuta: dataTmp.Automobil.TipAuta
-                };
-
-                let vozac = {
-                    Id: dataTmp.Id,
-                    KorisnickoIme: `${$('#korImeReg2').val()}`,
-                    Lozinka: `${$('#korPassReg2').val()}`,
-                    Ime: `${$('#ime2').val()}`,
-                    Prezime: `${$('#prezime2').val()}`,
-                    Pol: dataTmp.Pol,
-                    JMBG: `${$('#jmbg2').val()}`,
-                    KontaktTelefon: `${$('#brTelefona2').val()}`,
-                    Email: `${$('#email2').val()}`,
-                    Uloga: dataTmp.Uloga,
-                    Lokacija: lokacija,
-                    Automobil: automobil
-                };
-
-                $.ajax({
-                    type: 'PUT',
-                    url: '/api/Vozac/' + automobil.IdVozaca,
-                    data: JSON.stringify(vozac),
-                    contentType: 'application/json; charset=utf-8',
-                    dataType: 'json',
-                    success: function (data) {
-                        if (data) {
-                            alert('Uspesno izmenjen vozac');
-                            localStorage.setItem("logovan", vozac.KorisnickoIme);
-                            $(location).attr('href', 'welcome.html');
-                        }
-                        else {
-                            alert('Neuspesna izmena');
-                        }
-                    }
-                })
-            });
-
-            $("#newOrderBtn").click(function () {
-                $("#PrikaziVoznjeMusterijeDiv").hide();
-                $("#PrikazKorisnikInfo").hide();
-            });
-
-            $("#dodajVoznjuMusterija").click(function () {
-                let adresaDolazak = {
-                    IdAdr: `${$('#idadr').val()}`,
-                    UlicaIBroj: `${$('#ulicaibr').val()}`,
-                    NaseljenoMesto: `${$('#naseljenom').val()}`,
-                    PozivniBroj: `${$('#pozivnibr').val()}`
-                };
-
-                let lokacijaDolazak = {
-                    IdLok: `${$('#idlokdol').val()}`,
-                    X: `${$('#xkoordinata').val()}`,
-                    Y: `${$('#ykoordinata').val()}`,
-                    Adresa: adresaDolazak
-                };
-
-                let voznja = {
-                    Dolazak: lokacijaDolazak,
-                    TipAutaVoznje: `${$('#tipau').val()}`,
-                    MusterijaVoznja: dataTmp.KorisnickoIme,
-                    VozacVoznja: null,
-                    Iznos: 0,
-                    DispecerVoznja: null,
-                    StatusVoznje: `${$('#stat').val()}`
-                };
-
-                $.ajax({
-                    type: 'POST',
-                    url: '/api/Voznja',
-                    data: JSON.stringify(voznja),
-                    contentType: 'application/json; charset=utf-8',
-                    dataType: 'json',
-                    success: function (data) {
-                        if (data) {
-                            alert('Uspesno zakazana voznja');             
-                            $(location).attr('href', 'welcome.html');
-                        } else {
-                            alert('Ovakva porudzbina vec postoji');
-                        }
-                    }
-                })
-            });
-
-            $("#prikaziVoznjeBtn").click(function () {
-                $("#PrikazKorisnikInfo").hide();
-                $("#PrikaziVoznjeMusterijeDiv").show();
-
-                $.get("/api/Voznja", function (data, status) {
-                    let tableForOrders = "<table class=\"table table-bordered\">";
-                    for (voznja in data) {
-                        if (dataTmp.KorisnickoIme == data[voznja].MusterijaVoznja) {
-                            tableForOrders += `<tr><td>${data[voznja].MusterijaVoznja}</td><td>${data[voznja].Iznos}</td></tr>`;
-                        }
-                    }
-                    tableForOrders += "</table>";
-                    $("#PrikaziVoznjeMusterijeShow").html(tableForOrders);
-                });
-            });
-        });
-    </script>
+    <script type="text/javascript" src="/StyleHtml/Scripts/my-script.js"></script>
 </head>
 <body>
     <!-- korisnicki div -->
@@ -488,10 +48,24 @@
         </div>
 
         <!-- show orders div-->
-        <div class="container" id="PrikaziVoznjeMusterijeDiv">
+        <div class="container-fluid" id="PrikaziVoznjeMusterijeDiv">
+            <div id="PrikaziVoznjeMusterijeShow">
+            </div>
+        </div>
+
+        <!-- Izmena voznje -->
+        <div class="container-fluid" id="IzmenaVoznja">
+            <div id="IzmenaVoznjaShow">
+            </div>
+            <button type="button" id="potvrdiIzmenuVoznja" class="btn btn-default">Save</button>
+        </div>
+
+        <!-- Komentar voznje -->
+        <div class="container" id="KomentarVoznja">
             <div class="row">
-                <div class="well well-float" id="PrikaziVoznjeMusterijeShow">
+                <div class="well well-float" id="KomentarVoznjaShow">
                 </div>
+                <button type="button" id="potvrdiKomentar" class="btn btn-default">Save</button>
             </div>
         </div>
 
@@ -565,13 +139,6 @@
                             <select class="form-control" id="tipau" name="TipAutaVoznje">
                                 <option value="1">Kombi</option>
                                 <option>Putnicki</option>
-                            </select>
-                        </div>
-
-                        <div class="form-group">
-                            <label class="control-label">Status voznje</label>
-                            <select class="form-control" id="stat" name="StatusVoznje">
-                                <option value="0">Kreirana</option>
                             </select>
                         </div>
                     </div>

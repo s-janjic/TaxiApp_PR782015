@@ -195,6 +195,7 @@
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Controllers\VozacController.cs" />
     <Compile Include="Controllers\VoznjaController.cs" />
+    <Compile Include="Controllers\VoznjaotkazController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -267,8 +268,11 @@
     <Content Include="StyleHtml\assets\taxi-logo.jpg" />
     <Content Include="StyleHtml\css\bootstrap.css" />
     <Content Include="StyleHtml\css\font-awesome.min.css" />
+    <Content Include="StyleHtml\css\hide-divs.css" />
     <Content Include="StyleHtml\index.html" />
+    <Content Include="StyleHtml\Scripts\index-script.js" />
     <Content Include="StyleHtml\Scripts\jquery-1.12.4.min.js" />
+    <Content Include="StyleHtml\Scripts\my-script.js" />
     <Content Include="StyleHtml\welcome.html" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
