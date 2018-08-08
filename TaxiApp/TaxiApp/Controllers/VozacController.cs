@@ -14,6 +14,11 @@ namespace TaxiApp.Controllers
 		// POST api/Vozac
 		public bool Post([FromBody]Vozac vozac)
 		{
+			if (Vozaci.vozaci == null)
+			{
+				Vozaci.vozaci = new Dictionary<int, Vozac>();
+			}
+
 			foreach (Vozac v in Vozaci.vozaci.Values)
 			{
 				if (v.KorisnickoIme == vozac.KorisnickoIme)
@@ -40,7 +45,6 @@ namespace TaxiApp.Controllers
 
 			string[] idCount = File.ReadAllLines(@"C:\Users\stefan\Desktop\FAX\Web\TaxiApp_PR782015\TaxiApp\TaxiApp\App_Data\Vozaci.txt");
 
-			Vozaci.vozaci = new Dictionary<int, Vozac>();
 			vozac.Id = idCount.Length + 1;
 			vozac.Uloga = Uloge.Vozac;
 			vozac.Automobil.IdVozac = vozac.Id;
@@ -92,6 +96,12 @@ namespace TaxiApp.Controllers
 			}
 
 			File.WriteAllLines(@"C:\Users\stefan\Desktop\FAX\Web\TaxiApp_PR782015\TaxiApp\TaxiApp\App_Data\Vozaci.txt", lines);
+		}
+
+		// GET api/Vozac/1
+		public Dictionary<int, Vozac> Get()
+		{
+			return Vozaci.vozaci;
 		}
 	}
 }

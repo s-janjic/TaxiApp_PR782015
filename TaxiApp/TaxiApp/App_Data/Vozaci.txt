@@ -1,2 +1,8 @@
-521|vozac1|vozac1|dwadwa|dwadwa|M|5215521|3532532|mdwadfwaa@gmail.com|Vozac|34|23|23|23|dwada 4|beograd|78000|31307802|2111|524-Z-355|3432|Putnicki|False
-2|vozac2|vozac2|dwadaw|ddwa|Z|52132154|22112|dwa@dwad.com|Vozac|0|24|552|0|Futoska 5|Novi Sad|21000|2|2015|215-S-251|52|Kombi|False
+1|vozac1|vozac1|dwadwa|dwadwa|M|5215521|3532532|mdwadfwaa@gmail.com|Vozac|34|23|23|23|dwada 4|beograd|78000|31307802|2111|524-Z-355|3432|Putnicki|False
+2|vozac2|vozac2|dwadaw|ddwa|Z|52132154|22112|dwa@dwad.com|Vozac|0|24|552|0|Futoska 5|Novi Sad|21000|2|2015|215-S-251|52|Kombi|True
+3|vozac3|vozac3|dwadwa|dwadwa|M|5215521|3532532|mdwadfwaa@gmail.com|Vozac|34|23|23|23|dwada 4|beograd|78000|31307802|2111|524-Z-355|3432|Putnicki|True
+4|vozac4|vozac4|dwadaw|ddwa|Z|52132154|22112|dwa@dwad.com|Vozac|0|24|552|0|Futoska 5|Novi Sad|21000|2|2015|215-S-251|52|Kombi|False
+5|vozac5|vozac5|dwadwa|dwadwa|M|5215521|3532532|mdwadfwaa@gmail.com|Vozac|34|23|23|23|dwada 4|beograd|78000|31307802|2111|524-Z-355|3432|Putnicki|False
+6|vozac6|vozac6|dwadaw|ddwa|Z|52132154|22112|dwa@dwad.com|Vozac|0|24|552|0|Futoska 5|Novi Sad|21000|2|2015|215-S-251|52|Kombi|True
+7|vozac7|vozac7|dwadwa|dwadwa|M|5215521|3532532|mdwadfwaa@gmail.com|Vozac|34|23|23|23|dwada 4|beograd|78000|31307802|2111|524-Z-355|3432|Putnicki|True
+8|vozac8|vozac8|dwadaw|ddwa|Z|52132154|22112|dwa@dwad.com|Vozac|0|24|552|0|Futoska 5|Novi Sad|21000|2|2015|215-S-251|52|Kombi|True

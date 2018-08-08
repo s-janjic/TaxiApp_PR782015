@@ -2,3 +2,4 @@
 2|8/6/2018 4:08:43 PM|0|22|11|151|bulevar 55|Beograd|11000|Putnicki|user|0|0|0|0|||||0||testKome|1/1/0001 12:00:00 AM|user|2|2|Otkazana
 3|8/8/2018 3:26:20 PM|0|1111|2222|52|Bulevar cara lazara 52|Uzice|31000|Putnicki|user|0|0|0|0|||||0|||1/1/0001 12:00:00 AM||0|0|Kreirana
 4|8/8/2018 4:40:47 PM|242|2521|25213|2521321|dwad 21|uzice|521213|Kombi||0|0|0|0|||||0|disp1||1/1/0001 12:00:00 AM||0|0|Formirana
+5|8/8/2018 6:57:48 PM|1321|52321|42132|132142|ewad w231|dwadw|21421|Kombi||0|0|0|0||||vozac1|0|disp1||1/1/0001 12:00:00 AM||0|0|Formirana

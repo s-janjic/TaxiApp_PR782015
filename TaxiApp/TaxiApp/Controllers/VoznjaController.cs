@@ -36,6 +36,14 @@ namespace TaxiApp.Controllers
 				else if (voznja.DispecerVoznja != null)
 				{
 					voznja.StatusVoznje = StatusVoznje.Formirana;
+					foreach (Vozac vo in Vozaci.vozaci.Values)
+					{
+						if (vo.KorisnickoIme == voznja.VozacVoznja)
+						{
+							vo.Zauzet = true;
+							UpisIzmenaTxtVozac(vo);
+						}
+					}
 				}
 				else
 				{
@@ -155,6 +163,21 @@ namespace TaxiApp.Controllers
 			}
 
 			File.WriteAllLines(@"C:\Users\stefan\Desktop\FAX\Web\TaxiApp_PR782015\TaxiApp\TaxiApp\App_Data\Voznje.txt", lines);
+		}
+
+		private void UpisIzmenaTxtVozac(Vozac vozac)
+		{
+			string[] lines = System.IO.File.ReadAllLines(@"C:\Users\stefan\Desktop\FAX\Web\TaxiApp_PR782015\TaxiApp\TaxiApp\App_Data\Vozaci.txt");
+			string allString = "";
+			for (int i = 0; i < lines.Length; i++)
+			{
+				if (lines[i].Split('|')[0].Equals(vozac.Id.ToString()))
+				{
+					allString += vozac.Id.ToString() + '|' + vozac.KorisnickoIme + '|' + vozac.Lozinka + '|' + vozac.Ime + '|' + vozac.Prezime + '|' + vozac.Pol + '|' + vozac.JMBG + '|' + vozac.KontaktTelefon + '|' + vozac.Email + '|' + vozac.Uloga + '|' + vozac.Lokacija.IdLok.ToString() + '|' + vozac.Lokacija.X.ToString() + '|' + vozac.Lokacija.Y.ToString() + '|' + vozac.Lokacija.Adresa.IdAdr.ToString() + '|' + vozac.Lokacija.Adresa.UlicaIBroj + '|' + vozac.Lokacija.Adresa.NaseljenoMesto + '|' + vozac.Lokacija.Adresa.PozivniBroj + '|' + vozac.Automobil.IdVozac.ToString() + '|' + vozac.Automobil.Godiste + '|' + vozac.Automobil.Registracija + '|' + vozac.Automobil.BrojVozila.ToString() + '|' + vozac.Automobil.TipAuta + '|' + vozac.Zauzet.ToString();
+					lines[i] = allString;
+				}
+			}
+			System.IO.File.WriteAllLines(@"C:\Users\stefan\Desktop\FAX\Web\TaxiApp_PR782015\TaxiApp\TaxiApp\App_Data\Vozaci.txt", lines);
 		}
 	}
 }

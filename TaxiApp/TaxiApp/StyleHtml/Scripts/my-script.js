@@ -12,7 +12,6 @@
             dataTmp = data;
             usernameKor = `${dataTmp.KorisnickoIme}`;
             if (data != null) {
-                alert('Uspesno slanje.');
                 if (data.Uloga == 2) {   // dispecer login
                     $("#dispecerDiv").show();
                     $("#IzmeniDispecera").hide();
@@ -21,6 +20,8 @@
                     $("#usernameDispecera").show();
                     $("#usernameDispecera").html(usernameKor);
                     $("#PrikazKorisnikInfoDisp").hide();
+                    $("#PrikaziVoznjeDispecer").hide();
+                    $("#PrikaziVoznjeDispecerSve").hide();
                     if (data.Pol == 0) // musko
                     {
                         polShow = "Musko";
@@ -106,6 +107,8 @@
 
     $("#showInfoDisp").click(function () {
         $("#PrikazKorisnikInfoDisp").show();
+        $("#PrikaziVoznjeDispecer").hide();
+        $("#PrikaziVoznjeDispecerSve").hide();
 
         let tableofData = "<table class=\"table table-bordered\">";
         tableofData += `<tr><td>ID</td><td>${dataTmp.Id}</td></tr>`;
@@ -203,6 +206,7 @@
 
     $("#izmeniKorisnikDisp").click(function () {
         $("#PrikazKorisnikInfoDisp").hide();
+        $("#PrikaziVoznjeDispecer").hide();
 
         let tableofData = "<table class=\"table table-bordered\">";
         tableofData += "<tr><td>Korisnicko ime</td><td><input class=\"form-control\" id=\"korImeReg\" type=\"text\" name=\"KorisnickoIme\" value=\"" + dataTmp.KorisnickoIme + "\" disabled /></td></tr>";
@@ -439,7 +443,6 @@
 
         let voznja = {
             Dolazak: lokacijaDolazak,
-            //TipAutaVoznje: `${$('#tipau').val()}`,
             MusterijaVoznja: dataTmp.KorisnickoIme,
             VozacVoznja: null,
             Iznos: 0,
@@ -552,7 +555,36 @@
         $("#PrikazKorisnikInfoDisp").hide();
     });
 
-    $("#dodajVoznjuDispecer").click(function () {
+    $("#dodajVoznjuDispecer").click(function () {    // za dispecera
+        $.get("/api/Vozac", function (data, status) {
+            let pom = `${$('#tipauDisp').val()}`
+            let pom1;
+            let cntr = 0; // broj slobodnih vozaca
+            if (pom == "Kombi") {
+                pom1 = 1;
+            } else {
+                pom1 = 0;
+            }
+            let table = "<div class=\"form-group\"><label class=\"control-label\">Izaberi vozaca</label><select class=\"form-control\" id=\"vozac\" name=\"VozacVoznja\">";
+            for (driver in data) {
+                if (data[driver].Automobil.TipAuta == pom1 && data[driver].Zauzet == false) {
+                    table += "<option>" + data[driver].KorisnickoIme + "</option>";
+                    cntr++;
+                }
+            }
+            table += "</select><button class=\"btn btn-xs btn-primary\" id=\"dodajVoznjuDispecer2\" type=\"button\"><b>Dodaj voznju</b></button></div>";
+            if (cntr == 0) { // ako nema slobodnih vozaca
+                alert('Nema slobodnih vozaca');
+                $(location).attr('href', 'welcome.html');
+            } else {
+                $("#DodavanjeVoznjeDispecer").append(table);
+                document.getElementById("tipauDisp").disabled = true;
+                document.getElementById("dodajVoznjuDispecer").disabled = true;
+            }
+        });
+    });
+
+    $(document).on('click', '#dodajVoznjuDispecer2', function () {
         let adresaDolazak = {
             IdAdr: `${$('#idadrDisp').val()}`,
             UlicaIBroj: `${$('#ulicaibrDisp').val()}`,
@@ -571,7 +603,7 @@
             Dolazak: lokacijaDolazak,
             TipAutaVoznje: `${$('#tipauDisp').val()}`,
             MusterijaVoznja: null,
-            VozacVoznja: null,
+            VozacVoznja: `${$('#vozac').val()}`,
             Iznos: 0,
             DispecerVoznja: dataTmp.KorisnickoIme,
         };

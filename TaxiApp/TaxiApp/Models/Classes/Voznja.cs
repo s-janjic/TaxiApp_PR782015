@@ -32,14 +32,7 @@ namespace TaxiApp.Models.Classes
 			this.IdVoznje = idvoznje;
 			this.DTPorudzbine = datumporudzbine;
 			this.Dolazak = dolazak;
-			if (tipoviAutomobila.ToString().Equals("Kombi"))
-			{
-				this.TipAutaVoznje = TipoviAutomobila.Kombi;
-			}
-			else
-			{
-				this.TipAutaVoznje = TipoviAutomobila.Putnicki;
-			}
+			this.TipAutaVoznje = tipoviAutomobila;
 			this.MusterijaVoznja = musterija;
 			this.Odrediste = odrediste;
 			this.DispecerVoznja = dispecer;

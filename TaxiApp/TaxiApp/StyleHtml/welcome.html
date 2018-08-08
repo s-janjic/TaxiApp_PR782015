@@ -155,7 +155,7 @@
     <!-- div za dispecere -->
     <div class="container" id="dispecerDiv">
         <div class="row">
-            <div class="col-md-8 col-md-offset-2">
+            <div class="col-md-9 col-md-offset-2">
                 <div class="well">
                     <h3 align="center">
                         <span>
@@ -166,6 +166,8 @@
                             <button type="button" class="btn btn-warning" id="showInfoDisp">Show info</button>
                             <button type="button" class="btn btn-info" data-toggle="modal" data-target="#addDriver" id="dodajVozaca">Add new driver</button>
                             <button type="button" class="btn btn-info" data-toggle="modal" data-target="#addRidesModalDisp" id="dodajVoznjuDisp">New order</button>
+                            <button type="button" class="btn btn-primary" id="prikaziVoznjeDisp">Show my orders</button>
+                            <button type="button" class="btn btn-primary" id="prikaziVoznjeSve">Show all orders</button>
                         </span>
                     </h3>
                 </div>
@@ -176,6 +178,22 @@
         <div class="container" id="PrikazKorisnikInfoDisp">
             <div class="row">
                 <div class="well well-float" id="PrikazKorisnikInfoShowDisp">
+                </div>
+            </div>
+        </div>
+
+        <!-- show my orders disp div-->
+        <div class="container" id="PrikaziVoznjeDispecer">
+            <div class="row">
+                <div class="well well-float" id="PrikaziVoznjeDispecerShow">
+                </div>
+            </div>
+        </div>
+
+        <!-- show all orders disp div-->
+        <div class="container" id="PrikaziVoznjeDispecerSve">
+            <div class="row">
+                <div class="well well-float" id="PrikaziVoznjeDispecerSveShow">
                 </div>
             </div>
         </div>
@@ -367,7 +385,7 @@
                         <div class="form-group">
                             <label class="control-label">Tip auta voznje</label>
                             <select class="form-control" id="tipauDisp" name="TipAutaVoznje">
-                                <option value="1">Kombi</option>
+                                <option>Kombi</option>
                                 <option>Putnicki</option>
                             </select>
                         </div>
@@ -375,7 +393,7 @@
 
                     <div class="modal-footer">
                         <a href="" class="btn btn-default" data-dismiss="modal">Close</a>
-                        <button type="submit" class="btn btn-success" id="dodajVoznjuDispecer">Submit</button>
+                        <button type="submit" class="btn btn-success" id="dodajVoznjuDispecer">Next</button>
                     </div>
                 </div>
             </div>
