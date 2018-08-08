@@ -165,6 +165,7 @@
                             <button type="button" class="btn btn-success" data-toggle="modal" data-target="#editModalDisp" id="izmeniKorisnikDisp">Edit info</button>
                             <button type="button" class="btn btn-warning" id="showInfoDisp">Show info</button>
                             <button type="button" class="btn btn-info" data-toggle="modal" data-target="#addDriver" id="dodajVozaca">Add new driver</button>
+                            <button type="button" class="btn btn-info" data-toggle="modal" data-target="#addRidesModalDisp" id="dodajVoznjuDisp">New order</button>
                         </span>
                     </h3>
                 </div>
@@ -314,6 +315,67 @@
                     <div class="modal-footer">
                         <a href="" class="btn btn-default" data-dismiss="modal">Close</a>
                         <button type="submit" class="btn btn-success" id="addVozac">Add driver</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- dodavanje voznje disp modal -->
+        <div class="modal fade" id="addRidesModalDisp">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h3 class="modal-title">Add new order</h3>
+                    </div>
+                    <div class="modal-body" id="DodavanjeVoznjeDispecer">
+                        <div class="form-group">
+                            <label class="control-label">ID lokacije dolaska</label>
+                            <input type="text" class="form-control" id="idlokdolDisp" name="IdLok" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label">X lokacije dolaska</label>
+                            <input type="text" class="form-control" id="xkoordinataDisp" name="X" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label">Y lokacije dolaska</label>
+                            <input type="text" class="form-control" id="ykoordinataDisp" name="Y" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label">IdAdr lokacije dolaska</label>
+                            <input type="text" class="form-control" id="idadrDisp" name="IdAdr" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label">Ulica i broj dolaska</label>
+                            <input type="text" class="form-control" id="ulicaibrDisp" name="UlicaIBroj" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label">Naseljeno mesto dolaska</label>
+                            <input type="text" class="form-control" id="naseljenomDisp" name="NaseljenoMesto" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label">Pozivni broj mesta dolaska</label>
+                            <input type="text" class="form-control" id="pozivnibrDisp" name="PozivniBroj" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label">Tip auta voznje</label>
+                            <select class="form-control" id="tipauDisp" name="TipAutaVoznje">
+                                <option value="1">Kombi</option>
+                                <option>Putnicki</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <a href="" class="btn btn-default" data-dismiss="modal">Close</a>
+                        <button type="submit" class="btn btn-success" id="dodajVoznjuDispecer">Submit</button>
                     </div>
                 </div>
             </div>

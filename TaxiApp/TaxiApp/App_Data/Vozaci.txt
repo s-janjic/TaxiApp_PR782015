@@ -1,2 +1,2 @@
-1|vozac1|vozac1|ddawdaw|wadawdadw|M|52115252|521521|wdawd@dwa.com|Vozac|222|50|60|666|bulevar 5|novi sad|21000|0|2006|5125215|9|Putnicki
-2|vozac2|vozac2|Vozaaccc22|Vozzzzzzzz|M|2421421|421421|dwad@dwda.com|Vozac|0|4521|421|0|dwadwa 421|dwa dwa|421321|0|2004|124414|421421|Kombi
+521|vozac1|vozac1|dwadwa|dwadwa|M|5215521|3532532|mdwadfwaa@gmail.com|Vozac|34|23|23|23|dwada 4|beograd|78000|31307802|2111|524-Z-355|3432|Putnicki|False
+2|vozac2|vozac2|dwadaw|ddwa|Z|52132154|22112|dwa@dwad.com|Vozac|0|24|552|0|Futoska 5|Novi Sad|21000|2|2015|215-S-251|52|Kombi|False

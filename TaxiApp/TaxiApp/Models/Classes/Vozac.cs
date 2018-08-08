@@ -13,8 +13,9 @@ namespace TaxiApp.Models.Classes
 
 		public Lokacija Lokacija { get; set; }
 		public Automobil Automobil { get; set; }
+		public bool Zauzet { get; set; }
 
-		public Vozac(int id, string k, string l, string ime, string p, Polovi po, string jmbg, string kont, string email, Uloge ul, Lokacija lokacija, Automobil automobil)
+		public Vozac(int id, string k, string l, string ime, string p, Polovi po, string jmbg, string kont, string email, Uloge ul, Lokacija lokacija, Automobil automobil, bool zauzet)
 		{
 			this.Id = id;
 			this.KorisnickoIme = k;
@@ -48,6 +49,7 @@ namespace TaxiApp.Models.Classes
 
 			this.Lokacija = lokacija;
 			this.Automobil = automobil;
+			this.Zauzet = zauzet;
 		}
 	}
 }

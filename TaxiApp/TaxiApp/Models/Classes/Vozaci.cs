@@ -50,7 +50,6 @@ namespace TaxiApp.Models.Classes
 					uloga = Uloge.Vozac;
 				}
 
-				// TODO: store lokacija
 				if (tokens[21].Equals("Putnicki"))
 				{
 					tipAuta = TipoviAutomobila.Putnicki;
@@ -64,7 +63,7 @@ namespace TaxiApp.Models.Classes
 				lokacija = new Lokacija(Int32.Parse(tokens[10]), Double.Parse(tokens[11]), Double.Parse(tokens[12]), adresa);
 				automobil = new Automobil(Int32.Parse(tokens[17]), Int32.Parse(tokens[18]), tokens[19], Int32.Parse(tokens[20]), tipAuta);
 
-				Vozac v = new Vozac(Int32.Parse(tokens[0]), tokens[1], tokens[2], tokens[3], tokens[4], pol, tokens[6], tokens[7], tokens[8], uloga, lokacija, automobil);
+				Vozac v = new Vozac(Int32.Parse(tokens[0]), tokens[1], tokens[2], tokens[3], tokens[4], pol, tokens[6], tokens[7], tokens[8], uloga, lokacija, automobil, bool.Parse(tokens[22]));
 				vozaci.Add(v.Id, v);
 			}
 

@@ -1,2 +1,4 @@
 1|8/6/2018 4:02:19 PM|111|45|46|101|Futoska 5|Novi Sad|21000|Kombi|user|0|0|0|0|||||0||commentTest 222|1/1/0001 12:00:00 AM|user|1|2|Otkazana
 2|8/6/2018 4:08:43 PM|0|22|11|151|bulevar 55|Beograd|11000|Putnicki|user|0|0|0|0|||||0||testKome|1/1/0001 12:00:00 AM|user|2|2|Otkazana
+3|8/8/2018 3:26:20 PM|0|1111|2222|52|Bulevar cara lazara 52|Uzice|31000|Putnicki|user|0|0|0|0|||||0|||1/1/0001 12:00:00 AM||0|0|Kreirana
+4|8/8/2018 4:40:47 PM|242|2521|25213|2521321|dwad 21|uzice|521213|Kombi||0|0|0|0|||||0|disp1||1/1/0001 12:00:00 AM||0|0|Formirana
