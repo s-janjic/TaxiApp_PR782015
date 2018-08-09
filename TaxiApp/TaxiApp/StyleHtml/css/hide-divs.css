@@ -9,3 +9,34 @@
 #vozacDiv {
     display: none;
 }
+
+tr.Kreirana {
+    background-color: #f0edbb;
+}
+
+tr.Otkazana {
+    background-color: #ea6254;
+    color: #fff;
+}
+
+tr.Formirana {
+    background-color: #f0edbb;
+}
+
+tr.Utoku {
+    background-color: #ece655;
+}
+
+tr.Uspesna {
+    background-color: #1bb99a;
+    color: #fff;
+}
+
+tr.Neuspesna {
+    background-color: #cf6b44;
+    color: #fff;
+}
+
+tr.Prihvacena {
+    background-color: #f0edbb;
+}
