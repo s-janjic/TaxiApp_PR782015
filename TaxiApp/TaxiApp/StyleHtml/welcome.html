@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-    <title>Taxi Application</title>
+    <title>Taksi Aplikacija</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" href="/StyleHtml/css/bootstrap.css" />
     <link rel="stylesheet" type="text/css" href="/StyleHtml/css/font-awesome.min.css">
@@ -26,13 +26,13 @@
                 <div class="well">
                     <h3 align="center">
                         <span>
-                            Hello, <span id="usernameKorisnika"></span> <br /> <br />
+                            Korisnik: <span id="usernameKorisnika"></span> <br /> <br />
                         </span>
                         <span>
-                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#newOrderModal" id="newOrderBtn">New order</button>
-                            <button type="button" class="btn btn-primary" id="prikaziVoznjeBtn">Show orders</button>
-                            <button type="button" class="btn btn-success" data-toggle="modal" data-target="#editModal" id="izmeniKorisnik">Edit info</button>
-                            <button type="button" class="btn btn-warning" id="showInfo">Show info</button>
+                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#newOrderModal" id="newOrderBtn">Zakazi voznju</button>
+                            <button type="button" class="btn btn-primary" id="prikaziVoznjeBtn">Prikazi moje voznje</button>
+                            <button type="button" class="btn btn-success" data-toggle="modal" data-target="#editModal" id="izmeniKorisnik">Izmeni podatke</button>
+                            <button type="button" class="btn btn-warning" id="showInfo">Prikazi podatke</button>
                         </span>
                     </h3>
                 </div>
@@ -76,15 +76,15 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <h3 class="modal-title">Edit user info</h3>
+                        <h3 class="modal-title">Izmeni svoje podatke</h3>
                     </div>
                     <div class="modal-body" id="IzmenaShow">
 
                     </div>
 
                     <div class="modal-footer">
-                        <a href="" class="btn btn-default" data-dismiss="modal">Close</a>
-                        <button type="submit" class="btn btn-success" id="potvrdiIzmenu">Apply changes</button>
+                        <a href="" class="btn btn-default" data-dismiss="modal">Izadji</a>
+                        <button type="submit" class="btn btn-success" id="potvrdiIzmenu">Sacuvaj izmene</button>
                     </div>
                 </div>
             </div>
@@ -96,7 +96,7 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <h3 class="modal-title">New order</h3>
+                        <h3 class="modal-title">Nova voznja</h3>
                     </div>
                     <div class="modal-body" id="DodavanjeNoveVoznje">
                         <div class="form-group">
@@ -144,8 +144,8 @@
                     </div>
 
                     <div class="modal-footer">
-                        <a href="" class="btn btn-default" data-dismiss="modal">Close</a>
-                        <button type="submit" class="btn btn-success" id="dodajVoznjuMusterija">Submit</button>
+                        <a href="" class="btn btn-default" data-dismiss="modal">Izadji</a>
+                        <button type="submit" class="btn btn-success" id="dodajVoznjuMusterija">Potvrdi voznju</button>
                     </div>
                 </div>
             </div>
@@ -155,19 +155,19 @@
     <!-- div za dispecere -->
     <div class="container" id="dispecerDiv">
         <div class="row">
-            <div class="col-md-9 col-md-offset-2">
+            <div class="col-md-10 col-md-offset-1">
                 <div class="well">
                     <h3 align="center">
                         <span>
-                            DISPECER: <span id="usernameDispecera"></span> <br /> <br />
+                            Dispecer: <span id="usernameDispecera"></span> <br /> <br />
                         </span>
                         <span>
-                            <button type="button" class="btn btn-success" data-toggle="modal" data-target="#editModalDisp" id="izmeniKorisnikDisp">Edit info</button>
-                            <button type="button" class="btn btn-warning" id="showInfoDisp">Show info</button>
-                            <button type="button" class="btn btn-info" data-toggle="modal" data-target="#addDriver" id="dodajVozaca">Add new driver</button>
-                            <button type="button" class="btn btn-info" data-toggle="modal" data-target="#addRidesModalDisp" id="dodajVoznjuDisp">New order</button>
-                            <button type="button" class="btn btn-primary" id="prikaziVoznjeDisp">Show my orders</button>
-                            <button type="button" class="btn btn-primary" id="prikaziVoznjeSve">Show all orders</button>
+                            <button type="button" class="btn btn-success" data-toggle="modal" data-target="#editModalDisp" id="izmeniKorisnikDisp">Izmeni podatke</button>
+                            <button type="button" class="btn btn-warning" id="showInfoDisp">Prikazi podatke</button>
+                            <button type="button" class="btn btn-info" data-toggle="modal" data-target="#addDriver" id="dodajVozaca">Dodaj vozaca</button>
+                            <button type="button" class="btn btn-info" data-toggle="modal" data-target="#addRidesModalDisp" id="dodajVoznjuDisp">Zakazi voznju</button>
+                            <button type="button" class="btn btn-primary" id="prikaziVoznjeDisp">Prikazi moje voznje</button>
+                            <button type="button" class="btn btn-primary" id="prikaziVoznjeSve">Prikazi sve voznje</button>
                         </span>
                     </h3>
                 </div>
@@ -196,7 +196,7 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <h3 class="modal-title">Edit dispecer info</h3>
+                        <h3 class="modal-title">Dodeli vozaca</h3>
                     </div>
                     <div class="modal-body" id="DodajVozacaDispecerShow">
 
@@ -220,15 +220,15 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <h3 class="modal-title">Edit dispecer info</h3>
+                        <h3 class="modal-title">Izmeni svoje podatke</h3>
                     </div>
                     <div class="modal-body" id="IzmenaShowDisp">
 
                     </div>
 
                     <div class="modal-footer">
-                        <a href="" class="btn btn-default" data-dismiss="modal">Close</a>
-                        <button type="submit" class="btn btn-success" id="potvrdiIzmenuDisp">Apply changes</button>
+                        <a href="" class="btn btn-default" data-dismiss="modal">Izadji</a>
+                        <button type="submit" class="btn btn-success" id="potvrdiIzmenuDisp">Sacuvaj izmene</button>
                     </div>
                 </div>
             </div>
@@ -240,31 +240,31 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <h3 class="modal-title">Add new driver</h3>
+                        <h3 class="modal-title">Dodaj vozaca</h3>
                     </div>
                     <div class="modal-body" id="DodavanjeVozaca">
                         <div class="form-group">
-                            <label class="control-label">Username</label>
+                            <label class="control-label">Korisnicko ime</label>
                             <input type="text" class="form-control" id="korImeRegVoz" name="KorisnickoIme">
                         </div>
 
                         <div class="form-group">
-                            <label class="control-label">Password</label>
+                            <label class="control-label">Lozinka</label>
                             <input type="password" class="form-control" id="korPassRegVoz" name="Lozinka">
                         </div>
 
                         <div class="form-group">
-                            <label class="control-label">Name</label>
+                            <label class="control-label">Ime</label>
                             <input type="text" class="form-control" id="imeVoz" name="Ime">
                         </div>
 
                         <div class="form-group">
-                            <label class="control-label">Surname</label>
+                            <label class="control-label">Prezime</label>
                             <input type="text" class="form-control" id="prezimeVoz" name="Prezime">
                         </div>
 
                         <div class="form-group">
-                            <label class="control-label">Gender</label>
+                            <label class="control-label">Pol</label>
                             <select class="form-control" id="polVoz" name="Pol">
                                 <option value="M">M</option>
                                 <option value="Z">Z</option>
@@ -277,7 +277,7 @@
                         </div>
 
                         <div class="form-group">
-                            <label class="control-label">Phone</label>
+                            <label class="control-label">Broj telefona</label>
                             <input type="text" class="form-control" id="brTelefonaVoz" name="KontaktTelefon">
                         </div>
 
@@ -287,22 +287,22 @@
                         </div>
 
                         <div class="form-group">
-                            <label class="control-label">Year of car</label>
+                            <label class="control-label">Godiste auta</label>
                             <input type="text" class="form-control" id="godiste" name="Godiste">
                         </div>
 
                         <div class="form-group">
-                            <label class="control-label">Registration num</label>
+                            <label class="control-label">Broj registracije auta</label>
                             <input type="text" class="form-control" id="registracija" name="Registracija">
                         </div>
 
                         <div class="form-group">
-                            <label class="control-label">Car number</label>
+                            <label class="control-label">Broj auta</label>
                             <input type="text" class="form-control" id="brojvozila" name="BrojVozila">
                         </div>
 
                         <div class="form-group">
-                            <label class="control-label">Type of car</label>
+                            <label class="control-label">Tip auta</label>
                             <select class="form-control" id="tipauta" name="TipAuta">
                                 <option value="Putnicki">Putnicki</option>
                                 <option value="Kombi">Kombi</option>
@@ -310,44 +310,44 @@
                         </div>
 
                         <div class="form-group">
-                            <label class="control-label">ID location</label>
+                            <label class="control-label">ID lokacije</label>
                             <input type="text" class="form-control" id="idlokacije" name="Id">
                         </div>
 
                         <div class="form-group">
-                            <label class="control-label">X coordinates</label>
+                            <label class="control-label">X koordinata</label>
                             <input type="text" class="form-control" id="x" name="X">
                         </div>
 
                         <div class="form-group">
-                            <label class="control-label">Y coordinates</label>
+                            <label class="control-label">Y koordinata</label>
                             <input type="text" class="form-control" id="y" name="Y">
                         </div>
 
                         <div class="form-group">
-                            <label class="control-label">Address ID</label>
+                            <label class="control-label">ID Adrese</label>
                             <input type="text" class="form-control" id="idadrese" name="Id">
                         </div>
 
                         <div class="form-group">
-                            <label class="control-label">Street and number</label>
+                            <label class="control-label">Ulica i broj</label>
                             <input type="text" class="form-control" id="ulicaibroj" name="UlicaIBroj">
                         </div>
 
                         <div class="form-group">
-                            <label class="control-label">City</label>
+                            <label class="control-label">Grad</label>
                             <input type="text" class="form-control" id="naseljenomesto" name="NaseljenoMesto">
                         </div>
 
                         <div class="form-group">
-                            <label class="control-label">Zip code</label>
+                            <label class="control-label">Postanski broj</label>
                             <input type="text" class="form-control" id="pozivnibroj" name="PozivniBroj">
                         </div>
                     </div>
 
                     <div class="modal-footer">
-                        <a href="" class="btn btn-default" data-dismiss="modal">Close</a>
-                        <button type="submit" class="btn btn-success" id="addVozac">Add driver</button>
+                        <a href="" class="btn btn-default" data-dismiss="modal">Izadji</a>
+                        <button type="submit" class="btn btn-success" id="addVozac">Dodaj vozaca</button>
                     </div>
                 </div>
             </div>
@@ -359,7 +359,7 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <h3 class="modal-title">Add new order</h3>
+                        <h3 class="modal-title">Dodaj voznju</h3>
                     </div>
                     <div class="modal-body" id="DodavanjeVoznjeDispecer">
                         <div class="form-group">
@@ -407,8 +407,8 @@
                     </div>
 
                     <div class="modal-footer">
-                        <a href="" class="btn btn-default" data-dismiss="modal">Close</a>
-                        <button type="submit" class="btn btn-success" id="dodajVoznjuDispecer">Next</button>
+                        <a href="" class="btn btn-default" data-dismiss="modal">Izadji</a>
+                        <button type="submit" class="btn btn-success" id="dodajVoznjuDispecer">Potvrdi</button>
                     </div>
                 </div>
             </div>
@@ -422,11 +422,11 @@
                 <div class="well">
                     <h3 align="center">
                         <span>
-                            VOZAC: <span id="usernameVozaca"></span> <br /> <br />
+                            Vozac: <span id="usernameVozaca"></span> <br /> <br />
                         </span>
                         <span>
-                            <button type="button" class="btn btn-success" data-toggle="modal" data-target="#editVozacModal" id="izmeniVozac">Edit info</button>
-                            <button type="button" class="btn btn-warning" id="showInfoVozac">Show info</button>
+                            <button type="button" class="btn btn-success" data-toggle="modal" data-target="#editVozacModal" id="izmeniVozac">Izmeni podatke</button>
+                            <button type="button" class="btn btn-warning" id="showInfoVozac">Prikazi podatke</button>
                         </span>
                     </h3>
                 </div>
@@ -448,15 +448,15 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <h3 class="modal-title">Edit driver info</h3>
+                        <h3 class="modal-title">Izmeni podatke</h3>
                     </div>
                     <div class="modal-body" id="IzmenaShowVozac">
 
                     </div>
 
                     <div class="modal-footer">
-                        <a href="" class="btn btn-default" data-dismiss="modal">Close</a>
-                        <button type="submit" class="btn btn-success" id="potvrdiIzmenuVozac">Apply changes</button>
+                        <a href="" class="btn btn-default" data-dismiss="modal">Izadji</a>
+                        <button type="submit" class="btn btn-success" id="potvrdiIzmenuVozac">Sacuvaj izmene</button>
                     </div>
                 </div>
             </div>

@@ -324,7 +324,11 @@
         tableofData += `<tr><td>Pol</td><td>${polShow}</td></tr>`;
         tableofData += `<tr><td>Kontakt telefon</td><td>${dataTmp.KontaktTelefon}</td></tr>`;
         tableofData += `<tr><td>Email</td><td>${dataTmp.Email}</td></tr>`;
-        tableofData += `<tr><td>Zauzet</td><td>${dataTmp.Zauzet}</td></tr>`;
+        if (dataTmp.Zauzet) { // ako je true = zauzet
+            tableofData += `<tr><td>Zauzet</td><td>Zauzet</td></tr>`;
+        } else {
+            tableofData += `<tr><td>Zauzet</td><td>Slobodan</td></tr>`;
+        }
         tableofData += `<tr><td>ID Lokacije</td><td>${dataTmp.Lokacija.IdLok}</td></tr>`;
         tableofData += `<tr><td>X</td><td>${dataTmp.Lokacija.X}</td></tr>`;
         tableofData += `<tr><td>Y</td><td>${dataTmp.Lokacija.Y}</td></tr>`;
@@ -634,7 +638,7 @@
 
         $.get("/api/Voznja", function (data, status) {
             let tableForOrders = "<table class=\"table table-bordered\">";
-            tableForOrders += `<thead><tr><th>Username</th><th>Created</th><th>Street</th><th>City</th><th>Zip code</th><th>Status</th><th>Comment</th><th>Rating</th><th>Comment posted</th><th>Actions</th></tr></thead>`;
+            tableForOrders += `<thead><tr><th>Korisnik</th><th>Vreme porudzbine</th><th>Ulica</th><th>Grad</th><th>Postanski broj</th><th>Status</th><th>Komentar</th><th>Rating</th><th>Vreme kom.</th><th></th></tr></thead>`;
             for (voznja in data) {
                 if (dataTmp.KorisnickoIme == data[voznja].MusterijaVoznja) { 
                    if (data[voznja].StatusVoznje == 0) {
@@ -682,7 +686,7 @@
 
         $.get("/api/Voznja", function (data, status) {
             let tableForOrders = "<table class=\"table table-bordered\">";
-            tableForOrders += `<thead><tr><th>Date</th><th>Street</th><th>City</th><th>Zip code</th><th>Status</th><th>Comment by</th><th>Comment</th><th>Rating</th><th>Comment date</th></tr></thead>`;
+            tableForOrders += `<thead><tr><th>Datum por.</th><th>Ulica</th><th>Grad</th><th>Postanski br.</th><th>Status</th><th>Komentar od</th><th>Komentar</th><th>Ocena</th><th>Datum kom.</th></tr></thead>`;
             for (voznja in data) {
                 if (dataTmp.KorisnickoIme == data[voznja].DispecerVoznja) {
                     if (data[voznja].StatusVoznje == 0) {
@@ -801,7 +805,7 @@
                 }
 
             }
-            table += "</select></td></tr></table><button class=\"btn btn-primary\" id=\"dispecerDodajVozaca2\" type=\"button\"><b>Dodaj voznju</b></button>";
+            table += "</select></td></tr></table><button class=\"btn btn-primary\" id=\"dispecerDodajVozaca2\" type=\"button\"><b>Potvrdi</b></button>";
 
             if (koliko == 0) {
                 alert('Trenutno nema slobodnih vozača sa traženim automobilom.');

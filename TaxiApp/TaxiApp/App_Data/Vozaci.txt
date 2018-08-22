@@ -1,1 +1,2 @@
 1|vozac5|vozac5|dwadwa|dwadwa|M|5215521|3532532|mdwadfwaa@gmail.com|Vozac|34|23|23|23|dwada 4|beograd|78000|31307802|2111|524-Z-355|3432|Putnicki|True
+2|vozac1|vozac1|vozac|dwadwa|M|5212313213|1421321|dwadw@dwadwa.com|Vozac|0|55|55|0|Modena 5|Novi Sad|21000|2|2002|NS-241-SC|627|Kombi|False

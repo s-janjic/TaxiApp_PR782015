@@ -11,7 +11,7 @@ namespace TaxiApp.Models.Classes
 		public static Dictionary<int, Vozac> vozaci { get; set; } = new Dictionary<int, Vozac>();
 
 		public Vozaci() { }
-
+		
 		public Vozaci(string path)
 		{
 			FileStream stream = new FileStream(path, FileMode.Open);
