@@ -57,7 +57,7 @@
         <div class="container-fluid" id="IzmenaVoznja">
             <div id="IzmenaVoznjaShow">
             </div>
-            <button type="button" id="potvrdiIzmenuVoznja" class="btn btn-default">Save</button>
+            <button type="button" id="potvrdiIzmenuVoznja" class="btn btn-default">Sacuvaj izmenu</button>
         </div>
 
         <!-- Komentar voznje -->
@@ -65,9 +65,11 @@
             <div class="row">
                 <div class="well well-float" id="KomentarVoznjaShow">
                 </div>
-                <button type="button" id="potvrdiKomentar" class="btn btn-default">Save</button>
+                <button type="button" id="potvrdiKomentar" class="btn btn-default">Postavi komentar</button>
             </div>
         </div>
+
+
 
         <!-- edit info -->
         <!-- edit modal -->
@@ -427,6 +429,8 @@
                         <span>
                             <button type="button" class="btn btn-success" data-toggle="modal" data-target="#editVozacModal" id="izmeniVozac">Izmeni podatke</button>
                             <button type="button" class="btn btn-warning" id="showInfoVozac">Prikazi podatke</button>
+                            <button type="button" class="btn btn-warning" id="prikaziVoznjeVozac">Prikazi moje voznje</button>
+                            <button type="button" class="btn btn-warning" id="prikaziSlobodneVoznje">Prikazi slobodne voznje</button>
                         </span>
                     </h3>
                 </div>
@@ -438,6 +442,20 @@
             <div class="row">
                 <div class="well well-float" id="PrikazVozacInfoShow">
                 </div>
+            </div>
+        </div>
+
+        <!-- prikaz voznji vozaca -->
+        <div class="container" id="PrikaziVoznjeVozac">
+            <div class="row">
+                <div class="well well-float" id="PrikaziVoznjeVozacShow"></div>
+            </div>
+        </div>
+
+        <!-- prikazi slobodne voznje -->
+        <div class="container" id="PrikaziKreiraneVoznjeVozac">
+            <div class="row">
+                <div class="well well-float" id="PrikaziKreiraneVoznjeVozacShow"></div>
             </div>
         </div>
 

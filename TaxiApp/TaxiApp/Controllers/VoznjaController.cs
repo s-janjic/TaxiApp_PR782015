@@ -17,23 +17,24 @@ namespace TaxiApp.Controllers
 		{
 			if (Voznje.voznje != null)
 			{
-				foreach (Voznja kor in Voznje.voznje.Values)
-				{
-					if (kor.Dolazak.Adresa.UlicaIBroj == voznja.Dolazak.Adresa.UlicaIBroj)
-					{
-						return false;
-					}
-				}
+				//foreach (Voznja kor in Voznje.voznje.Values)
+				//{
+				//	if (kor.Dolazak.Adresa.UlicaIBroj == voznja.Dolazak.Adresa.UlicaIBroj)
+				//	{
+				//		return false;
+				//	}
+				//}
 
 				string[] idCount = File.ReadAllLines(@"C:\Users\stefan\Desktop\FAX\Web\TaxiApp_PR782015\TaxiApp\TaxiApp\App_Data\Voznje.txt");
 
 				voznja.IdVoznje = idCount.Length + 1;
 				voznja.DTPorudzbine = DateTime.Now;
-				if (voznja.MusterijaVoznja != null)
+
+				if (voznja.MusterijaVoznja != null)					/* ako je kreirala musterija */
 				{
 					voznja.StatusVoznje = StatusVoznje.Kreirana;
 				}
-				else if (voznja.DispecerVoznja != null)
+				else if (voznja.DispecerVoznja != null)				/* ako je kreirao dispecer */
 				{
 					voznja.StatusVoznje = StatusVoznje.Formirana;
 					foreach (Vozac vo in Vozaci.vozaci.Values)
@@ -45,10 +46,7 @@ namespace TaxiApp.Controllers
 						}
 					}
 				}
-				else
-				{
-					voznja.StatusVoznje = StatusVoznje.Prihvacena;
-				}
+
 				voznja.Komentar = new Komentar();
 				voznja.Odrediste = new Lokacija();
 				Voznje.voznje.Add(voznja.IdVoznje, voznja);
@@ -113,33 +111,194 @@ namespace TaxiApp.Controllers
 					voznja.IdVoznje = vo.IdVoznje;
 					voznja.DTPorudzbine = vo.DTPorudzbine;
 					// status voznje
-					if (voznja.MusterijaVoznja != null && vo.StatusVoznje == StatusVoznje.Otkazana)
+					if (voznja.StatusVoznje == StatusVoznje.Otkazana)
 					{
-						voznja.StatusVoznje = StatusVoznje.Kreirana;
+						voznja.Dolazak = new Lokacija();
+						voznja.Dolazak.IdLok = vo.Dolazak.IdLok;
+						voznja.Dolazak.X = vo.Dolazak.X;
+						voznja.Dolazak.Y = vo.Dolazak.Y;
+						voznja.Dolazak.Adresa.IdAdr = vo.Dolazak.Adresa.IdAdr;
+						voznja.Dolazak.Adresa.UlicaIBroj = vo.Dolazak.Adresa.UlicaIBroj;
+						voznja.Dolazak.Adresa.NaseljenoMesto = vo.Dolazak.Adresa.NaseljenoMesto;
+						voznja.Dolazak.Adresa.PozivniBroj = vo.Dolazak.Adresa.PozivniBroj;
+						voznja.Odrediste = new Lokacija();
 					}
-					else if (voznja.DispecerVoznja != null)
+					else if (voznja.StatusVoznje == StatusVoznje.Kreirana)
 					{
-						voznja.StatusVoznje = StatusVoznje.Formirana;
+						if (voznja.VozacVoznja == null && voznja.DispecerVoznja == null)
+						{
+							if (vo.Komentar != null)
+							{
+								voznja.Komentar = new Komentar();
+								voznja.Komentar = vo.Komentar;
+							}
+							else
+							{
+								voznja.Komentar = new Komentar();
+							}
+							voznja.Odrediste = new Lokacija();
+						}
+						else if (voznja.VozacVoznja != null && voznja.DispecerVoznja != null)
+						{
+							voznja.StatusVoznje = StatusVoznje.Obradjena;
+							voznja.MusterijaVoznja = vo.MusterijaVoznja;
+
+							foreach (Vozac v in Vozaci.vozaci.Values)
+							{
+								if (v.KorisnickoIme == voznja.VozacVoznja)
+								{
+									v.Zauzet = true;
+									UpisIzmenaTxtVozac(v);
+								}
+							}
+
+							if (vo.Komentar != null)
+							{
+								voznja.Komentar = new Komentar();
+								voznja.Komentar = vo.Komentar;
+							}
+							else
+							{
+								voznja.Komentar = new Komentar();
+							}
+							voznja.Dolazak = new Lokacija();
+							voznja.Dolazak.IdLok = vo.Dolazak.IdLok;
+							voznja.Dolazak.X = vo.Dolazak.X;
+							voznja.Dolazak.Y = vo.Dolazak.Y;
+							voznja.Dolazak.Adresa.IdAdr = vo.Dolazak.Adresa.IdAdr;
+							voznja.Dolazak.Adresa.UlicaIBroj = vo.Dolazak.Adresa.UlicaIBroj;
+							voznja.Dolazak.Adresa.NaseljenoMesto = vo.Dolazak.Adresa.NaseljenoMesto;
+							voznja.Dolazak.Adresa.PozivniBroj = vo.Dolazak.Adresa.PozivniBroj;
+							voznja.Odrediste = new Lokacija();
+						}
 					}
-					else if (voznja.VozacVoznja != null)
+					else if (voznja.StatusVoznje == StatusVoznje.Neuspesna)
 					{
-						voznja.StatusVoznje = StatusVoznje.Prihvacena;
+						foreach (Vozac v in Vozaci.vozaci.Values)
+						{
+							if (v.KorisnickoIme == voznja.VozacVoznja)
+							{
+								v.Zauzet = false;
+								UpisIzmenaTxtVozac(v);
+							}
+						}
+
+						voznja.MusterijaVoznja = vo.MusterijaVoznja;
+						voznja.DispecerVoznja = vo.DispecerVoznja;
+						voznja.Dolazak = new Lokacija();
+						voznja.Dolazak.IdLok = vo.Dolazak.IdLok;
+						voznja.Dolazak.X = vo.Dolazak.X;
+						voznja.Dolazak.Y = vo.Dolazak.Y;
+						voznja.Dolazak.Adresa.IdAdr = vo.Dolazak.Adresa.IdAdr;
+						voznja.Dolazak.Adresa.UlicaIBroj = vo.Dolazak.Adresa.UlicaIBroj;
+						voznja.Dolazak.Adresa.NaseljenoMesto = vo.Dolazak.Adresa.NaseljenoMesto;
+						voznja.Dolazak.Adresa.PozivniBroj = vo.Dolazak.Adresa.PozivniBroj;
+						voznja.Odrediste = new Lokacija();
 					}
-					else
+					else if (voznja.StatusVoznje == StatusVoznje.Uspesna)
 					{
-						voznja.StatusVoznje = vo.StatusVoznje;
+						foreach (Vozac v in Vozaci.vozaci.Values)
+						{
+							if (v.KorisnickoIme == voznja.VozacVoznja)
+							{
+								v.Zauzet = false;
+								UpisIzmenaTxtVozac(v);
+							}
+						}
+						if (voznja.Komentar == null)
+						{
+							if (vo.Komentar != null)
+							{
+								voznja.Komentar = new Komentar();
+								voznja.Komentar = vo.Komentar;
+							}
+							else
+							{
+								voznja.Komentar = new Komentar();
+							}
+						}
+
+						if (voznja.Iznos == 0)
+						{
+							if (vo.Iznos != 0)
+							{
+								voznja.Iznos = vo.Iznos;
+							}
+						}
+						if (voznja.VozacVoznja == null)
+						{
+							if (vo.VozacVoznja != null)
+							{
+								voznja.VozacVoznja = vo.VozacVoznja;
+							}
+						}
+
+						voznja.MusterijaVoznja = vo.MusterijaVoznja;
+						voznja.DispecerVoznja = vo.DispecerVoznja;
+						voznja.Dolazak = new Lokacija();
+						voznja.Dolazak.IdLok = vo.Dolazak.IdLok;
+						voznja.Dolazak.X = vo.Dolazak.X;
+						voznja.Dolazak.Y = vo.Dolazak.Y;
+						voznja.Dolazak.Adresa.IdAdr = vo.Dolazak.Adresa.IdAdr;
+						voznja.Dolazak.Adresa.UlicaIBroj = vo.Dolazak.Adresa.UlicaIBroj;
+						voznja.Dolazak.Adresa.NaseljenoMesto = vo.Dolazak.Adresa.NaseljenoMesto;
+						voznja.Dolazak.Adresa.PozivniBroj = vo.Dolazak.Adresa.PozivniBroj;
+
+						if (voznja.Odrediste == null)
+						{
+							if (vo.Odrediste != null)
+							{
+								voznja.Odrediste = new Lokacija();
+								voznja.Odrediste = vo.Odrediste;
+							}
+							else
+							{
+								voznja.Odrediste = new Lokacija();
+							}
+						}
+					}
+					else if (voznja.StatusVoznje == StatusVoznje.Prihvacena)
+					{
+						foreach (Vozac v in Vozaci.vozaci.Values)
+						{
+							if (v.KorisnickoIme == voznja.VozacVoznja)
+							{
+								v.Zauzet = true;
+								UpisIzmenaTxtVozac(v);
+							}
+						}
+						if (voznja.Komentar == null)
+						{
+							if (vo.Komentar != null)
+							{
+								voznja.Komentar = new Komentar();
+								voznja.Komentar = vo.Komentar;
+							}
+							else
+							{
+								voznja.Komentar = new Komentar();
+							}
+						}
+						if (voznja.DispecerVoznja == null)
+						{
+							if (vo.DispecerVoznja != null)
+							{
+
+								voznja.DispecerVoznja = vo.DispecerVoznja;
+							}
+						}
+						voznja.MusterijaVoznja = vo.MusterijaVoznja;
+						voznja.Dolazak = new Lokacija();
+						voznja.Dolazak.IdLok = vo.Dolazak.IdLok;
+						voznja.Dolazak.X = vo.Dolazak.X;
+						voznja.Dolazak.Y = vo.Dolazak.Y;
+						voznja.Dolazak.Adresa.IdAdr = vo.Dolazak.Adresa.IdAdr;
+						voznja.Dolazak.Adresa.UlicaIBroj = vo.Dolazak.Adresa.UlicaIBroj;
+						voznja.Dolazak.Adresa.NaseljenoMesto = vo.Dolazak.Adresa.NaseljenoMesto;
+						voznja.Dolazak.Adresa.PozivniBroj = vo.Dolazak.Adresa.PozivniBroj;
+						voznja.Odrediste = new Lokacija();
 					}
 
-					if (vo.Komentar != null)
-					{
-						voznja.Komentar = new Komentar();
-						voznja.Komentar = vo.Komentar;
-					}
-					else
-					{
-						voznja.Komentar = new Komentar();
-					}
-					voznja.Odrediste = new Lokacija();
 					Voznje.voznje.Remove(vo.IdVoznje);
 					Voznje.voznje.Add(voznja.IdVoznje, voznja);
 					UpisIzmenaTxt(voznja);
