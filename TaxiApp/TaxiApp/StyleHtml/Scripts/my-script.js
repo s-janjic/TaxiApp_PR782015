@@ -41,6 +41,7 @@
                     $("#PrikazKorisnikInfo").hide();
                     $("#IzmenaVoznja").hide();
                     $("#KomentarVoznja").hide();
+                    $("#KomentarisiUspesnu").hide();
                     if (data.Pol == 0) // musko
                     {
                         polShow = "Musko";
@@ -48,7 +49,7 @@
                     else {
                         polShow = "Zensko";
                     }
-                } else {
+                } else { // vozac login
                     $("#vozacDiv").show();
                     $("#PrikazVozacInfo").hide();
                     $("#dispecerDiv").hide();
@@ -57,6 +58,8 @@
                     $("#usernameVozaca").html(usernameKor);
                     $("#PrikaziVoznjeVozac").hide();
                     $("#PrikaziKreiraneVoznjeVozac").hide();
+                    $("#KomentarNeuspesnaVoznja").hide();
+                    $("#UspesnaVoznjaDiv").hide();
                     if (data.Pol == 0) // musko
                     {
                         polShow = "Musko";
@@ -76,6 +79,7 @@
         $("#PrikaziVoznjeMusterijeDiv").hide();
         $("#IzmenaVoznja").hide();
         $("#KomentarVoznja").hide();
+        $("#KomentarisiUspesnu").hide();
 
         let tableofData = "<table class=\"table table-bordered\">";
         tableofData += `<tr><td>ID</td><td>${dataTmp.Id}</td></tr>`;
@@ -96,6 +100,7 @@
         $("#PrikaziVoznjeMusterijeDiv").hide();
         $("#IzmenaVoznja").hide();
         $("#KomentarVoznja").hide();
+        $("#KomentarisiUspesnu").hide();
 
         let tableofData = "<table class=\"table table-bordered\">";
         tableofData += "<tr><td>Korisnicko ime</td><td><input class=\"form-control\" id=\"korImeReg\" type=\"text\" name=\"KorisnickoIme\" value=\"" + dataTmp.KorisnickoIme + "\" disabled /></td></tr>";
@@ -173,9 +178,10 @@
             let tableofData2 = "<table class=\"table table-bordered\">";
             for (voznja in data) {
                 if (data[voznja].IdVoznje == id) {
-                    tableofData2 += "<tr><td>Id adrese dolaska</td><td><input id=\"idadr1\" type=\"text\" name=\"IdAdr\" value=\"" + data[voznja].Dolazak.Adresa.IdAdr + "\"/></td></tr>" +
+                    tableofData2 += "<tr><td>Id lokacije dolaska</td><td><input class=\"form-control\" id=\"idlok1\" type=\"text\" name\"IdLok\" value\"" + data[voznja].Dolazak.Adresa.IdLok + "\"></td></tr>" +
                         "<tr><td>X lokacije dolaska</td><td><input id=\"x1\" type=\"text\" name=\"X\" value=\"" + data[voznja].Dolazak.X + "\"/></td></tr>" +
                         "<tr><td>Y lokacije dolaska</td><td><input id=\"y1\" type=\"text\" name=\"Y\" value=\"" + data[voznja].Dolazak.Y + "\"/></td></tr>" +
+                        "<tr><td>Id adrese dolaska</td><td><input id=\"idadr1\" type=\"text\" name=\"IdAdr\" value=\"" + data[voznja].Dolazak.Adresa.IdAdr + "\"/></td></tr>" +
                         "<tr><td>Ulica i broj lokacije dolaska</td><td><input id=\"ulicaibroj1\" type=\"text\" name=\"UlicaIBroj\" value=\"" + data[voznja].Dolazak.Adresa.UlicaIBroj + "\"/></td></tr>" +
                         "<tr><td>Naseljeno mesto lokacije dolaska</td><td><input id=\"naseljenomesto1\" type=\"text\" name=\"NaseljenoMesto\" value=\"" + data[voznja].Dolazak.Adresa.NaseljenoMesto + "\"/></td></tr>" +
                         "<tr><td>Pozivni broj lokacije dolaska</td><td><input id=\"pozivnibroj1\" type=\"text\" name=\"PozivniBroj\" value=\"" + data[voznja].Dolazak.Adresa.PozivniBroj + "\"/></td></tr>";
@@ -316,6 +322,8 @@
     $("#showInfoVozac").click(function () {
         $("#PrikaziVoznjeVozac").hide();
         $("#PrikaziKreiraneVoznjeVozac").hide();
+        $("#KomentarNeuspesnaVoznja").hide();
+        $("#UspesnaVoznjaDiv").hide();
         $("#PrikazVozacInfo").show("slow");
 
         let tableofData = "<table class=\"table table-bordered\">";
@@ -358,6 +366,8 @@
         $("#PrikazVozacInfo").hide();
         $("#PrikaziVoznjeVozac").hide();
         $("#PrikaziKreiraneVoznjeVozac").hide();
+        $("#KomentarNeuspesnaVoznja").hide();
+        $("#UspesnaVoznjaDiv").hide();
 
         let tableofData = "<table class=\"table table-bordered\">";
         tableofData += "<tr><td>Korisnicko ime</td><td><input class=\"form-control\" id=\"korImeReg2\" type=\"text\" name=\"KorisnickoIme\" value=\"" + dataTmp.KorisnickoIme + "\" disabled /></td></tr>";
@@ -416,7 +426,8 @@
             Email: `${$('#email2').val()}`,
             Uloga: dataTmp.Uloga,
             Lokacija: lokacija,
-            Automobil: automobil
+            Automobil: automobil,
+            Zauzet: dataTmp.Zauzet
         };
 
         $.ajax({
@@ -459,7 +470,8 @@
             MusterijaVoznja: dataTmp.KorisnickoIme,
             VozacVoznja: null,
             Iznos: 0,
-            DispecerVoznja: null
+            DispecerVoznja: null,
+            StatusVoznje: "Kreirana"
         };
 
         $.ajax({
@@ -495,12 +507,13 @@
             VozacVoznja: null,
             Iznos: 0,
             DispecerVoznja: null,
-            Komentar: komentarVoznja
+            Komentar: komentarVoznja,
+            StatusVoznje: "Otkazana"
         };
 
         $.ajax({
             type: 'PUT',
-            url: '/api/Voznjaotkaz/' + id2,
+            url: '/api/Voznja/' + id2,
             data: JSON.stringify(voznja),
             contentType: 'application/json; charset=utf-8',
             dataType: 'json',
@@ -521,6 +534,7 @@
         $("#PrikazKorisnikInfo").hide();
         $("#IzmenaVoznja").hide();
         $("#KomentarVoznja").hide();
+        $("#KomentarisiUspesnu").hide();
     });
 
     $("#dodajVoznjuMusterija").click(function () {
@@ -646,8 +660,8 @@
             let tableForOrders = "<table class=\"table table-bordered\">";
             tableForOrders += `<thead><tr><th>Korisnik</th><th>Vreme porudzbine</th><th>Ulica</th><th>Grad</th><th>Postanski broj</th><th>Status</th><th>Komentar</th><th>Rating</th><th>Vreme kom.</th><th></th></tr></thead>`;
             for (voznja in data) {
-                if (dataTmp.KorisnickoIme == data[voznja].MusterijaVoznja) { 
-                   if (data[voznja].StatusVoznje == 0) {
+                if (dataTmp.KorisnickoIme == data[voznja].MusterijaVoznja) {
+                    if (data[voznja].StatusVoznje == 0) {
                         tableForOrders += `<tbody><tr class="Kreirana"><td>${data[voznja].MusterijaVoznja}</td><td>${data[voznja].DTPorudzbine}</td><td>${data[voznja].Dolazak.Adresa.UlicaIBroj}</td><td>${data[voznja].Dolazak.Adresa.NaseljenoMesto}</td><td>${data[voznja].Dolazak.Adresa.PozivniBroj}</td>`;
                         tableForOrders += '<td>Kreirana</td>';
                     } else if (data[voznja].StatusVoznje == 1) {
@@ -671,10 +685,12 @@
                     } else {
                         tableForOrders += `<tbody><tr class="Utoku"><td>${data[voznja].MusterijaVoznja}</td><td>${data[voznja].DTPorudzbine}</td><td>${data[voznja].Dolazak.Adresa.UlicaIBroj}</td><td>${data[voznja].Dolazak.Adresa.NaseljenoMesto}</td><td>${data[voznja].Dolazak.Adresa.PozivniBroj}</td>`;
                         tableForOrders += '<td>Utoku</td>';
-                    } 
-                   
+                    }
+
                     if (data[voznja].StatusVoznje == 0) {
                         tableForOrders += `<td>${data[voznja].Komentar.Opis}</td><td>${data[voznja].Komentar.Ocena}</td><td>${data[voznja].Komentar.DTObjave}</td><td><button class="btn btn-xs btn-default" id="izmeniVoznja" type="button" value=${data[voznja].IdVoznje}><b>Izmeni voznju</b></button><button class="btn btn-xs btn-default" id="otkaziVoznja" type="button" value=${data[voznja].IdVoznje}><b>Otkazi voznju</b></button></td></td></tr></tbody>`;
+                    } else if (data[voznja].StatusVoznje == 6) {
+                        tableForOrders += `<td>${data[voznja].Komentar.Opis}</td><td>${data[voznja].Komentar.Ocena}</td><td>${data[voznja].Komentar.DTObjave}</td><td><button class="btn btn-xs btn-default" id="komentarisi" type="button" value=${data[voznja].IdVoznje}><b>Komentarisi voznju</b></button><button class="btn btn-xs btn-default" id="izmeniVoznja" type="button" value="disable" disabled="disabled"><b>Izmeni voznju</b></button></td></tr></tbody>`;
                     } else { 
                         tableForOrders += `<td>${data[voznja].Komentar.Opis}</td><td>${data[voznja].Komentar.Ocena}</td><td>${data[voznja].Komentar.DTObjave}</td><td><button class="btn btn-xs btn-default" id="izmeniVoznja" type="button" value="disable" disabled="disabled"><b>Izmeni voznju</b></button><button class="btn btn-xs btn-default" id="otkaziVoznja" type="button" value="disable" disabled="disabled"><b>Otkazi voznju</b></button></td></td></tr></tbody>`;
                     }
@@ -685,10 +701,75 @@
         });
     });
 
+    /* komentarisanje uspensje voznje */
+    $(document).on('click', '#komentarisi', function () {
+        let trigger_button22 = $(this).val();
+        localStorage.setItem("voznjaKomUspesna", trigger_button22);
+
+        $("#PrikazKorisnikInfo").hide();
+        $("#PrikaziVoznjeMusterijeDiv").hide();
+        $("#IzmenaVoznja").hide();
+        $("#KomentarVoznja").hide();
+        $("#KomentarisiUspesnu").show("slow");
+
+        $.get("/api/Voznja", function (data, status) {
+            let idKomUsp = localStorage.getItem("voznjaKomUspesna");
+            let drawTable = "<table class=\"table table-bordered\">";
+            for (voznja in data) {
+                if (data[voznja].IdVoznje == idKomUsp) {
+                    drawTable += `<tr><td>Opis</td><td><input class="form-control" id="opis11" type="text" name="Opis" value=${data[voznja].Komentar.Opis}></td></tr>`;
+                    drawTable += `<tr><td>Datum objave</td><td><input class="form-control" id="datum11" type="datetime" name="DTObjave" value=${data[voznja].Komentar.DTObjave}></td></tr>`;
+                    drawTable += `<tr><td>Ocena</td><td><input class="form-control" id="ocena11" min="0" max="5" type="number" name="Ocena" value=${data[voznja].Komentar.Ocena}></td></tr>`;
+                }
+            }
+
+            drawTable += "</tabel><button class=\"btn btn-primary\" id=\"potvrdiKomentarUspesne\" type=\"button\">Potvrdi komentar</button><br>";
+            $("#KomentarisiUspesnuShow").html(drawTable);
+        });
+    });
+
+    /* potvrda komentara za uspesnu voznju */
+    $(document).on('click', '#potvrdiKomentarUspesne', function () {
+        let idTmp222 = localStorage.getItem("voznjaKomUspesna");
+
+        let komentarVoznja11 = {
+            Opis: `${$('#opis11').val()}`,
+            DTObjava: `${$('#datum11').val()}`,
+            Ocena: `${$('#ocena11').val()}`,
+            KorImeKorisnikKomentar: dataTmp.KorisnickoIme,
+            IdVoznjaKomentar: idTmp222
+        };
+
+        let voznja = {
+            MusterijaVoznja: dataTmp.KorisnickoIme,
+            Iznos: 0,
+            Komentar: komentarVoznja11,
+            StatusVoznje: "Uspesna"
+        };
+
+        $.ajax({
+            type: 'PUT',
+            url: '/api/Voznja/' + idTmp222,
+            data: JSON.stringify(voznja),
+            contentType: 'application/json; charset=utf-8',
+            dataType: 'json',
+            success: function (data) {
+                if (data) {
+                    alert('Uspesno postavljen komentar');
+                    localStorage.setItem("voznjaOtkaz", idTmp222);
+                    $(location).attr('href', 'welcome.html');
+                } else {
+                    alert('Ne postoji voznja');
+                }
+            }
+        })
+    });
+
     $("#prikaziVoznjeDisp").click(function () {
-        $("#PrikaziVoznjeDispecer").show();
+        $("#PrikaziVoznjeDispecer").show("slow");
         $("#PrikaziVoznjeDispecerSve").hide();
         $("#DodajVozacaDispecer").hide();
+        $("#PrikazKorisnikInfoShowDisp").hide();
 
         $.get("/api/Voznja", function (data, status) {
             let tableForOrders = "<table class=\"table table-bordered\">";
@@ -835,7 +916,7 @@
         };
         $.ajax({
             type: 'PUT',
-            url: '/api/Voznjaotkaz/' + id3,
+            url: '/api/Voznja/' + id3,
             data: JSON.stringify(voznja),
             contentType: 'application/json; charset=utf-8',
             dataType: 'json',
@@ -854,6 +935,8 @@
     $("#prikaziVoznjeVozac").click(function () {
         $("#PrikazVozacInfo").hide();
         $("#PrikaziKreiraneVoznjeVozac").hide();
+        $("#KomentarNeuspesnaVoznja").hide();
+        $("#UspesnaVoznjaDiv").hide();
         $("#PrikaziVoznjeVozac").show("slow");
 
         $.get("/api/Voznja", function (data, status) {
@@ -895,5 +978,187 @@
             drawTable += `</tbody></table>`;
             $("#PrikaziVoznjeVozacShow").html(drawTable);
         });
+    });
+
+    $("#prikaziSlobodneVoznje").click(function () {
+        $("#PrikazVozacInfo").hide();
+        $("#PrikaziVoznjeVozac").hide();
+        $("#KomentarNeuspesnaVoznja").hide();
+        $("#UspesnaVoznjaDiv").hide();
+        $("#PrikaziKreiraneVoznjeVozac").show("slow");
+
+        $.get("/api/Voznja", function (data, status) {
+            let drawTable = "<table class=\"table table-bordered\">";
+            drawTable += `<thead><tr><th>Musterija</th><th>Datum por.</th><th>Ulica i br.</th><th>Grad</th><th>Postanski br.</th><th>Status</th><th>Komentar</th><th>Ocena</th><th>Datum kom.</th><th></th></tr></thead><tbody>`;
+            for (voznja in data) {
+                if (data[voznja].StatusVoznje == 0 && data[voznja].TipAutaVoznje == dataTmp.Automobil.TipAuta) { /* mora biti status kreiran i da odgovara tip auta */
+                    drawTable += `<tr><td>${data[voznja].MusterijaVoznja}</td><td>${data[voznja].DTPorudzbine}</td><td>${data[voznja].Dolazak.Adresa.UlicaIBroj}</td><td>${data[voznja].Dolazak.Adresa.NaseljenoMesto}</td><td>${data[voznja].Dolazak.Adresa.PozivniBroj}</td><td>Kreirana</td>`;
+                    drawTable += `<td>${data[voznja].Komentar.Opis}</td><td>${data[voznja].Komentar.Ocena}</td><td>${data[voznja].Komentar.DTObjave}</td><td><button class="btn btn-xs btn-primary" id="prihvatiVoznju" type="button" value=${data[voznja].IdVoznje}>Prihvati voznju</button></td></tr>`;
+                }
+            }
+
+            drawTable += "</tbody></table>";
+            $("#PrikaziKreiraneVoznjeVozacShow").html(drawTable);
+        });
+    });
+
+    $(document).on('click', '#prihvatiVoznju', function () {
+        let idTmp = $(this).val();
+
+        let voznja = {
+            VozacVoznja: dataTmp.KorisnickoIme,
+            Iznos: 0,
+            DispecerVoznja: null,
+            StatusVoznje: "Prihvacena"
+        };
+
+        $.ajax({
+            type: 'PUT',
+            url: '/api/Voznja/' + idTmp,
+            data: JSON.stringify(voznja),
+            contentType: 'application/json; charset=utf-8',
+            dataType: 'json',
+            success: function (data) {
+                if (data) {
+                    alert(`Prihvacena voznja ${idTmp}`);
+                    $(location).attr('href', 'welcome.html');
+                } else {
+                    alert(`Voznja: ${idTmp} ne postoji`);
+                }
+            }
+        })
+    });
+
+    $(document).on('click', '#neuspesnaVoznjaKomentar', function () {
+        let trigger_btn = $(this).val();
+        localStorage.setItem("neuspesnaVoznja", trigger_btn);
+
+        $("#PrikazVozacInfo").hide();
+        $("#PrikaziVoznjeVozac").hide();
+        $("#UspesnaVoznjaDiv").hide();
+        $("#PrikaziKreiraneVoznjeVozac").hide();
+        $("#KomentarNeuspesnaVoznja").show("slow");
+
+        $.get("/api/Voznja", function (data, status) {
+            let idTmp = localStorage.getItem("neuspesnaVoznja");
+            let drawTable = "<table class=\"table table-bordered\">";
+            for (voznja in data) {
+                if (data[voznja].IdVoznje == idTmp) {
+                    drawTable += `<tr><td>Opis</td><td><input class="form-control" type="text" id="opis1" name="Opis" value=${data[voznja].Komentar.Opis}></td></tr>`;
+                    drawTable += `<tr><td>Datum objave</td><td><input class="form-control" type="datetime" id="datum1" name="DTObjave" value=${data[voznja].Komentar.DTObjave}></td></tr>`;
+                    drawTable += `<tr><td>Ocena</td><td><input class="form-control" id="ocena1" min="0" max="5" type="number" name="Ocena" value=${data[voznja].Komentar.Ocena}></td></tr>`;
+                }
+            }
+
+            drawTable += "</table>";
+            $("#KomentarNeuspesnaVoznjaShow").html(drawTable);
+        });
+    });
+
+    $("#neuspesnaVoznjaPotvrdi").click(function () {
+        let idTmp1 = localStorage.getItem("neuspesnaVoznja");
+
+        let komentarVoznja1 = {
+            Opis: `${$('#opis1').val()}`,
+            DTObjave: `${$('#datum1').val()}`,
+            Ocena: `${$('#ocena1').val()}`,
+            KorImeKorisnikKomentar: dataTmp.KorisnickoIme,
+            IdVoznjaKomentar: idTmp1
+        };
+
+        let voznja1 = {
+            VozacVoznja: dataTmp.KorisnickoIme,
+            Iznos: 0,
+            Komentar: komentarVoznja1,
+            StatusVoznje: "Neuspesna"
+        };
+
+        $.ajax({
+            type: 'PUT',
+            url: '/api/Voznja/' + idTmp1,
+            data: JSON.stringify(voznja1),
+            contentType: 'application/json; charset=utf-8',
+            dataType: 'json',
+            success: function (data) {
+                if (data) {
+                    alert('Neuspesna voznja');
+                    $(location).attr('href', 'welcome.html');
+                } else {
+                    alert('Voznja ne postoji');
+                }
+            }
+        })
+    });
+
+    $(document).on('click', '#uspesnaVoznja', function () {
+        let trigger_button5 = $(this).val();
+        localStorage.setItem("uspesnaVoznjaSorage", trigger_button5);
+
+        $("#PrikazVozacInfo").hide();
+        $("#PrikaziVoznjeVozac").hide();
+        $("#PrikaziKreiraneVoznjeVozac").hide();
+        $("#KomentarNeuspesnaVoznja").hide();
+        $("#UspesnaVoznjaDiv").show("slow");
+
+        $.get("/api/Voznja", function (data, status) {
+            let id5 = localStorage.getItem("uspesnaVoznjaSorage");
+            let drawTable = "<table class=\"table table-bordered\">";
+            for (voznja in data) {
+                if (data[voznja].IdVoznje == id5) {
+                    drawTable += `<tr><td>Id lokacije odredista</td><td><input class="form-control" id="idlokodredista" type="text" name="IdLok" value=${data[voznja].Odrediste.IdLok}></td></tr>`;
+                    drawTable += `<tr><td>X</td><td><input class="form-control" id="xlokodredista" type="text" name="X" value=${data[voznja].Odrediste.X}></td></tr>`;
+                    drawTable += `<tr><td>Y</td><td><input class="form-control" id="ylokodredista" type="text" name="Y" value=${data[voznja].Odrediste.Y}></td></tr>`;
+                    drawTable += `<tr><td>Id Adrese odredista</td><td><input class="form-control" id="idadrodredista" type="text" name="IdAdr" value=${data[voznja].Odrediste.Adresa.IdAdr}></td></tr>`;
+                    drawTable += `<tr><td>Ulica i broj odredista</td><td><input class="form-control" id="ulicaibrojodredista" type="text" name="UlicaIBroj" value=${data[voznja].Odrediste.Adresa.UlicaIBroj}></td></tr>`;
+                    drawTable += `<tr><td>Grad</td><td><input class="form-control" id="naseljenomestoodredista" type="text" name="NaseljenoMesto" value=${data[voznja].Odrediste.Adresa.NaseljenoMesto}></td></tr>`;
+                    drawTable += `<tr><td>Pozivni broj odredista</td><td><input class="form-control" id="pozivnibrojodredista" type="text" name="PozivniBroj" value=${data[voznja].Odrediste.Adresa.PozivniBroj}></td></tr>`;
+                    drawTable += `<tr><td>Iznos</td><td><input class="form-control" id="iznosodredista" type="text" name="Iznos" value=${data[voznja].Iznos}></td></tr>`;
+                }
+            }
+
+            drawTable += "</table>";
+            $("#UspesnaVoznjaDivShow").html(drawTable);
+        });
+    });
+
+    $("#potvrdiUnosUspesna").click(function () {
+        let id8 = localStorage.getItem("uspesnaVoznjaSorage");
+
+        let adresaOdrediste = {
+            IdAdr: `${$('#idadrodredista').val()}`,
+            UlicaIBroj: `${$('#ulicaibrojodredista').val()}`,
+            NaseljenoMesto: `${$('#naseljenomestoodredista').val()}`,
+            PozivniBroj: `${$('#pozivnibrojodredista').val()}`
+        };
+
+        let lokacijaOdrediste = {
+            IdLok: `${$('#idlokodredista').val()}`,
+            X: `${$('#xlokodredista').val()}`,
+            Y: `${$('#ylokodredista').val()}`,
+            Adresa: adresaOdrediste
+        };
+
+        let voznja8 = {
+            VozacVoznja: dataTmp.KorisnickoIme,
+            Odrediste: lokacijaOdrediste,
+            Iznos: `${$('#iznosodredista').val()}`,
+            StatusVoznje: "Uspesna"
+        };
+
+        $.ajax({
+            type: 'PUT',
+            url: '/api/Voznja/' + id8,
+            data: JSON.stringify(voznja8),
+            contentType: 'application/json; charset=utf-8',
+            dataType: 'json',
+            success: function (data) {
+                if (data) {
+                    alert('Uspesna voznja');
+                    $(location).attr('href', 'welcome.html');
+                } else {
+                    alert('Voznja ne postoji');
+                }
+            }
+        })
     });
 });

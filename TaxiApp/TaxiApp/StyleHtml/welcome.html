@@ -60,7 +60,7 @@
             <button type="button" id="potvrdiIzmenuVoznja" class="btn btn-default">Sacuvaj izmenu</button>
         </div>
 
-        <!-- Komentar voznje -->
+        <!-- Komentar voznje ako otkazuje -->
         <div class="container" id="KomentarVoznja">
             <div class="row">
                 <div class="well well-float" id="KomentarVoznjaShow">
@@ -69,7 +69,13 @@
             </div>
         </div>
 
-
+        <!-- Komentar za uspesnu voznju -->
+        <div class="container" id="KomentarisiUspesnu">
+            <div class="row">
+                <div class="well well-float" id="KomentarisiUspesnuShow">
+                </div>
+            </div>
+        </div>
 
         <!-- edit info -->
         <!-- edit modal -->
@@ -477,6 +483,22 @@
                         <button type="submit" class="btn btn-success" id="potvrdiIzmenuVozac">Sacuvaj izmene</button>
                     </div>
                 </div>
+            </div>
+        </div>
+
+        <!-- komentar za neuspesnu voznju -->
+        <div class="container" id="KomentarNeuspesnaVoznja">
+            <div class="row">
+                <div class="well well-float" id="KomentarNeuspesnaVoznjaShow"></div>
+                <button type="submit" class="btn btn-success" id="neuspesnaVoznjaPotvrdi">Potvrdi</button>
+            </div>
+        </div>
+
+        <!-- uspesna voznja -->
+        <div class="container" id="UspesnaVoznjaDiv">
+            <div class="row">
+                <div class="well well-float" id="UspesnaVoznjaDivShow"></div>
+                <button type="submit" class="btn btn-success" id="potvrdiUnosUspesna">Potvrdi</button>
             </div>
         </div>
 
