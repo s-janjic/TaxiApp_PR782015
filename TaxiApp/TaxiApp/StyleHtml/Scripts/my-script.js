@@ -23,6 +23,7 @@
                     $("#PrikaziVoznjeDispecer").hide();
                     $("#PrikaziVoznjeDispecerSve").hide();
                     $("#DodajVozacaDispecer").hide();
+                    $("#prikazSvihKorisnika").hide();
                     if (data.Pol == 0) // musko
                     {
                         polShow = "Musko";
@@ -42,6 +43,8 @@
                     $("#IzmenaVoznja").hide();
                     $("#KomentarVoznja").hide();
                     $("#KomentarisiUspesnu").hide();
+                    $("#successOrderMsg").hide();
+                    $("#errorOrderMsg").hide();
                     if (data.Pol == 0) // musko
                     {
                         polShow = "Musko";
@@ -115,10 +118,11 @@
     });
 
     $("#showInfoDisp").click(function () {
-        $("#PrikazKorisnikInfoDisp").show();
         $("#PrikaziVoznjeDispecer").hide();
         $("#PrikaziVoznjeDispecerSve").hide();
         $("#DodajVozacaDispecer").hide();
+        $("#prikazSvihKorisnika").hide();
+        $("#PrikazKorisnikInfoDisp").show("slow");
 
         let tableofData = "<table class=\"table table-bordered\">";
         tableofData += `<tr><td>ID</td><td>${dataTmp.Id}</td></tr>`;
@@ -217,6 +221,7 @@
 
     $("#izmeniKorisnikDisp").click(function () {
         $("#PrikazKorisnikInfoDisp").hide();
+        $("#prikazSvihKorisnika").hide();
         $("#PrikaziVoznjeDispecer").hide();
 
         let tableofData = "<table class=\"table table-bordered\">";
@@ -265,6 +270,7 @@
 
     $("#dodajVozaca").click(function () {
         $("#PrikazKorisnikInfoDisp").hide();
+        $("#prikazSvihKorisnika").hide();
     });
 
     $("#addVozac").click(function () {
@@ -569,10 +575,12 @@
             dataType: 'json',
             success: function (data) {
                 if (data) {
-                    alert('Uspesno zakazana voznja');
-                    $(location).attr('href', 'welcome.html');
+                    $("#successOrderMsg").show();
+                    $("#msgShowSuccess").html(`Uspesno zakazana voznja!`);
+                    //$(location).attr('href', 'welcome.html');
                 } else {
-                    alert('Ovakva porudzbina vec postoji');
+                    $("#errorOrderMsg").show();
+                    $("#msgShowError").html(`Voznja vec postoji!`);
                 }
             }
         })
@@ -769,7 +777,8 @@
         $("#PrikaziVoznjeDispecer").show("slow");
         $("#PrikaziVoznjeDispecerSve").hide();
         $("#DodajVozacaDispecer").hide();
-        $("#PrikazKorisnikInfoShowDisp").hide();
+        $("#PrikazKorisnikInfoDisp").hide();
+        $("#prikazSvihKorisnika").hide();
 
         $.get("/api/Voznja", function (data, status) {
             let tableForOrders = "<table class=\"table table-bordered\">";
@@ -810,9 +819,11 @@
     });
 
     $("#prikaziVoznjeSve").click(function () {
-        $("#PrikaziVoznjeDispecerSve").show();
+        $("#PrikaziVoznjeDispecerSve").show("slow");
         $("#PrikaziVoznjeDispecer").hide();
         $("#DodajVozacaDispecer").hide();
+        $("#prikazSvihKorisnika").hide();
+        $("#PrikazKorisnikInfoDisp").hide();
 
         $.get("/api/Voznja", function (data, status) {
             let tableForOrders = "<table class=\"table table-bordered\">";
@@ -1160,5 +1171,28 @@
                 }
             }
         })
+    });
+
+    $("#prikaziSveKorisnike").click(function () {
+        $("#PrikaziVoznjeDispecerSve").hide();
+        $("#PrikaziVoznjeDispecer").hide();
+        $("#DodajVozacaDispecer").hide();
+        $("#prikazSvihKorisnika").show("slow");
+        $("#PrikazKorisnikInfoDisp").hide();
+
+        $.get("/api/Korisnik", function (data, status) {
+
+            let tableofData555 = "<table class=\"table table-bordered\">";
+            tableofData555 += "<thead><tr><th>ID</th><th>Korisnicko ime</th><th>Ime</th><th>Prezime</th><th>Email</th><th></th></tr></thead><tbody>";
+
+            for (user in data) {
+                tableofData555 += `<tr><td>${data[user].Id}</td><td>${data[user].KorisnickoIme}</td><td>${data[user].Ime}</td><td>${data[user].Prezime}</td><td>${data[user].Email}</td>`;
+                tableofData555 += `<td class="td-caret" style="width: 60px;"><div class="dropdown pull-right"><button type="button" class="btn btn-default btn-xs dropdown-toggle btn-xs-caret" data-toggle="dropdown">Opcije<span class="caret"></span></button>`;
+                tableofData555 += `<ul class="dropdown-menu"><li><a>Banuj korisnika</a></li></ul></div></td></tr>`;
+            }
+
+            tableofData555 += "</tbody></table>";
+            $("#prikazSvihKorisnikaShow").html(tableofData555);
+        });
     });
 });

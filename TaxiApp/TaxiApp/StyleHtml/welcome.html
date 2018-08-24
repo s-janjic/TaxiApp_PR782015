@@ -153,23 +153,38 @@
 
                     <div class="modal-footer">
                         <a href="" class="btn btn-default" data-dismiss="modal">Izadji</a>
-                        <button type="submit" class="btn btn-success" id="dodajVoznjuMusterija">Potvrdi voznju</button>
+                        <button type="submit" class="btn btn-success" id="dodajVoznjuMusterija" data-dismiss="modal">Potvrdi voznju</button>
                     </div>
                 </div>
             </div>
         </div>
+
+        <div class="alert alert-success alert-dismissible container" role="alert" id="successOrderMsg" style="width: 270px;">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">×</span>
+            </button>
+            <p id="msgShowSuccess" align="center"></p>
+        </div>
+
+        <div class="alert alert-warning alert-dismissible container" role="alert" id="errorOrderMsg" style="width: 270px;">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">×</span>
+            </button>
+            <p id="msgShowError" align="center"></p>
+        </div>
     </div>
 
     <!-- div za dispecere -->
-    <div class="container" id="dispecerDiv">
+    <div class="" id="dispecerDiv">
         <div class="row">
             <div class="col-md-10 col-md-offset-1">
                 <div class="well">
-                    <h3 align="center">
+                    <h3 align="center" style="color: #b71515">
                         <span>
                             Dispecer: <span id="usernameDispecera"></span> <br /> <br />
                         </span>
                         <span>
+                            <button type="button" class="btn btn-warning" id="prikaziSveKorisnike">Svi korisnici</button>
                             <button type="button" class="btn btn-success" data-toggle="modal" data-target="#editModalDisp" id="izmeniKorisnikDisp">Izmeni podatke</button>
                             <button type="button" class="btn btn-warning" id="showInfoDisp">Prikazi podatke</button>
                             <button type="button" class="btn btn-info" data-toggle="modal" data-target="#addDriver" id="dodajVozaca">Dodaj vozaca</button>
@@ -180,6 +195,11 @@
                     </h3>
                 </div>
             </div>
+        </div>
+
+        <!-- prikaz svih korisnika -->
+        <div class="container" id="prikazSvihKorisnika">
+            <div id="prikazSvihKorisnikaShow"></div>
         </div>
 
         <!-- show info div-->

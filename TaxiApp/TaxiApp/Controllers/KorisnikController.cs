@@ -90,5 +90,11 @@ namespace TaxiApp.Controllers
 			}
 			stream.Close();
 		}
+
+		// GET api/Korisnik
+		public Dictionary<int, Korisnik> Get()
+		{
+			return Korisnici.korisnici;
+		}
 	}
 }
