@@ -19,6 +19,45 @@ namespace TaxiApp.Controllers
 			{
 				if (kor.Id == id)
 				{
+					if (korisnik.KorisnickoIme == null)
+					{
+						korisnik.KorisnickoIme = kor.KorisnickoIme;
+					}
+
+					if (korisnik.Lozinka == null)
+					{
+						korisnik.Lozinka = kor.Lozinka;
+					}
+
+					if (korisnik.Ime == null)
+					{
+						korisnik.Ime = kor.Ime;
+					}
+
+					if (korisnik.Prezime == null)
+					{
+						korisnik.Prezime = kor.Prezime;
+					}
+
+					korisnik.Pol = kor.Pol;
+
+					if (korisnik.JMBG == null)
+					{
+						korisnik.JMBG = kor.JMBG;
+					}
+
+					if (korisnik.Email == null)
+					{
+						korisnik.Email = kor.Email;
+					}
+
+					if (korisnik.KontaktTelefon == null)
+					{
+						korisnik.KontaktTelefon = kor.KontaktTelefon;
+					}
+
+					korisnik.Uloga = kor.Uloga;
+
 					Korisnici.korisnici.Remove(kor.Id);
 					Korisnici.korisnici.Add(korisnik.Id, korisnik);
 					UpisIzmenaTxt(korisnik);
@@ -36,7 +75,7 @@ namespace TaxiApp.Controllers
 			{
 				if (lines[i].Split('|')[1].Equals(k.KorisnickoIme.ToString()))
 				{
-					allString += k.Id.ToString() + '|' + k.KorisnickoIme + '|' + k.Lozinka + '|' + k.Ime + '|' + k.Prezime + '|' + k.Pol + '|' + k.JMBG + '|' + k.KontaktTelefon + '|' + k.Email + '|' + k.Uloga;
+					allString += k.Id.ToString() + '|' + k.KorisnickoIme + '|' + k.Lozinka + '|' + k.Ime + '|' + k.Prezime + '|' + k.Pol + '|' + k.JMBG + '|' + k.KontaktTelefon + '|' + k.Email + '|' + k.Uloga + '|' + k.Banovan.ToString();
 					lines[i] = allString;
 				}
 			}
@@ -85,7 +124,7 @@ namespace TaxiApp.Controllers
 			FileStream stream = new FileStream(@"C:\Users\stefan\Desktop\FAX\Web\TaxiApp_PR782015\TaxiApp\TaxiApp\App_Data\Korisnici.txt", FileMode.Append);
 			using (StreamWriter tw = new StreamWriter(stream))
 			{
-				string upis = k.Id.ToString() + '|' + k.KorisnickoIme + '|' + k.Lozinka + '|' + k.Ime + '|' + k.Prezime + '|' + k.Pol + '|' + k.JMBG + '|' + k.KontaktTelefon + '|' + k.Email + '|' + k.Uloga;
+				string upis = k.Id.ToString() + '|' + k.KorisnickoIme + '|' + k.Lozinka + '|' + k.Ime + '|' + k.Prezime + '|' + k.Pol + '|' + k.JMBG + '|' + k.KontaktTelefon + '|' + k.Email + '|' + k.Uloga + '|' + k.Banovan.ToString();
 				tw.WriteLine(upis);
 			}
 			stream.Close();
@@ -95,6 +134,12 @@ namespace TaxiApp.Controllers
 		public Dictionary<int, Korisnik> Get()
 		{
 			return Korisnici.korisnici;
+		}
+
+		// GET api/Korisnik/1
+		public Korisnik Get(int id)
+		{
+			return Korisnici.korisnici[id];
 		}
 	}
 }

@@ -1,5 +1,5 @@
-1|twasad|dwadwadwa|dwad|prezime|M|  14212|421|TET@wao.com|Musterija
-3|wa521|dwadwadwa|dwad|dawdaw|M|  14212|421|TET@wao.com|Musterija
-2|user111|user111|52525|dwadw|M| 55211111|aw|ddd|Musterija
-4|reg11|reg11|reg11|reg11|M| reg11|reg11|reg11|Musterija
-5|user|user|user111|useruser|M|   useru|useruser|useruser|Musterija
+1|twasad|dwadwadwa|dwad|prezime|M|  14212|421|TET@wao.com|Musterija|False
+3|wa521|dwadwadwa|dwad|dawdaw|M|  14212|421|TET@wao.com|Musterija|False
+2|user111|user111|52525|dwadw|M| 55211111|aw|ddd|Musterija|False
+4|reg11|reg11|reg11|reg11|M| reg11|reg11|reg11|Musterija|False
+5|user|user|user111|useruser|M|   useru|useruser|useruser|Musterija|True

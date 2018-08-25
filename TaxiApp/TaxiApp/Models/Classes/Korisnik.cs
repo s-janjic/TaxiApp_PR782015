@@ -20,12 +20,14 @@ namespace TaxiApp.Models.Classes
 		public Uloge Uloga { get; set; }
 
 		public List<Voznja> listaVoznji { get; set; }
+		public bool Banovan { get; set; }
 
 		public Korisnik()
 		{
+			this.Banovan = false;
 		}
 
-		public Korisnik(int id, string k, string l, string ime, string p, Polovi po, string jmbg, string kont, string ema, Uloge ul)
+		public Korisnik(int id, string k, string l, string ime, string p, Polovi po, string jmbg, string kont, string ema, Uloge ul, bool banovan)
 		{
 			this.Id = id;
 			this.KorisnickoIme = k;
@@ -56,7 +58,9 @@ namespace TaxiApp.Models.Classes
 			{
 				this.Uloga = Uloge.Vozac;
 			}
+
 			listaVoznji = new List<Voznja>();
+			this.Banovan = banovan;
 		}
 	}
 }

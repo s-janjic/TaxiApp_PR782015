@@ -29,6 +29,8 @@ namespace TaxiApp.Controllers
 
 				voznja.IdVoznje = idCount.Length + 1;
 				voznja.DTPorudzbine = DateTime.Now;
+				voznja.Dolazak.Adresa.IdAdr = voznja.IdVoznje + 1000;
+				voznja.Dolazak.IdLok = voznja.IdVoznje + 2000;
 
 				if (voznja.MusterijaVoznja != null)					/* ako je kreirala musterija */
 				{
@@ -110,6 +112,7 @@ namespace TaxiApp.Controllers
 					voznja.TipAutaVoznje = vo.TipAutaVoznje;
 					voznja.IdVoznje = vo.IdVoznje;
 					voznja.DTPorudzbine = vo.DTPorudzbine;
+
 					// status voznje
 					if (voznja.StatusVoznje == StatusVoznje.Otkazana)
 					{
@@ -332,7 +335,7 @@ namespace TaxiApp.Controllers
 			{
 				if (lines[i].Split('|')[0].Equals(vozac.Id.ToString()))
 				{
-					allString += vozac.Id.ToString() + '|' + vozac.KorisnickoIme + '|' + vozac.Lozinka + '|' + vozac.Ime + '|' + vozac.Prezime + '|' + vozac.Pol + '|' + vozac.JMBG + '|' + vozac.KontaktTelefon + '|' + vozac.Email + '|' + vozac.Uloga + '|' + vozac.Lokacija.IdLok.ToString() + '|' + vozac.Lokacija.X.ToString() + '|' + vozac.Lokacija.Y.ToString() + '|' + vozac.Lokacija.Adresa.IdAdr.ToString() + '|' + vozac.Lokacija.Adresa.UlicaIBroj + '|' + vozac.Lokacija.Adresa.NaseljenoMesto + '|' + vozac.Lokacija.Adresa.PozivniBroj + '|' + vozac.Automobil.IdVozac.ToString() + '|' + vozac.Automobil.Godiste + '|' + vozac.Automobil.Registracija + '|' + vozac.Automobil.BrojVozila.ToString() + '|' + vozac.Automobil.TipAuta + '|' + vozac.Zauzet.ToString();
+					allString += vozac.Id.ToString() + '|' + vozac.KorisnickoIme + '|' + vozac.Lozinka + '|' + vozac.Ime + '|' + vozac.Prezime + '|' + vozac.Pol + '|' + vozac.JMBG + '|' + vozac.KontaktTelefon + '|' + vozac.Email + '|' + vozac.Uloga + '|' + vozac.Lokacija.IdLok.ToString() + '|' + vozac.Lokacija.X.ToString() + '|' + vozac.Lokacija.Y.ToString() + '|' + vozac.Lokacija.Adresa.IdAdr.ToString() + '|' + vozac.Lokacija.Adresa.UlicaIBroj + '|' + vozac.Lokacija.Adresa.NaseljenoMesto + '|' + vozac.Lokacija.Adresa.PozivniBroj + '|' + vozac.Automobil.IdVozac.ToString() + '|' + vozac.Automobil.Godiste + '|' + vozac.Automobil.Registracija + '|' + vozac.Automobil.BrojVozila.ToString() + '|' + vozac.Automobil.TipAuta + '|' + vozac.Zauzet.ToString() + '|' + vozac.Banovan.ToString();
 					lines[i] = allString;
 				}
 			}

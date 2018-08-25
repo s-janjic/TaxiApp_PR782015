@@ -8,9 +8,42 @@
         data: JSON.stringify(primljeno),
         contentType: 'application/json; charset=utf-8',
         dataType: 'json',
+        async: false,
         success: function (data) {
             dataTmp = data;
             usernameKor = `${dataTmp.KorisnickoIme}`;
+
+            let brojacId = setInterval(
+                function checkBan() {
+                    if (dataTmp.Uloga == 0) { // provera za musteriju
+                        $.ajax({
+                            type: 'GET',
+                            url: '/api/Korisnik/' + dataTmp.Id,
+                            async: false,
+                            success: function (data) {
+                                if (data.Banovan == true) {
+                                    alert('Vas nalog je banovan');
+                                    $(location).attr('href', 'index.html');
+                                }
+                            }
+                        })
+                    }
+                    if (dataTmp.Uloga == 1) { // provera za vozaca
+                        $.ajax({
+                            type: 'GET',
+                            url: '/api/Vozac/' + dataTmp.Id,
+                            async: false,
+                            success: function (data) {
+                                if (data.Banovan == true) {
+                                    alert('Vas nalog je banovan');
+                                    $(location).attr('href', 'index.html');
+                                }
+                            }
+                        })
+                    }
+                },
+                500);
+
             if (data != null) {
                 if (data.Uloga == 2) {   // dispecer login
                     $("#dispecerDiv").show();
@@ -1187,12 +1220,90 @@
 
             for (user in data) {
                 tableofData555 += `<tr><td>${data[user].Id}</td><td>${data[user].KorisnickoIme}</td><td>${data[user].Ime}</td><td>${data[user].Prezime}</td><td>${data[user].Email}</td>`;
-                tableofData555 += `<td class="td-caret" style="width: 60px;"><div class="dropdown pull-right"><button type="button" class="btn btn-default btn-xs dropdown-toggle btn-xs-caret" data-toggle="dropdown">Opcije<span class="caret"></span></button>`;
-                tableofData555 += `<ul class="dropdown-menu"><li><a>Banuj korisnika</a></li></ul></div></td></tr>`;
+                tableofData555 += `<td class="td-caret" style="width: 60px;"><div class="pull-right">`;
+                if (data[user].Banovan == false) {
+                    tableofData555 += `<button type="button" class="btn btn-default btn-xs" id="banujMusteriju" value=${data[user].Id}>Banuj korisnika</button></div></td></tr>`;
+                } else {
+                    tableofData555 += `<button type="button" class="btn btn-default btn-xs" id="odbanujMusteriju" value=${data[user].Id}>Odbanuj korisnika</button></div></td></tr>`;
+                }
             }
 
             tableofData555 += "</tbody></table>";
             $("#prikazSvihKorisnikaShow").html(tableofData555);
         });
     });
+
+    $(document).on('click', '#banujMusteriju', function () {
+        let tempIdBan = $(this).val();
+        localStorage.setItem("banovanaMusterija", tempIdBan);
+
+
+        $.get("/api/Korisnik", function (data, status) {
+            let id = localStorage.getItem("banovanaMusterija");
+            for (user in data) {
+                if (data[user].Id == id) {
+                    data[user].Banovan = true;
+                    async: false;
+
+                    let korisnik = {
+                        Id: id,
+                        Banovan: true,
+                    };
+
+                    $.ajax({
+                        type: 'PUT',
+                        url: '/api/Korisnik/' + id,
+                        data: JSON.stringify(korisnik),
+                        contentType: 'application/json; charset=utf-8',
+                        dataType: 'json',
+                        success: function (data) {
+                            if (data) {
+                                alert(`Musterija ciji je ID: ${korisnik.Id} uspesno banovana`);
+                                $(location).attr('href', 'welcome.html');
+                            } else {
+                                alert('Musterija ne postoji');
+                            }
+                        },
+                    });
+                }
+            }
+        });
+    });
+
+    $(document).on('click', '#odbanujMusteriju', function () {
+        let tempIdUnban = $(this).val();
+        localStorage.setItem("odbanovanaMusterija", tempIdUnban);
+
+        $.get("/api/Korisnik", function (data, status) {
+            let id = localStorage.getItem("odbanovanaMusterija");
+            for (user in data) {
+                if (data[user].Id == id) {
+                    data[user].Banovan = false;
+                    async: false;
+
+                    let korisnik = {
+                        Id: id,
+                        Banovan: false,
+                    };
+
+                    $.ajax({
+                        type: 'PUT',
+                        url: '/api/Korisnik/' + id,
+                        data: JSON.stringify(korisnik),
+                        contentType: 'application/json; charset=utf-8',
+                        dataType: 'json',
+                        success: function (data) {
+                            if (data) {
+                                alert(`Uspesno odbanovana musterija ciji je ID: ${korisnik.Id}`);
+                                $(location).attr('href', 'welcome.html');
+                            } else {
+                                alert('Musterija ne postoji');
+                            }
+                        },
+                    });
+                }
+            }
+        });
+    });
+
 });
