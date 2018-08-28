@@ -20,10 +20,10 @@ namespace TaxiApp
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
 
-			Korisnici users = new Korisnici(@"C:\Users\stefan\Desktop\FAX\Web\TaxiApp_PR782015\TaxiApp\TaxiApp\App_Data\Korisnici.txt");
-			Dispeceri disp = new Dispeceri(@"C:\Users\stefan\Desktop\FAX\Web\TaxiApp_PR782015\TaxiApp\TaxiApp\App_Data\Dispeceri.txt");
-			Vozaci vozaci1 = new Vozaci(@"C:\Users\stefan\Desktop\FAX\Web\TaxiApp_PR782015\TaxiApp\TaxiApp\App_Data\Vozaci.txt");
-			Voznje voznje1 = new Voznje(@"C:\Users\stefan\Desktop\FAX\Web\TaxiApp_PR782015\TaxiApp\TaxiApp\App_Data\Voznje.txt");
+			Korisnici users = new Korisnici("~/App_Data/Korisnici.txt");
+			Dispeceri disp = new Dispeceri("~/App_Data/Dispeceri.txt");
+			Vozaci vozaci1 = new Vozaci("~/App_Data/Vozaci.txt");
+			Voznje voznje1 = new Voznje("~/App_Data/Voznje.txt");
 		}
     }
 }

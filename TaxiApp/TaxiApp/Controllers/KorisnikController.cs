@@ -6,6 +6,7 @@ using System.Net.Http;
 using System.Web.Http;
 using TaxiApp.Models.Classes;
 using System.IO;
+using System.Web.Hosting;
 
 namespace TaxiApp.Controllers
 {
@@ -69,7 +70,9 @@ namespace TaxiApp.Controllers
 
 		private void UpisIzmenaTxt(Korisnik k)
 		{
-			string[] lines = File.ReadAllLines(@"C:\Users\stefan\Desktop\FAX\Web\TaxiApp_PR782015\TaxiApp\TaxiApp\App_Data\Korisnici.txt");
+			string path = "~/App_Data/Korisnici.txt";
+			path = HostingEnvironment.MapPath(path);
+			string[] lines = File.ReadAllLines(path);
 			string allString = "";
 			for (int i = 0; i < lines.Length; i++)
 			{
@@ -79,7 +82,7 @@ namespace TaxiApp.Controllers
 					lines[i] = allString;
 				}
 			}
-			File.WriteAllLines(@"C:\Users\stefan\Desktop\FAX\Web\TaxiApp_PR782015\TaxiApp\TaxiApp\App_Data\Korisnici.txt", lines);
+			File.WriteAllLines(path, lines);
 		}
 
 		// POST api/korisnik
@@ -109,7 +112,9 @@ namespace TaxiApp.Controllers
 				}
 			}
 
-			string[] idCount = File.ReadAllLines(@"C:\Users\stefan\Desktop\FAX\Web\TaxiApp_PR782015\TaxiApp\TaxiApp\App_Data\Korisnici.txt");
+			string path = "~/App_Data/Korisnici.txt";
+			path = HostingEnvironment.MapPath(path);
+			string[] idCount = File.ReadAllLines(path);
 
 			Korisnici.korisnici = new Dictionary<int, Korisnik>();
 			korisnik.Id = idCount.Length + 1;
@@ -121,7 +126,10 @@ namespace TaxiApp.Controllers
 
 		private void UpisTxt(Korisnik k)
 		{
-			FileStream stream = new FileStream(@"C:\Users\stefan\Desktop\FAX\Web\TaxiApp_PR782015\TaxiApp\TaxiApp\App_Data\Korisnici.txt", FileMode.Append);
+			string path = "~/App_Data/Korisnici.txt";
+			path = HostingEnvironment.MapPath(path);
+			FileStream stream = new FileStream(path, FileMode.Append);
+
 			using (StreamWriter tw = new StreamWriter(stream))
 			{
 				string upis = k.Id.ToString() + '|' + k.KorisnickoIme + '|' + k.Lozinka + '|' + k.Ime + '|' + k.Prezime + '|' + k.Pol + '|' + k.JMBG + '|' + k.KontaktTelefon + '|' + k.Email + '|' + k.Uloga + '|' + k.Banovan.ToString();

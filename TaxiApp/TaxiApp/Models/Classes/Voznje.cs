@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.IO;
+using System.Web.Hosting;
 
 namespace TaxiApp.Models.Classes
 {
@@ -16,6 +17,7 @@ namespace TaxiApp.Models.Classes
 
 		public Voznje(string path)
 		{
+			path = HostingEnvironment.MapPath(path);
 			FileStream stream = new FileStream(path, FileMode.Open);
 			StreamReader sr = new StreamReader(stream);
 

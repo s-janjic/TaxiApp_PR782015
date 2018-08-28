@@ -4,9 +4,10 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Web.Hosting;
 using System.Web.Http;
 using TaxiApp.Models.Classes;
-// string[] idCount = File.ReadAllLines(@"C:\Users\stefan\Desktop\FAX\Web\TaxiApp_PR782015\TaxiApp\TaxiApp\App_Data\Vozaci.txt");
+
 namespace TaxiApp.Controllers
 {
     public class VozacController : ApiController
@@ -43,7 +44,10 @@ namespace TaxiApp.Controllers
 				}
 			}
 
-			string[] idCount = File.ReadAllLines(@"C:\Users\stefan\Desktop\FAX\Web\TaxiApp_PR782015\TaxiApp\TaxiApp\App_Data\Vozaci.txt");
+			// string[] idCount = File.ReadAllLines(@"C:\Users\stefan\Desktop\FAX\Web\TaxiApp_PR782015\TaxiApp\TaxiApp\App_Data\Vozaci.txt");
+			string path = "~/App_Data/Vozaci.txt";
+			path = HostingEnvironment.MapPath(path);
+			string[] idCount = File.ReadAllLines(path);
 
 			vozac.Id = idCount.Length + 1;
 			vozac.Uloga = Uloge.Vozac;
@@ -56,7 +60,9 @@ namespace TaxiApp.Controllers
 
 		private void UpisTxt(Vozac vozac)
 		{
-			FileStream stream = new FileStream(@"C:\Users\stefan\Desktop\FAX\Web\TaxiApp_PR782015\TaxiApp\TaxiApp\App_Data\Vozaci.txt", FileMode.Append);
+			string path = "~/App_Data/Vozaci.txt";
+			path = HostingEnvironment.MapPath(path);
+			FileStream stream = new FileStream(path, FileMode.Append);
 			using (StreamWriter tw = new StreamWriter(stream))
 			{
 				string upis = vozac.Id.ToString() + '|' + vozac.KorisnickoIme + '|' + vozac.Lozinka + '|' + vozac.Ime + '|' + vozac.Prezime + '|' + vozac.Pol + '|' + vozac.JMBG + '|' + vozac.KontaktTelefon + '|' + vozac.Email + '|' + vozac.Uloga + '|' + vozac.Lokacija.IdLok.ToString() + '|' + vozac.Lokacija.X.ToString() + '|' + vozac.Lokacija.Y.ToString() + '|' + vozac.Lokacija.Adresa.IdAdr.ToString() + '|' + vozac.Lokacija.Adresa.UlicaIBroj + '|' + vozac.Lokacija.Adresa.NaseljenoMesto + '|' + vozac.Lokacija.Adresa.PozivniBroj + '|' + vozac.Automobil.IdVozac.ToString() + '|' + vozac.Automobil.Godiste.ToString() + '|' + vozac.Automobil.Registracija + '|' + vozac.Automobil.BrojVozila.ToString() + '|' + vozac.Automobil.TipAuta + '|' + vozac.Zauzet.ToString() + '|' + vozac.Banovan.ToString();
@@ -83,7 +89,10 @@ namespace TaxiApp.Controllers
 
 		private void UpisTxtIzmena(Vozac vozac)
 		{
-			string[] lines = File.ReadAllLines(@"C:\Users\stefan\Desktop\FAX\Web\TaxiApp_PR782015\TaxiApp\TaxiApp\App_Data\Vozaci.txt");
+			// string[] lines = File.ReadAllLines(@"C:\Users\stefan\Desktop\FAX\Web\TaxiApp_PR782015\TaxiApp\TaxiApp\App_Data\Vozaci.txt");
+			string path = "~/App_Data/Vozaci.txt";
+			path = HostingEnvironment.MapPath(path);
+			string[] lines = File.ReadAllLines(path);
 			string allString = "";
 
 			for (int i = 0; i < lines.Length; i++)
@@ -95,7 +104,7 @@ namespace TaxiApp.Controllers
 				}
 			}
 
-			File.WriteAllLines(@"C:\Users\stefan\Desktop\FAX\Web\TaxiApp_PR782015\TaxiApp\TaxiApp\App_Data\Vozaci.txt", lines);
+			File.WriteAllLines(path, lines);
 		}
 
 		// GET api/Vozac

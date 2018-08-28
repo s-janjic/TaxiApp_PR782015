@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Web;
+using System.Web.Hosting;
 
 namespace TaxiApp.Models.Classes
 {
@@ -14,6 +15,7 @@ namespace TaxiApp.Models.Classes
 
 		public Dispeceri(string path)
 		{
+			path = HostingEnvironment.MapPath(path);
 			FileStream stream = new FileStream(path, FileMode.Open);
 			StreamReader sr = new StreamReader(stream);
 			Polovi pol;

@@ -16,6 +16,7 @@ namespace TaxiApp.Models.Classes
 
 		public Korisnici(string path)
 		{
+			path = HostingEnvironment.MapPath(path);
 			FileStream stream = new FileStream(path, FileMode.Open);
 			StreamReader sr = new StreamReader(stream);
 			Polovi pol;
