@@ -18,14 +18,6 @@ namespace TaxiApp.Controllers
 		{
 			if (Voznje.voznje != null)
 			{
-				//foreach (Voznja kor in Voznje.voznje.Values)
-				//{
-				//	if (kor.Dolazak.Adresa.UlicaIBroj == voznja.Dolazak.Adresa.UlicaIBroj)
-				//	{
-				//		return false;
-				//	}
-				//}
-
 				string path = "~/App_Data/Voznje.txt";
 				path = HostingEnvironment.MapPath(path);
 				string[] idCount = File.ReadAllLines(path);
