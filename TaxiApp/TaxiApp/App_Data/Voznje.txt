@@ -1,4 +1,4 @@
-1|9/5/2018 10:23:31 PM|2002|4551|1111|1002|ulica2|mesto2|21111|Putnicki|user|421|421|41|214|dwa|wdadwa|421421|vozac5|333|disp1||1/1/0001 12:00:00 AM||0|0|Uspesna
+1|9/5/2018 10:23:31 PM|2002|4551|1111|1002|ulica2|mesto2|21111|Putnicki|user|421|421|41|214|dwa|wdadwa|421421|vozac5|333|disp1|super|1/1/0001 12:00:00 AM|user|1|5|Uspesna
 2|9/5/2018 10:51:28 PM|2003|421|521|1003|521|dwada|421|Kombi||52|521|521|521|spens1|ns|21000|vozac10|530|disp1||1/1/0001 12:00:00 AM||0|0|Uspesna
 3|9/5/2018 10:55:22 PM|2004|41421|4141|1004|42141|dwa|dwadwa|Kombi|user|0|0|0|0||||vozac1|0|||1/1/0001 12:00:00 AM||0|0|Prihvacena
-4|9/5/2018 11:05:35 PM|2004|21321|421|1004|dwa|dwa|421|Kombi|user|421|421|231|525|dwa|dwa|421|vozac10|500|||1/1/0001 12:00:00 AM||0|0|Uspesna
+4|9/5/2018 11:05:35 PM|2004|21321|421|1004|dwa|dwa|421|Kombi|user|421|421|231|525|dwa|dwa|421|vozac10|500||nije lose|1/1/0001 12:00:00 AM|user|4|3|Uspesna
