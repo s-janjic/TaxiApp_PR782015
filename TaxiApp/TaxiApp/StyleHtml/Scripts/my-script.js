@@ -1,5 +1,9 @@
 ﻿$(document).ready(function () {
     let primljeno = localStorage.getItem("logovan");
+    if (primljeno == "") {
+        $(location).attr('href', 'index.html');
+    }
+
     let usernameKor;
     let polShow;
     $.ajax({
@@ -57,6 +61,10 @@
                     $("#PrikaziVoznjeDispecerSve").hide();
                     $("#DodajVozacaDispecer").hide();
                     $("#prikazSvihKorisnika").hide();
+                    $("#PrikazPretrPoImeVozDispForm").hide();
+                    $("#PrikazPretrPoImeVozDisp").hide();
+                    $("#PrikazPretrPoImeMustDispForm").hide();
+                    $("#PrikazPretrPoImeMusDisp").hide();
                     if (data.Pol == 0) // musko
                     {
                         polShow = "Musko";
@@ -962,6 +970,7 @@
             VozacVoznja: `${$('#vozac1').val()}`,
             Iznos: 0,
             DispecerVoznja: dataTmp.KorisnickoIme,
+            StatusVoznje: "Kreirana"
         };
         $.ajax({
             type: 'PUT',
@@ -1447,5 +1456,209 @@
             tableOfProducts += `<tr><td><select id="filterStatusMustCombo" name="StatusVoznje"><option value="Kreirana">Kreirana</option><option value="Formirana">Formirana</option><option value="Obradjena">Obradjena</option><option value="Prihvacena">Prihvacena</option><option value="Otkazana">Otkazana</option><option value="Neuspesna">Neuspesna</option><option value="Uspesna">Uspesna</option><option value="Utoku">Utoku</option></select></td></tr></table><button id="filterStatusMustButton" type="button"><b>Filtriraj</b></button><button id="vratiSeMust" type="button"><b>Izadji iz rezima filtriranja</b></button>`;
             $("#PrikaziFiltriraneVoznjeMust").html(tableOfProducts);
         });
+    });
+
+    /* pretraga voznji po imenu/prez za disp */
+    $("#pretragaImePrzVozacShow").click(function () {
+        $("#PrikazPretrPoImeVozDispForm").show();
+        $("#PrikazPretrPoImeVozDisp").hide();
+        $("#PrikazPretrPoImeMustDispForm").hide();
+        $("#PrikazPretrPoImeMusDisp").hide();
+    });
+
+    $("#pretragaImePrzVozac").click(function () {
+        $("#PrikazPretrPoImeVozDispForm").hide();
+        $("#PrikazPretrPoImeMustDispForm").hide();
+        $("#PrikazPretrPoImeMusDisp").hide();
+        $("#PrikazPretrPoImeVozDisp").show();
+
+        let vozaci = [];     //oni koji ispunjavaju uslov pretrage
+        let pomIme = `${$('#imeV').val()}`;
+        let pomPrz = `${$('#prezimeV').val()}`;
+        let pomImeToLow = pomIme.toLowerCase();
+        let pomPrzToLow = pomPrz.toLowerCase();
+
+        $.ajax({
+            type: 'GET',
+            url: '/api/Vozac',
+            async: false,
+            success: function (data) {
+                for (vozac in data) {
+                    if (pomIme != "" && pomPrz != "") {
+                        let tolow1 = data[vozac].Ime.toLowerCase();
+                        let tolow2 = data[vozac].Prezime.toLowerCase();
+                        if ((tolow1.indexOf(pomImeToLow) != -1) || (tolow2.indexOf(pomPrzToLow)) != -1) {
+                            vozaci.push({
+                                'korIme': data[vozac].KorisnickoIme,
+                                'vozac': data[vozac]
+                            });
+                        }
+                    } else if (pomIme == "" && pomPrz != "") {
+                        let tolow = data[vozac].Prezime.toLowerCase();
+                        if (tolow.indexOf(pomPrzToLow) != -1) {
+                            vozaci.push({
+                                'korIme': data[vozac].KorisnickoIme,
+                                'vozac': data[vozac]
+                            });
+                        }
+                    } else if (pomIme != "" && pomPrz == "") {
+                        let tolow = data[vozac].Ime.toLowerCase();
+                        if (tolow.indexOf(pomImeToLow) != -1) {
+                            vozaci.push({
+                                'korIme': data[vozac].KorisnickoIme,
+                                'vozac': data[vozac]
+                            });
+                        }
+                    } else {
+                        alert('Niste uneli polja za pretragu.');
+                        $(location).attr('href', 'welcome.html');
+                    }
+                }
+            }
+        });
+
+        $.ajax({
+            type: 'GET',
+            url: '/api/Voznja',
+            async: false,
+            success: function (data) {
+                let tableOfProducts = "<table class=\"table table-bordered\">";
+                tableOfProducts += `<tr><th>Mušterija vožnje</th><th>Dat. porudž.</th><th>Ulica i br. dolaska</th><th>Mesto dol.</th><th>Status vož.</th><th>Vozač.</th><th>Opis kom.</th><th>Ocena kom.</th><th>Dat. obj. kom. vož.</th><th> </th><th> </th></tr>`;
+                for (v in vozaci) {
+                    for (voznja in data) {
+                        if (dataTmp.KorisnickoIme == data[voznja].DispecerVoznja) {
+                            if (vozaci[v].korIme == data[voznja].VozacVoznja) {
+
+                                tableOfProducts += `<tr><td>${data[voznja].MusterijaVoznja}</td><td>${data[voznja].DTPorudzbine}</td><td>${data[voznja].Dolazak.Adresa.UlicaIBroj}</td><td>${data[voznja].Dolazak.Adresa.NaseljenoMesto}</td>`;
+                                if (data[voznja].StatusVoznje == 0) {
+                                    tableOfProducts += '<td>Kreirana</td>';
+                                } else if (data[voznja].StatusVoznje == 1) {
+                                    tableOfProducts += '<td>Formirana</td>';
+                                } else if (data[voznja].StatusVoznje == 2) {
+                                    tableOfProducts += '<td>Obradjena</td>';
+                                } else if (data[voznja].StatusVoznje == 3) {
+                                    tableOfProducts += '<td>Prihvacena</td>';
+                                } else if (data[voznja].StatusVoznje == 4) {
+                                    tableOfProducts += '<td>Otkazana</td>';
+                                } else if (data[voznja].StatusVoznje == 5) {
+                                    tableOfProducts += '<td>Neuspesna</td>';
+                                } else if (data[voznja].StatusVoznje == 6) {
+                                    tableOfProducts += '<td>Uspesna</td>';
+                                } else {
+                                    tableOfProducts += '<td>Utoku</td>';
+                                }
+                                tableOfProducts += `<td>${data[voznja].VozacVoznja}</td><td>${data[voznja].Komentar.Opis}</td><td>${data[voznja].Komentar.Ocena}</td><td>${data[voznja].Komentar.DTObjave}</td></tr>`;
+                            }
+                        }
+                    }
+                }
+                tableOfProducts += `</table>`;
+                $("#PrikazPretrPoImeVozDisp").html(tableOfProducts);
+            }
+        });
+    });
+
+    /* pretraga voznji po korisniku za disp */
+    $("#pretragaImePrzKorShow").click(function () {
+        $("#PrikazPretrPoImeMustDispForm").show();
+        $("#PrikazPretrPoImeMusDisp").hide();
+        $("#PrikazPretrPoImeVozDispForm").hide();
+        $("#PrikazPretrPoImeVozDisp").hide();
+    });
+
+    $("#pretragaImePrzMusterija").click(function () {
+        $("#PrikazPretrPoImeMustDispForm").hide();
+        $("#PrikazPretrPoImeMusDisp").show();
+
+        let musterije = [];     //oni koji ispunjavaju uslov pretrage
+        let pomIme = `${$('#imeM').val()}`;
+        let pomPrz = `${$('#prezimeM').val()}`;
+        let pomImeToLow = pomIme.toLowerCase();
+        let pomPrzToLow = pomPrz.toLowerCase();
+
+        $.ajax({
+            type: 'GET',
+            url: '/api/Korisnik',
+            async: false,
+            success: function (data) {
+                for (musterija in data) {
+                    if (pomIme != "" && pomPrz != "") {
+                        let tolow1 = data[musterija].Ime.toLowerCase();
+                        let tolow2 = data[musterija].Prezime.toLowerCase();
+                        if ((tolow1.indexOf(pomImeToLow) != -1) || (tolow2.indexOf(pomPrzToLow)) != -1) {
+                            musterije.push({
+                                'korIme': data[musterija].KorisnickoIme,
+                                'vozac': data[musterija]
+                            });
+                        }
+                    } else if (pomIme == "" && pomPrz != "") {
+                        let tolow = data[musterija].Prezime.toLowerCase();
+                        if (tolow.indexOf(pomPrzToLow) != -1) {
+                            musterije.push({
+                                'korIme': data[musterija].KorisnickoIme,
+                                'vozac': data[musterija]
+                            });
+                        }
+                    } else if (pomIme != "" && pomPrz == "") {
+                        let tolow = data[musterija].Ime.toLowerCase();
+                        if (tolow.indexOf(pomImeToLow) != -1) {
+                            musterije.push({
+                                'korIme': data[musterija].KorisnickoIme,
+                                'vozac': data[musterija]
+                            });
+                        }
+                    } else {
+                        alert('Niste uneli polja za pretragu.');
+
+                        $(location).attr('href', 'welcome.html');
+                        break;
+                    }
+                }
+            }
+        });
+
+        $.ajax({
+            type: 'GET',
+            url: '/api/Voznja',
+            async: false,
+            success: function (data) {
+                let tableOfProducts = "<table class=\"table table-bordered\">";
+                tableOfProducts += `<tr><th>Mušterija vožnje</th><th>Dat. porudž.</th><th>Ulica i br. dolaska</th><th>Mesto dol.</th><th>Status vož.</th><th>Vozač.</th><th>Opis kom.</th><th>Ocena kom.</th><th>Dat. obj. kom. vož.</th><th> </th><th> </th></tr>`;
+                for (m in musterije) {
+                    for (voznja in data) {
+                        if (dataTmp.KorisnickoIme == data[voznja].DispecerVoznja) {
+                            if (musterije[m].korIme == data[voznja].MusterijaVoznja) {
+                                tableOfProducts += `<tr><td>${data[voznja].MusterijaVoznja}</td><td>${data[voznja].DTPorudzbine}</td><td>${data[voznja].Dolazak.Adresa.UlicaIBroj}</td><td>${data[voznja].Dolazak.Adresa.NaseljenoMesto}</td>`;
+                                if (data[voznja].StatusVoznje == 0) {
+                                    tableOfProducts += '<td>Kreirana</td>';
+                                } else if (data[voznja].StatusVoznje == 1) {
+                                    tableOfProducts += '<td>Formirana</td>';
+                                } else if (data[voznja].StatusVoznje == 2) {
+                                    tableOfProducts += '<td>Obradjena</td>';
+                                } else if (data[voznja].StatusVoznje == 3) {
+                                    tableOfProducts += '<td>Prihvacena</td>';
+                                } else if (data[voznja].StatusVoznje == 4) {
+                                    tableOfProducts += '<td>Otkazana</td>';
+                                } else if (data[voznja].StatusVoznje == 5) {
+                                    tableOfProducts += '<td>Neuspesna</td>';
+                                } else if (data[voznja].StatusVoznje == 6) {
+                                    tableOfProducts += '<td>Uspesna</td>';
+                                } else {
+                                    tableOfProducts += '<td>Utoku</td>';
+                                }
+                                tableOfProducts += `<td>${data[voznja].VozacVoznja}</td><td>${data[voznja].Komentar.Opis}</td><td>${data[voznja].Komentar.Ocena}</td><td>${data[voznja].Komentar.DTObjave}</td></tr>`;
+                            }
+                        }
+                    }
+                }
+                tableOfProducts += `</table>`;
+                $("#PrikazPretrPoImeMusDisp").html(tableOfProducts);
+            }
+        });
+    });
+
+    $("#odjaviSe").click(function () {
+        localStorage.setItem("logovan", "");
+        $(location).attr('href', 'index.html');
     });
 });

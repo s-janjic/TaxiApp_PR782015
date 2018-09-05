@@ -19,6 +19,27 @@
     <script type="text/javascript" src="/StyleHtml/Scripts/my-script.js"></script>
 </head>
 <body>
+    <!-- navigacioni bar -->
+    <nav class="navbar navbar-default navbar-static-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapsed" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">Taksi Aplikacija</a>
+            </div>
+
+            <div id="navbar" class="collapse navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="active"><a id="odjaviSe" href="#">Odjavi se</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
     <!-- korisnicki div -->
     <div class="container" id="korisnikDiv">
         <div class="row">
@@ -221,10 +242,36 @@
                             <button type="button" class="btn btn-info" data-toggle="modal" data-target="#addRidesModalDisp" id="dodajVoznjuDisp">Zakazi voznju</button>
                             <button type="button" class="btn btn-primary" id="prikaziVoznjeDisp">Prikazi moje voznje</button>
                             <button type="button" class="btn btn-primary" id="prikaziVoznjeSve">Prikazi sve voznje</button>
+                            <button type="button" class="btn btn-default" id="pretragaImePrzVozacShow">Pretraga voznji vozac</button>
+                            <button type="button" class="btn btn-default" id="pretragaImePrzKorShow">Pretraga voznji korisnik</button>
                         </span>
                     </h3>
                 </div>
             </div>
+        </div>
+
+        <!-- pretraga voznji po vozacu -->
+        <div class="container" id="PrikazPretrPoImeVozDispForm">
+            <div class="form-group">
+                Ime vozaca: <input class="form-control" id="imeV" type="text" name="VozacVoznja" />
+                Prezime vozaca: <input class="form-control" id="prezimeV" type="text" name="VozacVoznja" />
+                <br /><button class="btn btn-success" id="pretragaImePrzVozac" type="button">Prikazi</button>
+            </div>
+        </div>
+
+        <div class="container" id="PrikazPretrPoImeVozDisp">
+        </div>
+
+        <!-- pretraga voznji po korisniku -->
+        <div class="container" id="PrikazPretrPoImeMustDispForm">
+            <div class="form-group">
+                Ime korisnika: <input class="form-control" id="imeM" type="text" name="VozacVoznja" />
+                Prezime korisnika: <input class="form-control" id="prezimeM" type="text" name="VozacVoznja" />
+                <br /><button class="btn btn-success" id="pretragaImePrzMusterija" type="button">Prikazi</button>
+            </div>
+        </div>
+
+        <div class="container" id="PrikazPretrPoImeMusDisp">
         </div>
 
         <!-- prikaz svih korisnika -->

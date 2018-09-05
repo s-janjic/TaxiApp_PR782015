@@ -331,7 +331,7 @@ namespace TaxiApp.Controllers
 
 		private void UpisIzmenaTxtVozac(Vozac vozac)
 		{
-			string path = "~/App_Data/Voznje.txt";
+			string path = "~/App_Data/Vozaci.txt";
 			path = HostingEnvironment.MapPath(path);
 			string[] lines = System.IO.File.ReadAllLines(path);
 			string allString = "";
