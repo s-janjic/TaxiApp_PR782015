@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Web.Hosting;
 using System.Web.Http;
 using TaxiApp.Models.Classes;
 
@@ -30,7 +31,9 @@ namespace TaxiApp.Controllers
 
 		private void UpisIzmenaDispTxt(Dispecer k)
 		{
-			string[] lines = File.ReadAllLines(@"C:\Users\stefan\Desktop\FAX\Web\TaxiApp_PR782015\TaxiApp\TaxiApp\App_Data\Dispeceri.txt");
+			string path = "~/App_Data/Dispeceri.txt";
+			path = HostingEnvironment.MapPath(path);
+			string[] lines = File.ReadAllLines(path);
 			string allString = "";
 			for (int i = 0; i < lines.Length; i++)
 			{
@@ -40,7 +43,7 @@ namespace TaxiApp.Controllers
 					lines[i] = allString;
 				}
 			}
-			File.WriteAllLines(@"C:\Users\stefan\Desktop\FAX\Web\TaxiApp_PR782015\TaxiApp\TaxiApp\App_Data\Dispeceri.txt", lines);
+			File.WriteAllLines(path, lines);
 		}
 	}
 }
